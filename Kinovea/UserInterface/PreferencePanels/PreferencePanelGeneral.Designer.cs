@@ -1,6 +1,6 @@
-#region License
+ï»¿#region License
 /*
-Copyright © Joan Charmant 2011.
+Copyright Â© Joan Charmant 2011.
 jcharmant@gmail.com 
  
 This file is part of Kinovea.
@@ -102,7 +102,7 @@ namespace Kinovea.Root
       this.cmbLanguage.FormattingEnabled = true;
       this.cmbLanguage.Items.AddRange(new object[] {
             "English",
-            "Français"});
+            "FranÃ§ais"});
       this.cmbLanguage.Location = new System.Drawing.Point(302, 47);
       this.cmbLanguage.Name = "cmbLanguage";
       this.cmbLanguage.Size = new System.Drawing.Size(104, 21);

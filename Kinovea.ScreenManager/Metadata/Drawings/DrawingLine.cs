@@ -1,6 +1,6 @@
-#region License
+ï»¿#region License
 /*
-Copyright © Joan Charmant 2008-2011.
+Copyright Â© Joan Charmant 2008-2011.
 jcharmant@gmail.com 
  
 This file is part of Kinovea.
@@ -295,7 +295,7 @@ namespace Kinovea.ScreenManager
         }
         public override void MoveHandle(PointF point, int handleNumber, Keys modifiers)
         {
-            int constraintAngleSubdivisions = 8; // (Constraint by 45° steps).
+            int constraintAngleSubdivisions = 8; // (Constraint by 45Â° steps).
             switch(handleNumber)
             {
                 case 1:

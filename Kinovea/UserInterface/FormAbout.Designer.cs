@@ -1,4 +1,4 @@
-namespace Kinovea.Root
+﻿namespace Kinovea.Root
 {
     partial class FormAbout
     {
@@ -96,7 +96,7 @@ namespace Kinovea.Root
       this.labelCopyright.Name = "labelCopyright";
       this.labelCopyright.Size = new System.Drawing.Size(321, 15);
       this.labelCopyright.TabIndex = 21;
-      this.labelCopyright.Text = "Copyright � 2006-2021 - Joan Charmant and contributors.";
+      this.labelCopyright.Text = "Copyright © 2006-2021 - Joan Charmant and contributors.";
       this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // lnkKinovea

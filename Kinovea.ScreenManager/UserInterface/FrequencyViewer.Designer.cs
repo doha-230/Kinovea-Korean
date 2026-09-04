@@ -1,4 +1,4 @@
-namespace Kinovea.ScreenManager
+﻿namespace Kinovea.ScreenManager
 {
     partial class FrequencyViewer
     {

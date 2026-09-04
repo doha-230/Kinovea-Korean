@@ -1,4 +1,4 @@
-'Customisation:
+﻿'Customisation:
 'GetIcon will retrieve a small image:
 'Old Method:
 '    Public Shared Function GetIcon(ByVal Index As Integer) As Icon

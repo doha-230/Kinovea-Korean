@@ -1,4 +1,4 @@
-namespace Kinovea.Root
+﻿namespace Kinovea.Root
 {
     partial class KinoveaMainWindow
     {

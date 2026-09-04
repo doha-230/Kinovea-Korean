@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
 Copyright © Joan Charmant 2008-2009.
 jcharmant@gmail.com
@@ -325,6 +325,8 @@ namespace Kinovea.ScreenManager
         // So if the user set the slider to 0.5 on a video with a high speed factor of 0.5, it will display 0.25.
         private TimeMapper timeMapper = new TimeMapper();
         private double slowMotion = 1;  // Current scaling relatively to the nominal speed of the video.
+        private int frameSkip = 0;  // Number of frames to skip between each rendered frame during playback.
+        private bool manualFrameSkipUpdate;
         private float timeGrabSpeed = 25.0f / 500.0f; // Speed of time grab in frames per pixel.
         private TimecodeFormat timecodeFormat = TimecodeFormat.ClassicTime;
 
@@ -510,6 +512,11 @@ namespace Kinovea.ScreenManager
             timeMapper.SetInputRange(sldrSpeed.Minimum, sldrSpeed.Maximum);
             timeMapper.SetSlowMotionRange(0, 2);
             slowMotion = 1;
+            frameSkip = PreferencesManager.PlayerPreferences.FrameSkip;
+            if (frameSkip < 0)
+                frameSkip = 0;
+            lblFrameSkip.Text = "FrameSkip:";
+            tbFrameSkip.Text = frameSkip.ToString();
             sldrSpeed.Initialize(timeMapper.GetInputFromSlowMotion(slowMotion));
 
             monitorRefreshRate = UIHelper.GetMonitorFramerate(this.Handle);
@@ -1579,6 +1586,12 @@ namespace Kinovea.ScreenManager
                 case PlayerScreenCommands.DecreaseSpeedRoundTo25:
                     ChangeSpeed(-25);
                     break;
+                case PlayerScreenCommands.IncreaseFrameSkip:
+                    ChangeFrameSkip(1);
+                    break;
+                case PlayerScreenCommands.DecreaseFrameSkip:
+                    ChangeFrameSkip(-1);
+                    break;
 
                 // Frame by frame navigation
                 case PlayerScreenCommands.GotoPreviousImage:
@@ -2527,6 +2540,34 @@ namespace Kinovea.ScreenManager
 
             sldrSpeed.StepJump(change / 200.0);
         }
+        private void ChangeFrameSkip(int change)
+        {
+            // Adjust the number of skipped frames between each rendered frame.
+            // This applies during normal playback and also while tracking.
+            frameSkip += change;
+            if (frameSkip < 0)
+                frameSkip = 0;
+
+            // Persist the value so it is kept between sessions.
+            PreferencesManager.PlayerPreferences.FrameSkip = frameSkip;
+
+            if (m_FrameServer != null && m_FrameServer.Loaded)
+            {
+                // Reset timer so the new pacing takes effect immediately if playing.
+                if (isCurrentlyPlaying)
+                {
+                    StopMultimediaTimer();
+                    StartMultimediaTimer();
+                }
+
+                if (SpeedChanged != null)
+                    SpeedChanged(this, EventArgs.Empty);
+            }
+
+            // Reflect the new value into the box (unless we are currently the one typing in it).
+            UpdateFrameSkipBox();
+            UpdateSpeedLabel();
+        }
         private void lblSpeedTuner_DoubleClick(object sender, EventArgs e)
         {
             slowMotion = 1;
@@ -2543,6 +2584,52 @@ namespace Kinovea.ScreenManager
                 speedValue = string.Format("{0:0.##}x", multiplier);
 
             lblSpeedTuner.Text = speedValue;
+        }
+        private void UpdateFrameSkipBox()
+        {
+            // Reflect the current frameSkip into the input box.
+            // Guard against re-entrancy: the framework may fire TextChanged when
+            // the text is set programmatically.
+            if (tbFrameSkip == null || manualFrameSkipUpdate)
+                return;
+
+            manualFrameSkipUpdate = true;
+            try
+            {
+                tbFrameSkip.Text = frameSkip.ToString();
+            }
+            finally
+            {
+                manualFrameSkipUpdate = false;
+            }
+        }
+        private void tbFrameSkip_TextChanged(object sender, EventArgs e)
+        {
+            if (tbFrameSkip == null)
+                return;
+
+            if (manualFrameSkipUpdate)
+                return;
+
+            manualFrameSkipUpdate = true;
+            try
+            {
+                string text = tbFrameSkip.Text.Trim();
+                if (text != "")
+                {
+                    int value;
+                    bool parsed = int.TryParse(text, out value);
+                    if (parsed && value >= 0 && value != frameSkip)
+                    {
+                        int delta = value - frameSkip;
+                        ChangeFrameSkip(delta);
+                    }
+                }
+            }
+            finally
+            {
+                manualFrameSkipUpdate = false;
+            }
         }
         #endregion
 
@@ -2820,7 +2907,11 @@ namespace Kinovea.ScreenManager
             timeWatcher.Restart();
 
             bool tracking = m_FrameServer.Metadata.AnyTracking;
-            int skip = tracking ? 0 : missedFrames;
+            // Skip the user-chosen number of frames between each rendered frame.
+            // By default this is honored while tracking as well (tracking step runs
+            // on every Nth rendered frame). Rendering drop compensation is only added
+            // when not tracking, to avoid compounding unexpected skips onto the user choice.
+            int skip = frameSkip + (tracking ? 0 : missedFrames);
             double skipTs = (skip + 1) * m_FrameServer.VideoReader.Info.AverageTimeStampsPerFrame;
             long estimateNext = (long)Math.Round(currentTimestamp + skipTs);
 
@@ -2861,7 +2952,11 @@ namespace Kinovea.ScreenManager
                     DoInvalidate();
                     currentTimestamp = m_FrameServer.VideoReader.Current.Timestamp;
 
-                    ComputeOrStopTracking(skip == 0);
+                    // When tracking we keep performing tracking steps even if we are skipping frames,
+                    // so the user can choose to subsample the track. Only stop tracking when the
+                    // reader had to skip because of rendering/drop backlog (not the user frame skip).
+                    bool contiguous = tracking || skip == 0;
+                    ComputeOrStopTracking(contiguous);
 
                     // This causes Invalidates and will postpone the idle event.
                     // Update UI. For speed purposes, we don't update Selection Tracker hairline.

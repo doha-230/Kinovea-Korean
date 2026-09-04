@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinovea 개선 보고서</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+    background: #f7f8fa;
+    color: #2b2f36;
+    line-height: 1.7;
+    padding: 28px 16px 64px;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* 제목 영역 */
+  .head {
+    background: #fff;
+    border: 1px solid #d8dce2;
+    border-top: 4px solid #0b57c4;
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .head h1 { font-size: 24px; font-weight: 700; }
+  .head .tagline { font-size: 14px; color: #5b6470; margin-top: 8px; }
+  .head .meta { font-size: 12.5px; color: #98a1ab; margin-top: 14px; }
+
+  /* 요약 표 */
+  .summary { background: #fff; border: 1px solid #d8dce2; border-radius: 6px; padding: 16px 20px; margin-bottom: 32px; }
+  .summary table { width: 100%; border-collapse: collapse; }
+  .summary th { font-size: 12px; color: #78828f; padding: 8px 0 2px; }
+  .summary td { font-size: 24px; font-weight: 800; color: #0b57c4; padding: 6px 0; text-align: center; }
+  .summary caption { caption-side: top; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 34px 0 6px; color: #1f2937; }
+  .line { height: 1px; background: #d8dce2; margin-bottom: 16px; }
+  h3 { font-size: 14.5px; font-weight: 600; margin: 20px 0 6px; color: #374151; }
+
+  p { margin: 2px 0 10px; font-size: 14px; color: #3a4150; }
+  ul, ol { margin: 4px 0 14px 20px; font-size: 14px; color: #3a4150; }
+  li { margin-bottom: 6px; }
+
+  /* 블록 상자 */
+  .box { background: #fff; border: 1px solid #d8dce2; border-left: 4px solid #98a1ab; border-radius: 3px; padding: 12px 16px; margin: 12px 0 4px; font-size: 14px; }
+  .box .t { display: block; font-weight: 700; font-size: 12px; letter-spacing: .3px; margin-bottom: 6px; }
+  .box.sym { border-left-color: #cb3a3a; } .box.sym .t { color: #cb3a3a; }
+  .box.cause { border-left-color: #b7791f; } .box.cause .t { color: #b7791f; }
+  .box.sol { border-left-color: #1f8a4c; } .box.sol .t { color: #1f8a4c; }
+  .box.note { border-left-color: #0b57c4; } .box.note .t { color: #0b57c4; }
+
+  code {
+    background: #eff1f4;
+    border: 1px solid #dde1e6;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12.5px;
+    color: #274a76;
+  }
+  pre {
+    background: #f4f5f7;
+    border: 1px solid #dde1e6;
+    border-radius: 4px;
+    padding: 14px 18px;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 10px 0 4px;
+  }
+
+  /* 검증 체크 */
+  .checks { list-style: none; margin-left: 0; }
+  .checks li { position: relative; padding-left: 22px; margin-bottom: 8px; font-size: 14px; }
+  .checks li::before {
+    content: ""; position: absolute; left: 0; top: 4px;
+    width: 13px; height: 13px; border-radius: 2px;
+    background: #1f8a4c;
+  }
+  .checks li b { color: #1f8a4c; }
+
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13.5px; background:#fff; }
+  table.data th, table.data td { text-align: left; padding: 9px 12px; border: 1px solid #d8dce2; }
+  table.data th { background: #f0f2f5; font-weight: 600; color: #4a5360; }
+  table.data tr:nth-child(even) td { background: #fafbfc; }
+
+  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid #d8dce2; color: #98a1ab; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>Kinovea 개선 보고서</h1>
+    <p class="tagline">한글 환경에서의 빌드·사용 불가 문제를 해결하고, 재생·트래킹용 프레임 스킵 기능을 추가한 내용을 정리합니다.</p>
+    <div class="meta">작성일 2026-09-04 &nbsp;·&nbsp; 대상: Kinovea (Kinovea-master) &nbsp;·&nbsp; 유형: 개선 보고서</div>
+  </div>
+
+  <div class="summary">
+    <table>
+      <thead><tr>
+        <th>해결·추가 건수</th>
+        <th>인코딩 복구 소스</th>
+        <th>UTF-8 BOM 적용</th>
+        <th>전체 빌드</th>
+      </tr></thead>
+      <tbody><tr>
+        <td>3건</td>
+        <td>72개</td>
+        <td>340+ 개</td>
+        <td>성공</td>
+      </tr></tbody>
+    </table>
+  </div>
+
+  <h2>1. 한글 PC에서 빌드가 실패하는 문제</h2>
+  <div class="line"></div>
+
+  <div class="box sym">
+    <span class="t">증상</span>
+    시스템 언어가 한국어인 PC에서 빌드하면 컴파일이 실패.<br>
+    <code>CS1010: 상수에 줄 바꿈 문자가 있습니다.</code>, <code>CS1003</code>, <code>CS1519</code> 등의
+    오류가 여러 파일에서 발생.
+  </div>
+
+  <div class="box cause">
+    <span class="t">원인</span>
+    소스 파일 100여 개가 손상된 인코딩으로 저장되어 있었다. 원래 UTF-8이어야 하는데,
+    한글·특수문자의 앞부분 바이트가 빠진 채 Latin-1(Windows-1252)처럼 변환된 상태였다.<br><br>
+    예) <code>©</code> → <code>0xA9</code>, <code>°</code> → <code>0xB0</code>, <code>×</code> → <code>0xD7</code><br><br>
+    서양(라틴) 코드페이지 PC에서는 그대로 컴파일되고, 한글(CP949) PC에서는 해당 바이트를
+    미완성 한글 글자로 해석해 문자열이 깨지며 빌드가 실패했다.
+  </div>
+
+  <div class="box sol">
+    <span class="t">해결</span>
+    손상된 소스를 올바른 UTF-8로 복구하고, 모든 소스 파일에 UTF-8 BOM을 일괄 추가해
+    컴파일러가 코드페이지와 무관하게 파일을 UTF-8로만 해석하도록 했다.<br>
+    그 결과 한국어 Windows에서도 전체 솔루션(Release x64) 빌드가 성공했다.
+  </div>
+
+  <p>이 과정에서 빌드에 필요한 도구도 함께 준비했다.</p>
+  <ul>
+    <li>Visual Studio Build Tools 2022 — MSVC v143, C++/CLI 지원, .NET Framework 4.8</li>
+    <li>FFmpeg 8.1.2 라이브러리 (<code>Refs/FFmpeg</code>)</li>
+    <li>NuGet 패키지 복원</li>
+  </ul>
+
+  <h2>2. 한글 경로/파일명에서 영상을 열지 못하는 문제</h2>
+  <div class="line"></div>
+
+  <div class="box sym">
+    <span class="t">증상</span>
+    동영상 파일명이나 폴더 경로에 한글이 들어가면 에러가 나고 영상을 열 수 없었다.
+  </div>
+
+  <div class="box note">
+    <span class="t">점검 결과</span>
+    영상을 여는 핵심 경로(FFmpeg 연동부)는 이미 유니코드를 올바르게 처리하고 있었다.
+    <code>VideoReaderFFMpeg.cpp</code>는 .NET UTF-16 문자열을 UTF-8로 변환해
+    <code>avformat_open_input</code>에 넘기고, <code>MJPEGWriter.cpp</code>도 저장 시
+    동일하게 UTF-8 버퍼를 사용.<br><br>
+    다만 1번 문제의 인코딩 손상 때문에 소스가 깨져 빌드가 되지 않았고,
+    정상 동작 여부를 확인할 수 없었다. 인코딩을 복구해 빌드가 되는 상태로 만든 뒤 검증했다.
+  </div>
+
+  <h3>검증 내용 (빌드된 실행 파일로 테스트)</h3>
+  <ul class="checks">
+    <li>한글 폴더에서 Kinovea 실행 — <b>정상</b></li>
+    <li>한글 폴더 안의 한글 이름 영상 열기 — <b>정상</b> (로그에 오류 없음)</li>
+    <li>한글 파일명·한글 경로 조합의 저수준 열기 테스트 — 전부 <b>Success</b></li>
+  </ul>
+
+  <p>결론적으로 한글 경로/파일명 자체는 원래 지원이 가능한 범위였고, 인코딩 손상이 이를
+  가로막고 있었던 것.</p>
+
+  <h2>3. 프레임 스킵 기능 추가</h2>
+  <div class="line"></div>
+
+  <p>기존에는 재생 속도를 2배까지만 조절할 수 있었고, 트래킹 중에는 프레임을 건너뛸 수
+  없었다(트래커가 연속 프레임을 요구하기 때문). 사용자가 배속과 프레임 스킵을 각각
+  지정할 수 있게 했다.</p>
+
+  <h3>추가된 기능</h3>
+  <ul>
+    <li>배속 슬라이더 옆에 <code>FrameSkip:</code> 입력란 추가. 0이면 끔, 숫자를 넣으면
+        1회 렌더링마다 그만큼 프레임을 건너뜀.</li>
+    <li>핫키 명령 <code>IncreaseFrameSkip</code> / <code>DecreaseFrameSkip</code> 추가.</li>
+    <li>트래킹 중에도 동작 — N번째 프레임마다 트랙을 확장하는 서브샘플링 방식.</li>
+    <li>설정값은 저장되어 재실행 후에도 유지.</li>
+    <li>입력란을 마우스로 벗어나도 입력한 값이 덮어써지지 않도록 처리.</li>
+  </ul>
+
+  <div class="box note">
+    <span class="t">참고</span>
+    프레임을 너무 많이 건너뛰면 물체가 템플릿 검색창 밖으로 나가 추적이 실패할 수 있다.
+    추적 알고리즘은 교체하지 않았고 기존 템플릿 매칭 트래커를 그대로 사용한다.
+  </div>
+
+  <h2>변경된 주요 파일</h2>
+  <div class="line"></div>
+  <table class="data">
+    <thead><tr><th>파일</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>전체 소스 파일</td><td>손상 인코딩 복구, UTF-8 BOM 적용</td></tr>
+      <tr><td><code>PlayerPreferences.cs</code></td><td>FrameSkip 설정 추가 (XML 저장/로드)</td></tr>
+      <tr><td><code>Commands.cs</code></td><td>Increase / DecreaseFrameSkip 명령 추가</td></tr>
+      <tr><td><code>HotkeySettingsManager.cs</code></td><td>프레임 스킵 핫키 등록</td></tr>
+      <tr><td><code>PlayerScreenUserInterface2.cs</code></td><td>스킵 로직, 입력란, 값 유지 처리</td></tr>
+      <tr><td><code>PlayerScreenUserInterface2.Designer.cs</code></td><td>입력란·라벨 레이아웃</td></tr>
+    </tbody>
+  </table>
+
+  <h2>빌드 방법</h2>
+  <div class="line"></div>
+  <ol>
+    <li>Visual Studio Build Tools 2022 설치 (MSVC v143, C++/CLI, .NET Framework 4.8)</li>
+    <li>FFmpeg 8.1.2 라이브러리를 <code>Refs/FFmpeg</code>에 복원</li>
+    <li>NuGet 의존성 복원 후 아래 명령으로 빌드</li>
+  </ol>
+<pre>MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64 /m
+
+# 산출물
+Kinovea\bin\x64\Release\Kinovea.exe</pre>
+
+  <footer>Kinovea 개선 보고서 · 한글 환경 지원 및 프레임 스킵 기능 · 2026-09-04</footer>
+
+</div>
+</body>
+</html>

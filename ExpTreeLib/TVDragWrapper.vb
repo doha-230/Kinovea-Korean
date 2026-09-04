@@ -1,4 +1,4 @@
-Imports System.Text
+﻿Imports System.Text
 Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
 Imports ExpTreeLib.ShellDll

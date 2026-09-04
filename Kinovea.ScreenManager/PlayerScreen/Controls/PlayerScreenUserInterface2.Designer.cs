@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 namespace Kinovea.ScreenManager
 {
     partial class PlayerScreenUserInterface
@@ -26,6 +26,8 @@ namespace Kinovea.ScreenManager
       this.panelVideoControls = new System.Windows.Forms.Panel();
       this.sldrSpeed = new Kinovea.ScreenManager.SliderLinear();
       this.lblSpeedTuner = new System.Windows.Forms.Label();
+      this.lblFrameSkip = new System.Windows.Forms.Label();
+      this.tbFrameSkip = new System.Windows.Forms.TextBox();
       this.lblTimeTip = new System.Windows.Forms.Label();
       this.panel1 = new System.Windows.Forms.Panel();
       this.btnExportImage = new System.Windows.Forms.Button();
@@ -182,6 +184,8 @@ namespace Kinovea.ScreenManager
       this.panelVideoControls.BackColor = System.Drawing.Color.White;
       this.panelVideoControls.Controls.Add(this.sldrSpeed);
       this.panelVideoControls.Controls.Add(this.lblSpeedTuner);
+      this.panelVideoControls.Controls.Add(this.lblFrameSkip);
+      this.panelVideoControls.Controls.Add(this.tbFrameSkip);
       this.panelVideoControls.Controls.Add(this.lblTimeTip);
       this.panelVideoControls.Controls.Add(this.panel1);
       this.panelVideoControls.Controls.Add(this.btnHandlersReset);
@@ -237,6 +241,24 @@ namespace Kinovea.ScreenManager
       this.lblSpeedTuner.TabIndex = 10;
       this.lblSpeedTuner.Text = "99.99%";
       this.lblSpeedTuner.DoubleClick += new System.EventHandler(this.lblSpeedTuner_DoubleClick);
+      // 
+      // lblFrameSkip
+      // 
+      this.lblFrameSkip.AutoSize = true;
+      this.lblFrameSkip.Location = new System.Drawing.Point(400, 94);
+      this.lblFrameSkip.Name = "lblFrameSkip";
+      this.lblFrameSkip.Size = new System.Drawing.Size(58, 13);
+      this.lblFrameSkip.TabIndex = 56;
+      this.lblFrameSkip.Text = "FrameSkip:";
+      // 
+      // tbFrameSkip
+      // 
+      this.tbFrameSkip.Location = new System.Drawing.Point(462, 92);
+      this.tbFrameSkip.Name = "tbFrameSkip";
+      this.tbFrameSkip.Size = new System.Drawing.Size(32, 20);
+      this.tbFrameSkip.TabIndex = 57;
+      this.tbFrameSkip.Text = "0";
+      this.tbFrameSkip.TextChanged += new System.EventHandler(this.tbFrameSkip_TextChanged);
       // 
       // lblTimeTip
       // 
@@ -1061,6 +1083,8 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btn_HandlersLock;
         private System.Windows.Forms.Label lblSpeedTuner;
+        private System.Windows.Forms.Label lblFrameSkip;
+        private System.Windows.Forms.TextBox tbFrameSkip;
         private FrameTracker trkFrame;
         private SelectionTracker trkSelection;
         private System.Windows.Forms.Button btnExportImage;
