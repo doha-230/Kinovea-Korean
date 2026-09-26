@@ -327,6 +327,7 @@ namespace Kinovea.ScreenManager
         private double slowMotion = 1;  // Current scaling relatively to the nominal speed of the video.
         private int frameSkip = 0;  // Number of frames to skip between each rendered frame during playback.
         private bool manualFrameSkipUpdate;
+        private const int MaxFrameSkip = 1000;  // Safety cap: guards against absurd values freezing playback.
         private float timeGrabSpeed = 25.0f / 500.0f; // Speed of time grab in frames per pixel.
         private TimecodeFormat timecodeFormat = TimecodeFormat.ClassicTime;
 
@@ -515,7 +516,10 @@ namespace Kinovea.ScreenManager
             frameSkip = PreferencesManager.PlayerPreferences.FrameSkip;
             if (frameSkip < 0)
                 frameSkip = 0;
-            lblFrameSkip.Text = "FrameSkip:";
+            if (frameSkip > MaxFrameSkip)
+                frameSkip = MaxFrameSkip;
+            lblFrameSkip.Text = ScreenManagerLang.PlayerScreenUserInterface_FrameSkip;
+            tbFrameSkip.MaxLength = 4;
             tbFrameSkip.Text = frameSkip.ToString();
             sldrSpeed.Initialize(timeMapper.GetInputFromSlowMotion(slowMotion));
 
@@ -2547,6 +2551,8 @@ namespace Kinovea.ScreenManager
             frameSkip += change;
             if (frameSkip < 0)
                 frameSkip = 0;
+            if (frameSkip > MaxFrameSkip)
+                frameSkip = MaxFrameSkip;
 
             // Persist the value so it is kept between sessions.
             PreferencesManager.PlayerPreferences.FrameSkip = frameSkip;
@@ -3209,6 +3215,7 @@ namespace Kinovea.ScreenManager
             mnuTimeOrigin.Text = ScreenManagerLang.mnuMarkTimeAsOrigin;
             mnuDirectTrack.Text = ScreenManagerLang.mnuTrackTrajectory;
             mnuBackground.Text = ScreenManagerLang.PlayerScreenUserInterface_Background;
+            lblFrameSkip.Text = ScreenManagerLang.PlayerScreenUserInterface_FrameSkip;
             mnuPasteDrawing.Text = ScreenManagerLang.mnuPasteDrawing;
             mnuPasteDrawing.ShortcutKeys = HotkeySettingsManager.GetMenuShortcut("PlayerScreen", (int)PlayerScreenCommands.PasteDrawing);
             mnuOpenVideo.Text = ScreenManagerLang.mnuOpenVideo;

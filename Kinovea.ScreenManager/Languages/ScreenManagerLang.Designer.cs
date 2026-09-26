@@ -4111,6 +4111,15 @@ namespace Kinovea.ScreenManager.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FrameSkip:.
+        /// </summary>
+        public static string PlayerScreenUserInterface_FrameSkip {
+            get {
+                return ResourceManager.GetString("PlayerScreenUserInterface_FrameSkip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recently used colors:.
         /// </summary>
         public static string RecentlyUsedColors {

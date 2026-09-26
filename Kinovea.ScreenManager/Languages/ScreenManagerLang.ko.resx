@@ -1354,6 +1354,9 @@
   <data name="PlayerScreenUserInterface_Background" xml:space="preserve">
     <value>배경…</value>
   </data>
+  <data name="PlayerScreenUserInterface_FrameSkip" xml:space="preserve">
+    <value>프레임 스킵:</value>
+  </data>
   <data name="FormCalibratePlane_Rotate90" xml:space="preserve">
     <value>90° 회전</value>
   </data>

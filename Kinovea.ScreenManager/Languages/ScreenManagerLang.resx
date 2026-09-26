@@ -1416,6 +1416,9 @@
   <data name="PlayerScreenUserInterface_Background" xml:space="preserve">
     <value>Background…</value>
   </data>
+  <data name="PlayerScreenUserInterface_FrameSkip" xml:space="preserve">
+    <value>FrameSkip:</value>
+  </data>
   <data name="FormCalibratePlane_FlipXAxis" xml:space="preserve">
     <value>Flip X axis</value>
   </data>
