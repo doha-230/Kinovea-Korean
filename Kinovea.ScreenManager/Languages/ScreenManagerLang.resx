@@ -1875,4 +1875,13 @@
   <data name="mnuExport_Markdown" xml:space="preserve">
     <value>Markdown…</value>
   </data>
+  <data name="mnuCopyTime" xml:space="preserve">
+    <value>Copy time</value>
+  </data>
+  <data name="dlgDataAnalysis_CutoffFrequencies" xml:space="preserve">
+    <value>Cutoff frequencies (Hz)</value>
+  </data>
+  <data name="dlgDataAnalysis_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
 </root>

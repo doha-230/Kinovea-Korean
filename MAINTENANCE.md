@@ -14,6 +14,22 @@
 2. **git 텍스트 정규화 금지** — `.gitattributes` 의 `* -text` (대량 재인코딩 diff 방지)
 3. CI(`build.yml`, Windows MSBuild x64 Release)가 통과해야 함
 
+## 정적 검사 (CI 게이트)
+
+`build.yml` 이 빌드 전에 아래를 실행하며, 실패 시 워크플로가 중단된다.
+
+| 스크립트 | 검사 | 기준선 |
+|:--|:--|:--|
+| `Tools/lint/check_encoding.py` | 모든 소스가 UTF-8 + BOM (0건 유지) | — |
+| `Tools/lint/check_csproj_includes.py` | .cs/.vb 가 csproj에 등록됨 | `Tools/lint/baseline-csproj.txt` (업스트림 미등록 7건) |
+| `Tools/lint/check_culture_parsing.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
+| `Tools/i18n/scan_hardcoded_strings.py` | UI 문자열 하드코딩 | `Tools/i18n/baseline-hardcoded.txt` |
+| `Tools/i18n/check_translations.py --lang ko` | 한국어 키 누락 0 | — |
+
+하드코딩 기준선에 남은 5건은 **의도적으로 허용**한 항목이다: GenICam 플러그인의
+구버전(< 2024.1) 대비 **영문 폴백 리터럴 3건**과 고유명사 `GenICam XML`,
+그리고 **컴파일되지 않는 파일**(`FormTrackAnalysis.cs`, csproj 미등록) 1건.
+
 ## 업스트림 동기화 절차
 
 ```bash

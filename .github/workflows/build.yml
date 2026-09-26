@@ -57,6 +57,21 @@ jobs:
       shell: pwsh
       run: ./Refs/get-dependencies.ps1
 
+    - name: Check source encoding (UTF-8 BOM)
+      run: python Tools/lint/check_encoding.py
+
+    - name: Check csproj includes
+      run: python Tools/lint/check_csproj_includes.py --baseline Tools/lint/baseline-csproj.txt
+
+    - name: Check culture-sensitive number parsing
+      run: python Tools/lint/check_culture_parsing.py
+
+    - name: Check hard-coded UI strings
+      run: python Tools/i18n/scan_hardcoded_strings.py --baseline Tools/i18n/baseline-hardcoded.txt
+
+    - name: Check Korean translations
+      run: python Tools/i18n/check_translations.py --lang ko
+
     - name: Build Solution
       run: msbuild Kinovea.VS2019.sln /p:Platform="x64" /p:Configuration=Release /p:AllowedReferenceRelatedFileExtensions=none
 

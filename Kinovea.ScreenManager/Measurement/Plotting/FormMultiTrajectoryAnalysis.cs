@@ -196,9 +196,9 @@ namespace Kinovea.ScreenManager
             b.AppendLine("3. Winter, D. A. (2009). Biomechanics and motor control of human movements (4th ed.). Hoboken, New Jersey: John Wiley & Sons, Inc.");
             rtbInfo2.AppendText(b.ToString());
 
-            lblCutoffFrequencies.Text = "Cutoff frequencies (Hz)";
+            lblCutoffFrequencies.Text = ScreenManagerLang.dlgDataAnalysis_CutoffFrequencies;
             lvCutoffFrequencies.Clear();
-            lvCutoffFrequencies.Columns.Add("Source", 100);
+            lvCutoffFrequencies.Columns.Add(ScreenManagerLang.dlgDataAnalysis_Source, 100);
             lvCutoffFrequencies.Columns.Add("X", 73);
             lvCutoffFrequencies.Columns.Add("Y", 73);
         }

@@ -1822,4 +1822,13 @@
   <data name="mnuExport_Markdown" xml:space="preserve">
     <value>Markdown…</value>
   </data>
+  <data name="mnuCopyTime" xml:space="preserve">
+    <value>시간 복사</value>
+  </data>
+  <data name="dlgDataAnalysis_CutoffFrequencies" xml:space="preserve">
+    <value>차단 주파수 (Hz)</value>
+  </data>
+  <data name="dlgDataAnalysis_Source" xml:space="preserve">
+    <value>출처</value>
+  </data>
 </root>

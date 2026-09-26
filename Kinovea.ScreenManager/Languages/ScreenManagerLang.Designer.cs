@@ -5323,5 +5323,30 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Copy time.
+        /// </summary>
+        internal static string mnuCopyTime {
+            get {
+                return ResourceManager.GetString("mnuCopyTime", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Cutoff frequencies (Hz).
+        /// </summary>
+        internal static string dlgDataAnalysis_CutoffFrequencies {
+            get {
+                return ResourceManager.GetString("dlgDataAnalysis_CutoffFrequencies", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        internal static string dlgDataAnalysis_Source {
+            get {
+                return ResourceManager.GetString("dlgDataAnalysis_Source", resourceCulture);
+            }
+        }
+
     }
 }

@@ -3727,7 +3727,7 @@ namespace Kinovea.ScreenManager
             mnuExportImage.Text = ScreenManagerLang.Generic_SaveImage;
             mnuCopyPic.Text = ScreenManagerLang.mnuCopyImageToClipboard;
             mnuCopyPic.ShortcutKeys = HotkeySettingsManager.GetMenuShortcut("PlayerScreen", "CopyImage");
-            mnuCopyTime.Text = "Copy time";
+            mnuCopyTime.Text = ScreenManagerLang.mnuCopyTime;
             mnuCopyTime.ShortcutKeys = HotkeySettingsManager.GetMenuShortcut("PlayerScreen", "CopyTime");
             mnuPastePic.Text = ScreenManagerLang.mnuPasteImage;
             mnuCloseScreen.Text = ScreenManagerLang.mnuCloseScreen;
