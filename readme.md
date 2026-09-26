@@ -17,7 +17,7 @@
 | **왜** | 한국어 Windows(**CP949**)에서 업스트림 소스가 **빌드조차 되지 않았고**, 한글 UI 품질이 낮으며, 현장 분석에 필요한 재생·추적 기능이 부족했기 때문 |
 | **누구를 위해** | 한국어 환경에서 코칭 · 연구 · 현장 분석에 Kinovea를 쓰는 사용자 |
 | **무엇이 다른가** | ① CP949 빌드 실패 해결 ② 한글 UI(누락 0 · 기계번역 224건 정리) ③ **프레임 스킵**(on/off · 모드) ④ **모션 적응 재생** ⑤ 트래킹 재탐색 + 품질 표시 ⑥ **오디오 음량 추출·내보내기** ⑦ Excel 친화 인코딩 ⑧ 하드웨어 인코딩(옵션) |
-| **어떻게 받나** | [Releases](https://github.com/doha-230/Kinovea-Korean/releases/latest) 에서 설치 `.exe` 또는 포터블 `.zip` |
+| **어떻게 받나** | [Releases](https://github.com/doha-230/Kinovea-Korean/releases/latest) 에서 설치 `.exe` 또는 포터블 `.zip` · 사용법은 [온라인 매뉴얼](https://doha-230.github.io/Kinovea-Korean/) |
 | **믿을 근거** | 모든 변경을 CI가 검증 — Windows 빌드 + **정적 검사 6종** + **단위 테스트 17종** |
 | **원본과 관계** | 업스트림 `master` 를 **merge로 동기화**(rebase 금지), 포크 고유 변경만 유지 |
 
@@ -69,7 +69,7 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 | 문서 | 내용 |
 |:--|:--|
-| 📘 **[사용자 매뉴얼](docs/index.html)** | 설치 · 재생 · **프레임 스킵** · **모션 적응** · 트래킹 · 내보내기 · **오디오 음량 추출** · 단축키 · FAQ (13장, 모바일/인쇄 대응) |
+| 📘 **[사용자 매뉴얼 (웹)](https://doha-230.github.io/Kinovea-Korean/)** · [HTML 소스](docs/index.html) | 설치 · 재생 · **프레임 스킵** · **모션 적응** · 트래킹 · 내보내기 · **오디오 음량 추출** · **하드웨어 인코딩** · 단축키 · FAQ (13장, 모바일/인쇄 대응) |
 | 🔧 **[유지보수 문서](MAINTENANCE.md)** | 불변식 · 업스트림 동기화 절차 · CI 도구/기준선 · 테스트 구성 |
 
 ---
