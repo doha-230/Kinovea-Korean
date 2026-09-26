@@ -697,6 +697,8 @@ namespace Kinovea.Root
         private System.Windows.Forms.ComboBox cmbDelimiter;
         private System.Windows.Forms.ComboBox cmbTextEncoding;
         private System.Windows.Forms.Label lblTextEncoding;
+        private System.Windows.Forms.ComboBox cmbVideoHardware;
+        private System.Windows.Forms.Label lblVideoHardware;
         private System.Windows.Forms.Label lblCSVDelimiter;
         private System.Windows.Forms.TabPage tabUnits;
         private System.Windows.Forms.TextBox tbCustomLengthAb;
