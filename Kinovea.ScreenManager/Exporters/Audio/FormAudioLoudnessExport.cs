@@ -62,7 +62,15 @@ namespace Kinovea.ScreenManager
         public FormAudioLoudnessExport(int windowMs)
         {
             BuildUi();
-            nudWindow.Value = Math.Max(nudWindow.Minimum, Math.Min(windowMs, nudWindow.Maximum));
+
+            // Clamp in decimal to avoid mixing int/decimal overloads.
+            decimal value = windowMs;
+            if (value < nudWindow.Minimum)
+                value = nudWindow.Minimum;
+            if (value > nudWindow.Maximum)
+                value = nudWindow.Maximum;
+
+            nudWindow.Value = value;
         }
 
         private void BuildUi()

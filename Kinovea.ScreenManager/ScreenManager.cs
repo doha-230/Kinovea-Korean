@@ -2286,7 +2286,7 @@ namespace Kinovea.ScreenManager
 
             using (FormAudioLoudnessExport dialog = new FormAudioLoudnessExport(PreferencesManager.PlayerPreferences.AudioLoudnessWindowMs))
             {
-                if (dialog.ShowDialog(this) != DialogResult.OK)
+                if (dialog.ShowDialog() != DialogResult.OK)
                     return;
 
                 windowMs = dialog.WindowMs;
@@ -2316,7 +2316,7 @@ namespace Kinovea.ScreenManager
             }
 
             saveFileDialog.FileName = Path.GetFileNameWithoutExtension(videoPath) + "-audio";
-            if (saveFileDialog.ShowDialog(this) != DialogResult.OK || string.IsNullOrEmpty(saveFileDialog.FileName))
+            if (saveFileDialog.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(saveFileDialog.FileName))
                 return;
 
             AudioLoudnessExtractionResult result;
