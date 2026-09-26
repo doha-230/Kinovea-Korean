@@ -190,8 +190,8 @@ namespace Kinovea.Root
             
             if (Debugger.IsAttached)
             {
-                cmbTimeCodeFormat.Items.Add("Normalized");
-                cmbTimeCodeFormat.Items.Add("Timestamps");
+                cmbTimeCodeFormat.Items.Add(RootLang.dlgPreferences_Player_UnitNormalized);
+                cmbTimeCodeFormat.Items.Add(RootLang.dlgPreferences_Player_UnitTimestamps);
             }
 
             // enum Kinovea.Services.SpeedUnit.

@@ -1955,8 +1955,8 @@ namespace Kinovea.ScreenManager
         private void RefreshCultureToolbar()
         {
             toolSave.ToolTipText = ScreenManagerLang.Generic_SaveKVA;
-            toolToggleNavigationPane.ToolTipText = "Navigation pane";
-            toolExplorer.ToolTipText = "File browser";
+            toolToggleNavigationPane.ToolTipText = ScreenManagerLang.toolTip_ToggleNavigationPane;
+            toolExplorer.ToolTipText = ScreenManagerLang.toolTip_FileBrowser;
             toolOnePlayer.ToolTipText = ScreenManagerLang.mnuOnePlayer;
             toolTwoPlayers.ToolTipText = ScreenManagerLang.mnuTwoPlayers;
             toolOneCapture.ToolTipText = ScreenManagerLang.mnuOneCapture;
@@ -1987,17 +1987,17 @@ namespace Kinovea.ScreenManager
             mnuExportImageSideBySide.Text = ScreenManagerLang.mnuExport_Images_SideBySide;
 
             mnuExportSpreadsheet.Text = ScreenManagerLang.mnuExport_Spreadsheet;
-            mnuExportODS.Text = "LibreOffice Calc…";
-            mnuExportXLSX.Text = "Microsoft Excel…";
+            mnuExportODS.Text = ScreenManagerLang.mnuExport_Spreadsheet_ODS;
+            mnuExportXLSX.Text = ScreenManagerLang.mnuExport_Spreadsheet_XLSX;
             mnuExportCSVTrajectory.Text = ScreenManagerLang.mnuExport_Spreadsheet_TrajectoryCSV;
             mnuExportCSVChronometer.Text = ScreenManagerLang.mnuExport_Spreadsheet_ChronoCSV;
-            mnuExportTXTTrajectory.Text = "Trajectory text…";
-            mnuExportJSON.Text = "JSON…";
+            mnuExportTXTTrajectory.Text = ScreenManagerLang.mnuExport_Text_Trajectory;
+            mnuExportJSON.Text = ScreenManagerLang.mnuExport_JSON;
 
             mnuExportDocument.Text = ScreenManagerLang.mnuExport_Document;
-            mnuExportODT.Text = "LibreOffice Writer…";
-            mnuExportDOCX.Text = "Microsoft Word…";
-            mnuExportMarkdown.Text = "Markdown…";
+            mnuExportODT.Text = ScreenManagerLang.mnuExport_Document_ODT;
+            mnuExportDOCX.Text = ScreenManagerLang.mnuExport_Document_DOCX;
+            mnuExportMarkdown.Text = ScreenManagerLang.mnuExport_Markdown;
 
             // Edit
             mnuCutDrawing.Text = ScreenManagerLang.mnuCutDrawing;

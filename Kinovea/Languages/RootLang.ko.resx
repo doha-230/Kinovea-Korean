@@ -718,4 +718,67 @@
   <data name="dlgPreferences_Player_FrameSkipCount" xml:space="preserve">
     <value>건너뛸 프레임:</value>
   </data>
+  <data name="dlgPreferences_Capture_VideoCodec" xml:space="preserve">
+    <value>비디오 코덱:</value>
+  </data>
+  <data name="dlgPreferences_Capture_CodecRawVideo" xml:space="preserve">
+    <value>무압축 비디오</value>
+  </data>
+  <data name="dlgPreferences_Capture_EncodingQuality" xml:space="preserve">
+    <value>MJPEG 인코딩 품질:</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityPerceptuallyLossless" xml:space="preserve">
+    <value>지각적 무손실</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityHigh" xml:space="preserve">
+    <value>높음</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityGood" xml:space="preserve">
+    <value>좋음</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityMedium" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveWhileRecording" xml:space="preserve">
+    <value>녹화 중 저장</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveWhileRecordingHelp" xml:space="preserve">
+    <value>녹화가 진행되는 동안 프레임이 비디오 파일에 저장됩니다. 길이 제한 없이 녹화할 수 있으며 비디오 지연과 함께 사용할 수도 있습니다.</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveAfterRecording" xml:space="preserve">
+    <value>녹화 종료 후 저장</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveAfterRecordingHelp" xml:space="preserve">
+    <value>녹화 전체가 메모리에 보관되었다가 녹화가 끝나면 비디오 파일로 저장됩니다. 녹화 길이는 사용 가능한 버퍼에 의해 제한되지만, 높은 프레임 레이트나 느린 저장장치에서 더 나은 결과를 얻을 수 있습니다.</value>
+  </data>
+  <data name="dlgPreferences_Capture_HighSpeedRecording" xml:space="preserve">
+    <value>고속 녹화</value>
+  </data>
+  <data name="dlgPreferences_Capture_AdjustPlaybackFramerate" xml:space="preserve">
+    <value>고속 녹화 시 재생 프레임 레이트 조정</value>
+  </data>
+  <data name="dlgPreferences_Capture_HighSpeedThreshold" xml:space="preserve">
+    <value>고속 임계값(fps):</value>
+  </data>
+  <data name="dlgPreferences_Capture_PlaybackFramerate" xml:space="preserve">
+    <value>재생 프레임 레이트(fps):</value>
+  </data>
+  <data name="dlgPreferences_Player_UnitNormalized" xml:space="preserve">
+    <value>정규화</value>
+  </data>
+  <data name="dlgPreferences_Player_UnitTimestamps" xml:space="preserve">
+    <value>타임스탬프</value>
+  </data>
+  <data name="prefPanelGeneral_UseDriveSpecificIcons" xml:space="preserve">
+    <value>드라이브별 아이콘 사용</value>
+  </data>
+  <data name="prefPanelGeneral_AllowLowCoverageLanguagesTooltip" xml:space="preserve">
+    <value>번역 적용률이 낮은 언어도 선택할 수 있게 합니다.</value>
+  </data>
+  <data name="prefPanelGeneral_UseDriveIconsTooltip" xml:space="preserve">
+    <value>매핑된 네트워크 드라이브를 사용할 수 없을 때 시작이 지연될 수 있습니다.</value>
+  </data>
+  <data name="mnuTimecodeTimestampsDebug" xml:space="preserve">
+    <value>타임스탬프 (디버그)</value>
+  </data>
 </root>

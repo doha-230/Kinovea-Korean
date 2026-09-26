@@ -228,17 +228,17 @@ namespace Kinovea.Root
             int videoFormat = (int)capturePathConfiguration.VideoFormat;
             cmbVideoFormat.SelectedIndex = videoFormat < cmbVideoFormat.Items.Count ? videoFormat : 0;
 
-            lblCodec.Text = "Video codec:";
+            lblCodec.Text = RootLang.dlgPreferences_Capture_VideoCodec;
             cmbVideoCodec.Items.Add("MJPEG");
-            cmbVideoCodec.Items.Add("Raw video");
+            cmbVideoCodec.Items.Add(RootLang.dlgPreferences_Capture_CodecRawVideo);
             int videoCodec = (int)capturePathConfiguration.CaptureCodec;
             cmbVideoCodec.SelectedIndex = videoCodec < cmbVideoCodec.Items.Count ? videoCodec : 0;
 
-            lblEncodingQuality.Text = "MJPEG encoding quality:";
-            cmbEncodingQuality.Items.Add("Perceptually lossless");
-            cmbEncodingQuality.Items.Add("High");
-            cmbEncodingQuality.Items.Add("Good");
-            cmbEncodingQuality.Items.Add("Medium");
+            lblEncodingQuality.Text = RootLang.dlgPreferences_Capture_EncodingQuality;
+            cmbEncodingQuality.Items.Add(RootLang.dlgPreferences_Capture_QualityPerceptuallyLossless);
+            cmbEncodingQuality.Items.Add(RootLang.dlgPreferences_Capture_QualityHigh);
+            cmbEncodingQuality.Items.Add(RootLang.dlgPreferences_Capture_QualityGood);
+            cmbEncodingQuality.Items.Add(RootLang.dlgPreferences_Capture_QualityMedium);
             int encodingQuality = (int)capturePathConfiguration.EncodingQuality;
             cmbEncodingQuality.SelectedIndex = encodingQuality < cmbEncodingQuality.Items.Count ? encodingQuality : 0;
 
@@ -262,23 +262,23 @@ namespace Kinovea.Root
 
             // Recording mode.
             grpRecordingMode.Text = RootLang.dlgPreferences_Capture_RecordingMode;
-            rbRecordingDelayed.Text = "Save while recording";
-            lblDelayedHelp.Text = "Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay.";
+            rbRecordingDelayed.Text = RootLang.dlgPreferences_Capture_SaveWhileRecording;
+            lblDelayedHelp.Text = RootLang.dlgPreferences_Capture_SaveWhileRecordingHelp;
 
-            rbRecordingScheduled.Text = "Save after recording stops";
-            lblBufferedHelp.Text = "The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage.";
+            rbRecordingScheduled.Text = RootLang.dlgPreferences_Capture_SaveAfterRecording;
+            lblBufferedHelp.Text = RootLang.dlgPreferences_Capture_SaveAfterRecordingHelp;
 
             rbRecordingDelayed.Checked = recordingMode == CaptureRecordingMode.Delay;
             rbRecordingScheduled.Checked = recordingMode == CaptureRecordingMode.Scheduled;
 
 
             // High speed recording
-            gbHighspeedCameras.Text = "High-speed recording";
-            chkHighspeedRecording.Text = "Adjust playback frame rate for high-speed recordings";
+            gbHighspeedCameras.Text = RootLang.dlgPreferences_Capture_HighSpeedRecording;
+            chkHighspeedRecording.Text = RootLang.dlgPreferences_Capture_AdjustPlaybackFramerate;
             chkHighspeedRecording.Checked = enableFramerateReplacement;
 
-            lblReplacementThreshold.Text = "High-speed threshold (fps):";
-            lblReplacementFramerate.Text = "Playback frame rate (fps):";
+            lblReplacementThreshold.Text = RootLang.dlgPreferences_Capture_HighSpeedThreshold;
+            lblReplacementFramerate.Text = RootLang.dlgPreferences_Capture_PlaybackFramerate;
             nudReplacementThreshold.Value = (decimal)replacementFramerateThreshold;
             nudReplacementFramerate.Value = (decimal)replacementFramerate;
             NudHelper.FixNudScroll(nudReplacementThreshold);

@@ -2019,5 +2019,174 @@ namespace Kinovea.Root.Languages {
                 return ResourceManager.GetString("dlgPreferences_Player_FrameSkipCount", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Video codec:.
+        /// </summary>
+        internal static string dlgPreferences_Capture_VideoCodec {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_VideoCodec", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Raw video.
+        /// </summary>
+        internal static string dlgPreferences_Capture_CodecRawVideo {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_CodecRawVideo", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to MJPEG encoding quality:.
+        /// </summary>
+        internal static string dlgPreferences_Capture_EncodingQuality {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_EncodingQuality", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Perceptually lossless.
+        /// </summary>
+        internal static string dlgPreferences_Capture_QualityPerceptuallyLossless {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_QualityPerceptuallyLossless", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        internal static string dlgPreferences_Capture_QualityHigh {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_QualityHigh", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        internal static string dlgPreferences_Capture_QualityGood {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_QualityGood", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        internal static string dlgPreferences_Capture_QualityMedium {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_QualityMedium", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Save while recording.
+        /// </summary>
+        internal static string dlgPreferences_Capture_SaveWhileRecording {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_SaveWhileRecording", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay..
+        /// </summary>
+        internal static string dlgPreferences_Capture_SaveWhileRecordingHelp {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_SaveWhileRecordingHelp", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Save after recording stops.
+        /// </summary>
+        internal static string dlgPreferences_Capture_SaveAfterRecording {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_SaveAfterRecording", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage..
+        /// </summary>
+        internal static string dlgPreferences_Capture_SaveAfterRecordingHelp {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_SaveAfterRecordingHelp", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to High-speed recording.
+        /// </summary>
+        internal static string dlgPreferences_Capture_HighSpeedRecording {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_HighSpeedRecording", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust playback frame rate for high-speed recordings.
+        /// </summary>
+        internal static string dlgPreferences_Capture_AdjustPlaybackFramerate {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_AdjustPlaybackFramerate", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to High-speed threshold (fps):.
+        /// </summary>
+        internal static string dlgPreferences_Capture_HighSpeedThreshold {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_HighSpeedThreshold", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Playback frame rate (fps):.
+        /// </summary>
+        internal static string dlgPreferences_Capture_PlaybackFramerate {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_PlaybackFramerate", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Normalized.
+        /// </summary>
+        internal static string dlgPreferences_Player_UnitNormalized {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_UnitNormalized", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamps.
+        /// </summary>
+        internal static string dlgPreferences_Player_UnitTimestamps {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_UnitTimestamps", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Use drive-specific icons.
+        /// </summary>
+        internal static string prefPanelGeneral_UseDriveSpecificIcons {
+            get {
+                return ResourceManager.GetString("prefPanelGeneral_UseDriveSpecificIcons", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Allow selecting languages that have low translation coverage..
+        /// </summary>
+        internal static string prefPanelGeneral_AllowLowCoverageLanguagesTooltip {
+            get {
+                return ResourceManager.GetString("prefPanelGeneral_AllowLowCoverageLanguagesTooltip", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to This may delay startup when mapped network drives are unavailable..
+        /// </summary>
+        internal static string prefPanelGeneral_UseDriveIconsTooltip {
+            get {
+                return ResourceManager.GetString("prefPanelGeneral_UseDriveIconsTooltip", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamps (debug).
+        /// </summary>
+        internal static string mnuTimecodeTimestampsDebug {
+            get {
+                return ResourceManager.GetString("mnuTimecodeTimestampsDebug", resourceCulture);
+            }
+        }
+
     }
 }

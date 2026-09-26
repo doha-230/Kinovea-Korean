@@ -5250,5 +5250,78 @@ namespace Kinovea.ScreenManager.Languages {
                 return ResourceManager.GetString("playerFrameSkip_Count", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Navigation pane.
+        /// </summary>
+        internal static string toolTip_ToggleNavigationPane {
+            get {
+                return ResourceManager.GetString("toolTip_ToggleNavigationPane", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to File browser.
+        /// </summary>
+        internal static string toolTip_FileBrowser {
+            get {
+                return ResourceManager.GetString("toolTip_FileBrowser", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to LibreOffice Calc….
+        /// </summary>
+        internal static string mnuExport_Spreadsheet_ODS {
+            get {
+                return ResourceManager.GetString("mnuExport_Spreadsheet_ODS", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft Excel….
+        /// </summary>
+        internal static string mnuExport_Spreadsheet_XLSX {
+            get {
+                return ResourceManager.GetString("mnuExport_Spreadsheet_XLSX", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Trajectory text….
+        /// </summary>
+        internal static string mnuExport_Text_Trajectory {
+            get {
+                return ResourceManager.GetString("mnuExport_Text_Trajectory", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to JSON….
+        /// </summary>
+        internal static string mnuExport_JSON {
+            get {
+                return ResourceManager.GetString("mnuExport_JSON", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to LibreOffice Writer….
+        /// </summary>
+        internal static string mnuExport_Document_ODT {
+            get {
+                return ResourceManager.GetString("mnuExport_Document_ODT", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft Word….
+        /// </summary>
+        internal static string mnuExport_Document_DOCX {
+            get {
+                return ResourceManager.GetString("mnuExport_Document_DOCX", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown….
+        /// </summary>
+        internal static string mnuExport_Markdown {
+            get {
+                return ResourceManager.GetString("mnuExport_Markdown", resourceCulture);
+            }
+        }
+
     }
 }

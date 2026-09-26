@@ -30,6 +30,9 @@ PATTERNS = [
 
 # Short/technical literals that are legitimately kept as-is.
 ALLOWLIST = {
+    '[h:][mm:]ss.xx[x]',
+    '[h:][mm:]ss.xx[x] + ',
+    'www.kinovea.org',
     'RGGB', 'BGGR', 'GRBG', 'GBRG',  # Bayer patterns (proper nouns)
     'X', 'Y', 'Z', '<', '>', '-',
     'MP4',

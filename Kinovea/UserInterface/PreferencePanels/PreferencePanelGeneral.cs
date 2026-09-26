@@ -109,10 +109,10 @@ namespace Kinovea.Root
             cbEnableDebugLogs.Text = Kinovea.Root.Languages.RootLang.mnuEnableDebugLogs;
             cbEnableDebugLogs.Checked = enableDebugLogs;
             cbEnableAllLanguages.Text = Kinovea.Root.Languages.RootLang.prefPanelGeneral_EnableAllLanguages;
-            toolTip1.SetToolTip(cbEnableAllLanguages, "Allow selecting languages that have low translation coverage.");
+            toolTip1.SetToolTip(cbEnableAllLanguages, RootLang.prefPanelGeneral_AllowLowCoverageLanguagesTooltip);
             cbEnableAllLanguages.Checked = enableAllLanguages;
-            chkUseDriveIcons.Text = "Use drive-specific icons";
-            toolTip1.SetToolTip(chkUseDriveIcons, "This may delay startup when mapped network drives are unavailable.");
+            chkUseDriveIcons.Text = RootLang.prefPanelGeneral_UseDriveSpecificIcons;
+            toolTip1.SetToolTip(chkUseDriveIcons, RootLang.prefPanelGeneral_UseDriveIconsTooltip);
             chkUseDriveIcons.Checked = useDriveIcons;
         }
         private void RebuildLanguageList()

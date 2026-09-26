@@ -771,4 +771,67 @@
   <data name="dlgPreferences_Player_FrameSkipCount" xml:space="preserve">
     <value>Frames to skip:</value>
   </data>
+  <data name="dlgPreferences_Capture_VideoCodec" xml:space="preserve">
+    <value>Video codec:</value>
+  </data>
+  <data name="dlgPreferences_Capture_CodecRawVideo" xml:space="preserve">
+    <value>Raw video</value>
+  </data>
+  <data name="dlgPreferences_Capture_EncodingQuality" xml:space="preserve">
+    <value>MJPEG encoding quality:</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityPerceptuallyLossless" xml:space="preserve">
+    <value>Perceptually lossless</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityGood" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="dlgPreferences_Capture_QualityMedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveWhileRecording" xml:space="preserve">
+    <value>Save while recording</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveWhileRecordingHelp" xml:space="preserve">
+    <value>Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay.</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveAfterRecording" xml:space="preserve">
+    <value>Save after recording stops</value>
+  </data>
+  <data name="dlgPreferences_Capture_SaveAfterRecordingHelp" xml:space="preserve">
+    <value>The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage.</value>
+  </data>
+  <data name="dlgPreferences_Capture_HighSpeedRecording" xml:space="preserve">
+    <value>High-speed recording</value>
+  </data>
+  <data name="dlgPreferences_Capture_AdjustPlaybackFramerate" xml:space="preserve">
+    <value>Adjust playback frame rate for high-speed recordings</value>
+  </data>
+  <data name="dlgPreferences_Capture_HighSpeedThreshold" xml:space="preserve">
+    <value>High-speed threshold (fps):</value>
+  </data>
+  <data name="dlgPreferences_Capture_PlaybackFramerate" xml:space="preserve">
+    <value>Playback frame rate (fps):</value>
+  </data>
+  <data name="dlgPreferences_Player_UnitNormalized" xml:space="preserve">
+    <value>Normalized</value>
+  </data>
+  <data name="dlgPreferences_Player_UnitTimestamps" xml:space="preserve">
+    <value>Timestamps</value>
+  </data>
+  <data name="prefPanelGeneral_UseDriveSpecificIcons" xml:space="preserve">
+    <value>Use drive-specific icons</value>
+  </data>
+  <data name="prefPanelGeneral_AllowLowCoverageLanguagesTooltip" xml:space="preserve">
+    <value>Allow selecting languages that have low translation coverage.</value>
+  </data>
+  <data name="prefPanelGeneral_UseDriveIconsTooltip" xml:space="preserve">
+    <value>This may delay startup when mapped network drives are unavailable.</value>
+  </data>
+  <data name="mnuTimecodeTimestampsDebug" xml:space="preserve">
+    <value>Timestamps (debug)</value>
+  </data>
 </root>

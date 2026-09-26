@@ -1848,4 +1848,31 @@
   <data name="playerFrameSkip_Count" xml:space="preserve">
     <value>Skip {0}</value>
   </data>
+  <data name="toolTip_ToggleNavigationPane" xml:space="preserve">
+    <value>Navigation pane</value>
+  </data>
+  <data name="toolTip_FileBrowser" xml:space="preserve">
+    <value>File browser</value>
+  </data>
+  <data name="mnuExport_Spreadsheet_ODS" xml:space="preserve">
+    <value>LibreOffice Calc…</value>
+  </data>
+  <data name="mnuExport_Spreadsheet_XLSX" xml:space="preserve">
+    <value>Microsoft Excel…</value>
+  </data>
+  <data name="mnuExport_Text_Trajectory" xml:space="preserve">
+    <value>Trajectory text…</value>
+  </data>
+  <data name="mnuExport_JSON" xml:space="preserve">
+    <value>JSON…</value>
+  </data>
+  <data name="mnuExport_Document_ODT" xml:space="preserve">
+    <value>LibreOffice Writer…</value>
+  </data>
+  <data name="mnuExport_Document_DOCX" xml:space="preserve">
+    <value>Microsoft Word…</value>
+  </data>
+  <data name="mnuExport_Markdown" xml:space="preserve">
+    <value>Markdown…</value>
+  </data>
 </root>

@@ -585,7 +585,7 @@ namespace Kinovea.Root
             mnuTimecodeMicroseconds.Text = RootLang.TimeCodeFormat_Microseconds;
             mnuTimecodeMicroseconds.Image = Properties.Resources.microseconds;
             mnuTimecodeTimeAndFrames.Text = mnuTimecodeClassic.Text + " + " + RootLang.TimeCodeFormat_Frames;
-            mnuTimecodeTimestamps.Text = "Timestamps (debug)";
+            mnuTimecodeTimestamps.Text = RootLang.mnuTimecodeTimestampsDebug;
 
 
             mnuPointer.Text = RootLang.mnuPointer;
