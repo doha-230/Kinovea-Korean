@@ -97,6 +97,15 @@ namespace Kinovea.Services
             get { BeforeRead(); return csvDecimalSeparator; }
             set { csvDecimalSeparator = value; Save(); }
         }
+
+        /// <summary>
+        /// Encoding used when writing exported text files.
+        /// </summary>
+        public CSVEncoding CSVEncoding
+        {
+            get { BeforeRead(); return csvEncoding; }
+            set { csvEncoding = value; Save(); }
+        }
         public ExportSpace ExportSpace
         {
             get { BeforeRead(); return exportSpace; }
@@ -355,6 +364,7 @@ namespace Kinovea.Services
         private string customLengthAbbreviation = "";
         private CadenceUnit cadenceUnit = CadenceUnit.Hertz;
         private CSVDecimalSeparator csvDecimalSeparator = CSVDecimalSeparator.System;
+        private CSVEncoding csvEncoding = CSVEncoding.Utf8NoBom;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -433,6 +443,7 @@ namespace Kinovea.Services
             writer.WriteElementString("CustomLengthAbbreviation", customLengthAbbreviation);
             writer.WriteElementString("CadenceUnit", cadenceUnit.ToString());
             writer.WriteElementString("CSVDecimalSeparator", csvDecimalSeparator.ToString());
+            writer.WriteElementString("CSVEncoding", csvEncoding.ToString());
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("ExportImagesInDocuments", exportSpace.ToString());
             writer.WriteElementString("AspectRatio", aspectRatio.ToString());
@@ -560,6 +571,9 @@ namespace Kinovea.Services
                         csvDecimalSeparator = (CSVDecimalSeparator)Enum.Parse(typeof(CSVDecimalSeparator), reader.ReadElementContentAsString());
                         break;
                     case "ExportSpace":
+                    case "CSVEncoding":
+                        csvEncoding = XmlHelper.ParseEnum<CSVEncoding>(reader.ReadElementContentAsString(), CSVEncoding.Utf8NoBom);
+                        break;
                         exportSpace = (ExportSpace)Enum.Parse(typeof(ExportSpace), reader.ReadElementContentAsString());
                         break;
                     case "ExportImagesInDocuments":

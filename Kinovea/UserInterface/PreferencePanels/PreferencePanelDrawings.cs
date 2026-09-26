@@ -81,6 +81,7 @@ namespace Kinovea.Root
         private CadenceUnit cadenceUnit;
         private KeyframePresetsParameters keyframePresets;
         private CSVDecimalSeparator csvDecimalSeparator;
+        private CSVEncoding csvEncoding;
         private ExportSpace exportSpace;
         private bool exportImagesInDocuments;
         private int presetsCount = 10;
@@ -131,6 +132,7 @@ namespace Kinovea.Root
             cadenceUnit = PreferencesManager.PlayerPreferences.CadenceUnit;
             keyframePresets = PreferencesManager.PlayerPreferences.KeyframePresets;
             csvDecimalSeparator = PreferencesManager.PlayerPreferences.CSVDecimalSeparator;
+            csvEncoding = PreferencesManager.PlayerPreferences.CSVEncoding;
             exportSpace = PreferencesManager.PlayerPreferences.ExportSpace;
             exportImagesInDocuments = PreferencesManager.PlayerPreferences.ExportImagesInDocuments;
             pandocPath = PreferencesManager.PlayerPreferences.PandocPath;
@@ -368,6 +370,12 @@ namespace Kinovea.Root
             cmbDelimiter.Items.Add(string.Format(RootLang.dlgPreferences_Drawing_CSVSystem, systemDelimiterText));
             cmbDelimiter.Items.Add(RootLang.dlgPreferences_Drawings_CSVPoint);
             cmbDelimiter.Items.Add(RootLang.dlgPreferences_Drawings_CSVComma);
+            lblTextEncoding.Text = RootLang.dlgPreferences_Drawings_TextEncoding;
+            cmbTextEncoding.Items.Clear();
+            cmbTextEncoding.Items.Add(RootLang.dlgPreferences_Drawings_EncodingUtf8);
+            cmbTextEncoding.Items.Add(RootLang.dlgPreferences_Drawings_EncodingUtf8Bom);
+            cmbTextEncoding.Items.Add(RootLang.dlgPreferences_Drawings_EncodingSystem);
+            cmbTextEncoding.SelectedIndex = Math.Max(0, Math.Min((int)csvEncoding, cmbTextEncoding.Items.Count - 1));
             int separator = (int)csvDecimalSeparator;
             cmbDelimiter.SelectedIndex = separator < cmbDelimiter.Items.Count ? separator : 0;
 
@@ -471,6 +479,13 @@ namespace Kinovea.Root
         {
             csvDecimalSeparator = (CSVDecimalSeparator)cmbDelimiter.SelectedIndex;
         }
+        private void cmbTextEncoding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTextEncoding.SelectedIndex < 0)
+                return;
+
+            csvEncoding = (CSVEncoding)cmbTextEncoding.SelectedIndex;
+        }
         private void cmbExportSpace_SelectedIndexChanged(object sender, EventArgs e)
         {
             exportSpace = (ExportSpace)cmbExportSpace.SelectedIndex;
@@ -523,6 +538,7 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.CadenceUnit = cadenceUnit;
             PreferencesManager.PlayerPreferences.KeyframePresets = keyframePresets;
             PreferencesManager.PlayerPreferences.CSVDecimalSeparator = csvDecimalSeparator;
+            PreferencesManager.PlayerPreferences.CSVEncoding = csvEncoding;
             PreferencesManager.PlayerPreferences.ExportSpace = exportSpace;
             PreferencesManager.PlayerPreferences.ExportImagesInDocuments = exportImagesInDocuments;
             PreferencesManager.PlayerPreferences.PandocPath = pandocPath;

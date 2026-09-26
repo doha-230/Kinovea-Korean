@@ -2197,5 +2197,38 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Text file encoding:.
+        /// </summary>
+        internal static string dlgPreferences_Drawings_TextEncoding {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_TextEncoding", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to UTF-8.
+        /// </summary>
+        internal static string dlgPreferences_Drawings_EncodingUtf8 {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_EncodingUtf8", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to UTF-8 with BOM (Excel).
+        /// </summary>
+        internal static string dlgPreferences_Drawings_EncodingUtf8Bom {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_EncodingUtf8Bom", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to System default.
+        /// </summary>
+        internal static string dlgPreferences_Drawings_EncodingSystem {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_EncodingSystem", resourceCulture);
+            }
+        }
+
     }
 }

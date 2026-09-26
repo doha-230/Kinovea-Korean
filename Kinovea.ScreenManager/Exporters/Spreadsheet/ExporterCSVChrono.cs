@@ -82,7 +82,7 @@ namespace Kinovea.ScreenManager
             }
 
             if (csv.Count > 1)
-                File.WriteAllLines(path, csv);
+                File.WriteAllLines(path, csv, CSVHelper.GetEncoding());
         }
 
         private string WriteHeaders(List<string> names, string listSeparator)

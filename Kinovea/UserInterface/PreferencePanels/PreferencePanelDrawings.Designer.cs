@@ -86,6 +86,8 @@ namespace Kinovea.Root
       this.gbSpreadsheet = new System.Windows.Forms.GroupBox();
       this.lblCSVDelimiter = new System.Windows.Forms.Label();
       this.cmbDelimiter = new System.Windows.Forms.ComboBox();
+      this.cmbTextEncoding = new System.Windows.Forms.ComboBox();
+      this.lblTextEncoding = new System.Windows.Forms.Label();
       this.cmbExportSpace = new System.Windows.Forms.ComboBox();
       this.lblExportSpace = new System.Windows.Forms.Label();
       this.gbDocuments = new System.Windows.Forms.GroupBox();
@@ -498,11 +500,13 @@ namespace Kinovea.Root
             | System.Windows.Forms.AnchorStyles.Right)));
       this.gbSpreadsheet.Controls.Add(this.lblCSVDelimiter);
       this.gbSpreadsheet.Controls.Add(this.cmbDelimiter);
+      this.gbSpreadsheet.Controls.Add(this.lblTextEncoding);
+      this.gbSpreadsheet.Controls.Add(this.cmbTextEncoding);
       this.gbSpreadsheet.Controls.Add(this.cmbExportSpace);
       this.gbSpreadsheet.Controls.Add(this.lblExportSpace);
       this.gbSpreadsheet.Location = new System.Drawing.Point(6, 15);
       this.gbSpreadsheet.Name = "gbSpreadsheet";
-      this.gbSpreadsheet.Size = new System.Drawing.Size(461, 103);
+      this.gbSpreadsheet.Size = new System.Drawing.Size(461, 142);
       this.gbSpreadsheet.TabIndex = 75;
       this.gbSpreadsheet.TabStop = false;
       this.gbSpreadsheet.Text = "Spreadsheet";
@@ -543,6 +547,26 @@ namespace Kinovea.Root
       this.lblExportSpace.TabIndex = 68;
       this.lblExportSpace.Text = "Export metric:";
       // 
+      // lblTextEncoding
+      // 
+      this.lblTextEncoding.AutoSize = true;
+      this.lblTextEncoding.Location = new System.Drawing.Point(28, 106);
+      this.lblTextEncoding.Name = "lblTextEncoding";
+      this.lblTextEncoding.Size = new System.Drawing.Size(121, 13);
+      this.lblTextEncoding.TabIndex = 74;
+      this.lblTextEncoding.Text = "Text file encoding:";
+      // 
+      // cmbTextEncoding
+      // 
+      this.cmbTextEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmbTextEncoding.FormattingEnabled = true;
+      this.cmbTextEncoding.Location = new System.Drawing.Point(287, 103);
+      this.cmbTextEncoding.Name = "cmbTextEncoding";
+      this.cmbTextEncoding.Size = new System.Drawing.Size(116, 21);
+      this.cmbTextEncoding.TabIndex = 75;
+      this.cmbTextEncoding.SelectedIndexChanged += new System.EventHandler(this.cmbTextEncoding_SelectedIndexChanged);
+      // 
+      // 
       // gbDocuments
       // 
       this.gbDocuments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -551,7 +575,7 @@ namespace Kinovea.Root
       this.gbDocuments.Controls.Add(this.lblPandocPath);
       this.gbDocuments.Controls.Add(this.tbPandocPath);
       this.gbDocuments.Controls.Add(this.btnPandocPath);
-      this.gbDocuments.Location = new System.Drawing.Point(6, 124);
+      this.gbDocuments.Location = new System.Drawing.Point(6, 163);
       this.gbDocuments.Name = "gbDocuments";
       this.gbDocuments.Size = new System.Drawing.Size(461, 109);
       this.gbDocuments.TabIndex = 74;
@@ -648,6 +672,8 @@ namespace Kinovea.Root
         private System.Windows.Forms.CheckBox chkEnableHSDS;
         private System.Windows.Forms.TabPage tabExport;
         private System.Windows.Forms.ComboBox cmbDelimiter;
+        private System.Windows.Forms.ComboBox cmbTextEncoding;
+        private System.Windows.Forms.Label lblTextEncoding;
         private System.Windows.Forms.Label lblCSVDelimiter;
         private System.Windows.Forms.TabPage tabUnits;
         private System.Windows.Forms.TextBox tbCustomLengthAb;

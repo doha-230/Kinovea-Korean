@@ -40,6 +40,23 @@ namespace Kinovea.ScreenManager
         }
 
         /// <summary>
+        /// Encoding to use when writing exported text files.
+        /// </summary>
+        public static Encoding GetEncoding()
+        {
+            switch (PreferencesManager.PlayerPreferences.CSVEncoding)
+            {
+                case CSVEncoding.Utf8Bom:
+                    return new UTF8Encoding(true);
+                case CSVEncoding.System:
+                    return Encoding.Default;
+                case CSVEncoding.Utf8NoBom:
+                default:
+                    return new UTF8Encoding(false);
+            }
+        }
+
+        /// <summary>
         /// Returns the list separator.
         /// </summary>
         public static string GetListSeparator(NumberFormatInfo nfi)

@@ -70,7 +70,7 @@ namespace Kinovea.ScreenManager
                 current++;
             }
 
-            File.WriteAllText(path, sb.ToString());
+            File.WriteAllText(path, sb.ToString(), CSVHelper.GetEncoding());
         }
     }
 }

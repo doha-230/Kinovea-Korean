@@ -837,4 +837,16 @@
   <data name="dlgPreferences_Player_FrameSkipMotion" xml:space="preserve">
     <value>Motion adaptive</value>
   </data>
+  <data name="dlgPreferences_Drawings_TextEncoding" xml:space="preserve">
+    <value>Text file encoding:</value>
+  </data>
+  <data name="dlgPreferences_Drawings_EncodingUtf8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="dlgPreferences_Drawings_EncodingUtf8Bom" xml:space="preserve">
+    <value>UTF-8 with BOM (Excel)</value>
+  </data>
+  <data name="dlgPreferences_Drawings_EncodingSystem" xml:space="preserve">
+    <value>System default</value>
+  </data>
 </root>

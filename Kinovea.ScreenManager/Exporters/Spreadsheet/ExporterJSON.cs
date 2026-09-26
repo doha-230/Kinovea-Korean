@@ -29,7 +29,7 @@ namespace Kinovea.ScreenManager
                 writer.WriteEndObject();
 
                 if (sb.Length >= 0)
-                    File.WriteAllText(path, sb.ToString());
+                    File.WriteAllText(path, sb.ToString(), CSVHelper.GetEncoding());
             }
         }
 
