@@ -5348,5 +5348,95 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Audio loudness….
+        /// </summary>
+        internal static string mnuExport_AudioLoudness {
+            get {
+                return ResourceManager.GetString("mnuExport_AudioLoudness", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Audio loudness export.
+        /// </summary>
+        internal static string dlgAudioLoudness_Title {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Title", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Window (ms):.
+        /// </summary>
+        internal static string dlgAudioLoudness_Window {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Window", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Format:.
+        /// </summary>
+        internal static string dlgAudioLoudness_Format {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Format", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Levels are written in dBFS (RMS and peak). Silence is exported as -100 dBFS..
+        /// </summary>
+        internal static string dlgAudioLoudness_Hint {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Hint", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to This file has no audio stream..
+        /// </summary>
+        internal static string dlgAudioLoudness_NoAudio {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_NoAudio", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to ffmpeg.exe was not found next to Kinovea, the audio cannot be analyzed..
+        /// </summary>
+        internal static string dlgAudioLoudness_FfmpegMissing {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_FfmpegMissing", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Could not extract the audio loudness..
+        /// </summary>
+        internal static string dlgAudioLoudness_Failed {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Failed", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Audio loudness exported..
+        /// </summary>
+        internal static string dlgAudioLoudness_Exported {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_Exported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Excel (xlsx).
+        /// </summary>
+        internal static string dlgAudioLoudness_FormatExcel {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_FormatExcel", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Text (txt).
+        /// </summary>
+        internal static string dlgAudioLoudness_FormatText {
+            get {
+                return ResourceManager.GetString("dlgAudioLoudness_FormatText", resourceCulture);
+            }
+        }
+
     }
 }

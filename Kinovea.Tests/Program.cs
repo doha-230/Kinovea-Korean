@@ -15,6 +15,7 @@ namespace Kinovea.Tests
 
             int failures = 0;
             failures += Kinovea.Tests.Player.MotionEstimatorTest.Run();
+            failures += Kinovea.Tests.Player.AudioLoudnessTest.Run();
 
             Console.WriteLine(failures == 0 ? "ALL TESTS PASSED" : string.Format("{0} TEST(S) FAILED", failures));
             Environment.ExitCode = failures;

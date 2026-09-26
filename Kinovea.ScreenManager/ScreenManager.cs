@@ -102,6 +102,7 @@ namespace Kinovea.ScreenManager
         private ToolStripMenuItem mnuExportCSVChronometer = new ToolStripMenuItem();
         private ToolStripMenuItem mnuExportTXTTrajectory = new ToolStripMenuItem();
         private ToolStripMenuItem mnuExportJSON = new ToolStripMenuItem();
+        private ToolStripMenuItem mnuExportAudioLoudness = new ToolStripMenuItem();
 
 
         private ToolStripMenuItem mnuExportDocument = new ToolStripMenuItem();
@@ -400,12 +401,14 @@ namespace Kinovea.ScreenManager
             mnuExportCSVChronometer.Image = Properties.Resources.file_csv;
             mnuExportTXTTrajectory.Image = Properties.Resources.file_txt;
             mnuExportJSON.Image = Properties.Resources.json;
+            mnuExportAudioLoudness.Image = Properties.Resources.file_txt;
             mnuExportODS.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.ODS);
             mnuExportXLSX.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.XLSX);
             mnuExportCSVTrajectory.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.CSVTrajectory);
             mnuExportCSVChronometer.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.CSVChronometer);
             mnuExportTXTTrajectory.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.TXTTrajectory);
             mnuExportJSON.Click += (s, e) => ExportSpreadsheet(SpreadsheetExportFormat.JSON);
+            mnuExportAudioLoudness.Click += (s, e) => ExportAudioLoudness();
             mnuExportSpreadsheet.DropDownItems.AddRange(new ToolStripItem[] {
                 mnuExportODS,
                 mnuExportXLSX,
@@ -414,6 +417,8 @@ namespace Kinovea.ScreenManager
                 mnuExportCSVChronometer,
                 new ToolStripSeparator(),
                 mnuExportJSON,
+                new ToolStripSeparator(),
+                mnuExportAudioLoudness,
             });
 
             //------------------------
@@ -1993,6 +1998,7 @@ namespace Kinovea.ScreenManager
             mnuExportCSVChronometer.Text = ScreenManagerLang.mnuExport_Spreadsheet_ChronoCSV;
             mnuExportTXTTrajectory.Text = ScreenManagerLang.mnuExport_Text_Trajectory;
             mnuExportJSON.Text = ScreenManagerLang.mnuExport_JSON;
+            mnuExportAudioLoudness.Text = ScreenManagerLang.mnuExport_AudioLoudness;
 
             mnuExportDocument.Text = ScreenManagerLang.mnuExport_Document;
             mnuExportODT.Text = ScreenManagerLang.mnuExport_Document_ODT;
@@ -2257,6 +2263,111 @@ namespace Kinovea.ScreenManager
 
             SpreadsheetExporter exporter = new SpreadsheetExporter();
             exporter.Export(format, player);
+        }
+
+        /// <summary>
+        /// Export the audio level over time (in dBFS) to a text or spreadsheet file.
+        /// The levels are extracted from the video with ffmpeg and then aggregated
+        /// into the window chosen by the user.
+        /// </summary>
+        private void ExportAudioLoudness()
+        {
+            DoStopPlaying();
+            PlayerScreen player = activeScreen as PlayerScreen;
+            if (player == null)
+                return;
+
+            string videoPath = player.FrameServer.Metadata.VideoPath;
+            if (string.IsNullOrEmpty(videoPath) || !File.Exists(videoPath))
+                return;
+
+            int windowMs;
+            AudioLoudnessExportFormat format;
+
+            using (FormAudioLoudnessExport dialog = new FormAudioLoudnessExport(PreferencesManager.PlayerPreferences.AudioLoudnessWindowMs))
+            {
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                windowMs = dialog.WindowMs;
+                format = dialog.Format;
+            }
+
+            PreferencesManager.PlayerPreferences.AudioLoudnessWindowMs = windowMs;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = ScreenManagerLang.mnuExport_AudioLoudness;
+            saveFileDialog.RestoreDirectory = true;
+
+            switch (format)
+            {
+                case AudioLoudnessExportFormat.XLSX:
+                    saveFileDialog.Filter = "Excel|*.xlsx";
+                    break;
+                case AudioLoudnessExportFormat.TXT:
+                    saveFileDialog.Filter = "Text|*.txt";
+                    break;
+                case AudioLoudnessExportFormat.JSON:
+                    saveFileDialog.Filter = "JSON|*.json";
+                    break;
+                default:
+                    saveFileDialog.Filter = "CSV|*.csv";
+                    break;
+            }
+
+            saveFileDialog.FileName = Path.GetFileNameWithoutExtension(videoPath) + "-audio";
+            if (saveFileDialog.ShowDialog(this) != DialogResult.OK || string.IsNullOrEmpty(saveFileDialog.FileName))
+                return;
+
+            AudioLoudnessExtractionResult result;
+            Cursor previousCursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                AudioLoudnessExtractor extractor = new AudioLoudnessExtractor();
+                result = extractor.Extract(videoPath, windowMs);
+            }
+            finally
+            {
+                Cursor.Current = previousCursor;
+            }
+
+            switch (result.Status)
+            {
+                case AudioLoudnessStatus.FfmpegNotFound:
+                    MessageBox.Show(ScreenManagerLang.dlgAudioLoudness_FfmpegMissing, ScreenManagerLang.mnuExport_AudioLoudness, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case AudioLoudnessStatus.NoAudioStream:
+                    MessageBox.Show(ScreenManagerLang.dlgAudioLoudness_NoAudio, ScreenManagerLang.mnuExport_AudioLoudness, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                case AudioLoudnessStatus.Failed:
+                case AudioLoudnessStatus.Cancelled:
+                    MessageBox.Show(ScreenManagerLang.dlgAudioLoudness_Failed, ScreenManagerLang.mnuExport_AudioLoudness, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+
+            try
+            {
+                ExporterAudioLoudness audioExporter = new ExporterAudioLoudness();
+                audioExporter.Export(saveFileDialog.FileName, result.Samples, windowMs, format);
+
+                MessageBox.Show(
+                    ScreenManagerLang.dlgAudioLoudness_Exported,
+                    ScreenManagerLang.mnuExport_AudioLoudness,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception e)
+            {
+                log.ErrorFormat("Exception encountered while exporting audio loudness.", e);
+
+                MessageBox.Show(
+                    ScreenManagerLang.dlgAudioLoudness_Failed,
+                    ScreenManagerLang.mnuExport_AudioLoudness,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
         #endregion
 

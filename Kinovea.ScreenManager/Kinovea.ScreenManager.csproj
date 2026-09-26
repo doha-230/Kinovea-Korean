@@ -323,6 +323,11 @@
       <DependentUpon>InfobarCapture.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawingClipboard.cs" />
+    <Compile Include="Exporters\Audio\AudioLoudnessSample.cs" />
+    <Compile Include="Exporters\Audio\AudioLoudnessParser.cs" />
+    <Compile Include="Exporters\Audio\AudioLoudnessExtractor.cs" />
+    <Compile Include="Exporters\Audio\ExporterAudioLoudness.cs" />
+    <Compile Include="Exporters\Audio\FormAudioLoudnessExport.cs" />
     <Compile Include="Exporters\Images\ExporterImage.cs" />
     <Compile Include="Exporters\Images\ExporterImageSequence.cs" />
     <Compile Include="Exporters\Spreadsheet\ExporterCSVChrono.cs" />

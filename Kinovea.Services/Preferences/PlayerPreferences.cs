@@ -106,6 +106,16 @@ namespace Kinovea.Services
             get { BeforeRead(); return csvEncoding; }
             set { csvEncoding = value; Save(); }
         }
+
+        /// <summary>
+        /// Window used when exporting the audio loudness, in milliseconds.
+        /// Clamped to [10, 5000].
+        /// </summary>
+        public int AudioLoudnessWindowMs
+        {
+            get { BeforeRead(); return audioLoudnessWindowMs; }
+            set { audioLoudnessWindowMs = Math.Max(10, Math.Min(value, 5000)); Save(); }
+        }
         public ExportSpace ExportSpace
         {
             get { BeforeRead(); return exportSpace; }
@@ -365,6 +375,7 @@ namespace Kinovea.Services
         private CadenceUnit cadenceUnit = CadenceUnit.Hertz;
         private CSVDecimalSeparator csvDecimalSeparator = CSVDecimalSeparator.System;
         private CSVEncoding csvEncoding = CSVEncoding.Utf8NoBom;
+        private int audioLoudnessWindowMs = 50;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -444,8 +455,9 @@ namespace Kinovea.Services
             writer.WriteElementString("CadenceUnit", cadenceUnit.ToString());
             writer.WriteElementString("CSVDecimalSeparator", csvDecimalSeparator.ToString());
             writer.WriteElementString("CSVEncoding", csvEncoding.ToString());
+            writer.WriteElementString("AudioLoudnessWindowMs", audioLoudnessWindowMs.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
-            writer.WriteElementString("ExportImagesInDocuments", exportSpace.ToString());
+            writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
             writer.WriteElementString("AspectRatio", aspectRatio.ToString());
             writer.WriteElementString("DeinterlaceByDefault", XmlHelper.WriteBoolean(deinterlaceByDefault));
             writer.WriteElementString("InteractiveFrameTracker", XmlHelper.WriteBoolean(interactiveFrameTracker));
@@ -571,10 +583,13 @@ namespace Kinovea.Services
                         csvDecimalSeparator = (CSVDecimalSeparator)Enum.Parse(typeof(CSVDecimalSeparator), reader.ReadElementContentAsString());
                         break;
                     case "ExportSpace":
+                        exportSpace = (ExportSpace)Enum.Parse(typeof(ExportSpace), reader.ReadElementContentAsString());
+                        break;
                     case "CSVEncoding":
                         csvEncoding = XmlHelper.ParseEnum<CSVEncoding>(reader.ReadElementContentAsString(), CSVEncoding.Utf8NoBom);
                         break;
-                        exportSpace = (ExportSpace)Enum.Parse(typeof(ExportSpace), reader.ReadElementContentAsString());
+                    case "AudioLoudnessWindowMs":
+                        audioLoudnessWindowMs = Math.Max(10, Math.Min(reader.ReadElementContentAsInt(), 5000));
                         break;
                     case "ExportImagesInDocuments":
                         exportImagesInDocuments = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());

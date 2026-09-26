@@ -1884,4 +1884,37 @@
   <data name="dlgDataAnalysis_Source" xml:space="preserve">
     <value>Source</value>
   </data>
+  <data name="mnuExport_AudioLoudness" xml:space="preserve">
+    <value>Audio loudness…</value>
+  </data>
+  <data name="dlgAudioLoudness_Title" xml:space="preserve">
+    <value>Audio loudness export</value>
+  </data>
+  <data name="dlgAudioLoudness_Window" xml:space="preserve">
+    <value>Window (ms):</value>
+  </data>
+  <data name="dlgAudioLoudness_Format" xml:space="preserve">
+    <value>Format:</value>
+  </data>
+  <data name="dlgAudioLoudness_Hint" xml:space="preserve">
+    <value>Levels are written in dBFS (RMS and peak). Silence is exported as -100 dBFS.</value>
+  </data>
+  <data name="dlgAudioLoudness_NoAudio" xml:space="preserve">
+    <value>This file has no audio stream.</value>
+  </data>
+  <data name="dlgAudioLoudness_FfmpegMissing" xml:space="preserve">
+    <value>ffmpeg.exe was not found next to Kinovea, the audio cannot be analyzed.</value>
+  </data>
+  <data name="dlgAudioLoudness_Failed" xml:space="preserve">
+    <value>Could not extract the audio loudness.</value>
+  </data>
+  <data name="dlgAudioLoudness_Exported" xml:space="preserve">
+    <value>Audio loudness exported.</value>
+  </data>
+  <data name="dlgAudioLoudness_FormatExcel" xml:space="preserve">
+    <value>Excel (xlsx)</value>
+  </data>
+  <data name="dlgAudioLoudness_FormatText" xml:space="preserve">
+    <value>Text (txt)</value>
+  </data>
 </root>
