@@ -320,6 +320,7 @@ namespace Kinovea.ScreenManager
         // The capture frame rate is in Metadata.HighSpeedFactor.
         // The value we show on the speed slider is the final ratio to real time.
         private TimeMapper timeMapper = new TimeMapper();
+        private MotionEstimator motionEstimator = new MotionEstimator();
         private float timeGrabSpeed = 25.0f / 500.0f;       // In frames per pixel.
         private TimecodeFormat timecodeFormat = TimecodeFormat.ClassicTime;
 
@@ -2662,6 +2663,44 @@ namespace Kinovea.ScreenManager
             UpdateSpeedLabel();
             DoInvalidate();
         }
+
+        /// <summary>
+        /// Extra frames to advance in the contiguous playback path, from the manual
+        /// count or from the motion-adaptive policy. Zero in automatic mode, and
+        /// while tracking (contiguity is required there).
+        /// </summary>
+        private int GetAdditionalFrameSkip(bool isTracking)
+        {
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            if (!prefs.EnableFrameSkipping)
+                return 0;
+
+            if (prefs.FrameSkipMode == FrameSkipMode.Manual)
+                return prefs.FrameSkipCount;
+
+            if (prefs.FrameSkipMode == FrameSkipMode.MotionAdaptive && !isTracking)
+                return GetMotionAdaptiveSkip();
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Frames to skip for the current amount of movement in the scene:
+        /// still scenes are skipped through quickly, moving scenes are played
+        /// frame by frame. The metric is computed from the frames that are
+        /// actually rendered, normalized by elapsed time.
+        /// </summary>
+        private int GetMotionAdaptiveSkip()
+        {
+            if (m_FrameServer != null && m_FrameServer.Loaded)
+            {
+                VideoFrame frame = m_FrameServer.VideoReader.Current;
+                if (frame != null)
+                    motionEstimator.Update(frame.Image, frame.Timestamp);
+            }
+
+            return motionEstimator.GetSkipCount(PlayerPreferences.MaxFrameSkip);
+        }
         private void lblSpeedTuner_DoubleClick(object sender, EventArgs e)
         {
             double sldrValue = timeMapper.GetInputForNominalSpeed();
@@ -3003,6 +3042,7 @@ namespace Kinovea.ScreenManager
                 !m_FrameServer.Metadata.AnyTracking;
 
             m_FrameServer.VideoReader.UpdateAllowFrameSkipping(allowFrameSkipping);
+            motionEstimator.Reset();
 
             // Snapshot the playback state and publish it to the reader.
             // This is a synchronous request, it can only come back after the decoder is relocated
@@ -3197,15 +3237,11 @@ namespace Kinovea.ScreenManager
                     return;
                 }
 
-                // Manual frame skipping advances the reader by (1 + FrameSkipCount)
-                // contiguous frames. Staying contiguous keeps the cache usable for
-                // tracking, and the decoder load is the same as playing at full speed.
-                int advance = 1;
-                if (PreferencesManager.PlayerPreferences.EnableFrameSkipping &&
-                    PreferencesManager.PlayerPreferences.FrameSkipMode == FrameSkipMode.Manual)
-                {
-                    advance += PreferencesManager.PlayerPreferences.FrameSkipCount;
-                }
+                // Manual/motion-adaptive skipping advances the reader by
+                // (1 + skip) contiguous frames. Staying contiguous keeps the cache
+                // usable for tracking, and the decoder load is the same as playing
+                // at full speed.
+                int advance = 1 + GetAdditionalFrameSkip(isTracking);
 
                 for (int i = 0; i < advance; i++)
                 {

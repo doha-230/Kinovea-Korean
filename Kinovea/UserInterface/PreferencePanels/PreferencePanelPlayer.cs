@@ -218,13 +218,15 @@ namespace Kinovea.Root
             chkShowFramerate.Checked = showFramerateInSpeedLabel;
             chkLoopPlayback.Checked = loopPlayback;
 
-            rdoFrameSkipAuto.Text = RootLang.dlgPreferences_Player_FrameSkipAuto;
-            rdoFrameSkipManual.Text = RootLang.dlgPreferences_Player_FrameSkipManual;
+            // The combo items follow the FrameSkipMode enum order.
+            cbFrameSkipMode.Items.Clear();
+            cbFrameSkipMode.Items.Add(RootLang.dlgPreferences_Player_FrameSkipAuto);
+            cbFrameSkipMode.Items.Add(RootLang.dlgPreferences_Player_FrameSkipManual);
+            cbFrameSkipMode.Items.Add(RootLang.dlgPreferences_Player_FrameSkipMotion);
+            cbFrameSkipMode.SelectedIndex = Math.Max(0, Math.Min((int)frameSkipMode, cbFrameSkipMode.Items.Count - 1));
             lblFrameSkipCount.Text = RootLang.dlgPreferences_Player_FrameSkipCount;
             nudFrameSkipCount.Minimum = 0;
             nudFrameSkipCount.Maximum = PlayerPreferences.MaxFrameSkip;
-            rdoFrameSkipAuto.Checked = frameSkipMode == FrameSkipMode.Auto;
-            rdoFrameSkipManual.Checked = frameSkipMode == FrameSkipMode.Manual;
             nudFrameSkipCount.Value = Math.Max(0, Math.Min(frameSkipCount, PlayerPreferences.MaxFrameSkip));
             UpdateFrameSkipControlsEnabled();
         }
@@ -362,15 +364,17 @@ namespace Kinovea.Root
         private void UpdateFrameSkipControlsEnabled()
         {
             bool enabled = chkEnableFrameSkipping.Checked;
-            rdoFrameSkipAuto.Enabled = enabled;
-            rdoFrameSkipManual.Enabled = enabled;
+            cbFrameSkipMode.Enabled = enabled;
             lblFrameSkipCount.Enabled = enabled;
-            nudFrameSkipCount.Enabled = enabled && rdoFrameSkipManual.Checked;
+            nudFrameSkipCount.Enabled = enabled && frameSkipMode == FrameSkipMode.Manual;
         }
 
-        private void rdoFrameSkip_CheckedChanged(object sender, EventArgs e)
+        private void cbFrameSkipMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frameSkipMode = rdoFrameSkipManual.Checked ? FrameSkipMode.Manual : FrameSkipMode.Auto;
+            if (cbFrameSkipMode.SelectedIndex < 0)
+                return;
+
+            frameSkipMode = (FrameSkipMode)cbFrameSkipMode.SelectedIndex;
             UpdateFrameSkipControlsEnabled();
         }
 

@@ -81,8 +81,7 @@ namespace Kinovea.Root
       this.nudLargeJump = new System.Windows.Forms.NumericUpDown();
       this.lblLargeJump = new System.Windows.Forms.Label();
       this.nudSmallJump = new System.Windows.Forms.NumericUpDown();
-      this.rdoFrameSkipAuto = new System.Windows.Forms.RadioButton();
-      this.rdoFrameSkipManual = new System.Windows.Forms.RadioButton();
+      this.cbFrameSkipMode = new System.Windows.Forms.ComboBox();
       this.lblFrameSkipCount = new System.Windows.Forms.Label();
       this.nudFrameSkipCount = new System.Windows.Forms.NumericUpDown();
       this.lblSmallJump = new System.Windows.Forms.Label();
@@ -240,8 +239,8 @@ namespace Kinovea.Root
       this.tabPlayer.Controls.Add(this.chkEnableFrameSkipping);
       this.tabPlayer.Controls.Add(this.chkSyncByMotion);
       this.tabPlayer.Controls.Add(this.chkLockSpeeds);
-      this.tabPlayer.Controls.Add(this.rdoFrameSkipAuto);
-      this.tabPlayer.Controls.Add(this.rdoFrameSkipManual);
+
+      this.tabPlayer.Controls.Add(this.cbFrameSkipMode);
       this.tabPlayer.Controls.Add(this.lblFrameSkipCount);
       this.tabPlayer.Controls.Add(this.nudFrameSkipCount);
       this.tabPlayer.Location = new System.Drawing.Point(4, 22);
@@ -340,30 +339,21 @@ namespace Kinovea.Root
       this.chkLockSpeeds.UseVisualStyleBackColor = true;
       this.chkLockSpeeds.CheckedChanged += new System.EventHandler(this.ChkLockSpeedsCheckedChanged);
       // 
-      // rdoFrameSkipAuto
+      // cbFrameSkipMode
       // 
-      this.rdoFrameSkipAuto.Location = new System.Drawing.Point(18, 232);
-      this.rdoFrameSkipAuto.Name = "rdoFrameSkipAuto";
-      this.rdoFrameSkipAuto.Size = new System.Drawing.Size(145, 20);
-      this.rdoFrameSkipAuto.TabIndex = 70;
-      this.rdoFrameSkipAuto.Text = "Automatic";
-      this.rdoFrameSkipAuto.UseVisualStyleBackColor = true;
-      this.rdoFrameSkipAuto.CheckedChanged += new System.EventHandler(this.rdoFrameSkip_CheckedChanged);
+      this.cbFrameSkipMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbFrameSkipMode.FormattingEnabled = true;
+      this.cbFrameSkipMode.Location = new System.Drawing.Point(18, 232);
+      this.cbFrameSkipMode.Name = "cbFrameSkipMode";
+      this.cbFrameSkipMode.Size = new System.Drawing.Size(170, 21);
+      this.cbFrameSkipMode.TabIndex = 70;
+      this.cbFrameSkipMode.SelectedIndexChanged += new System.EventHandler(this.cbFrameSkipMode_SelectedIndexChanged);
       // 
-      // rdoFrameSkipManual
-      // 
-      this.rdoFrameSkipManual.Location = new System.Drawing.Point(168, 232);
-      this.rdoFrameSkipManual.Name = "rdoFrameSkipManual";
-      this.rdoFrameSkipManual.Size = new System.Drawing.Size(90, 20);
-      this.rdoFrameSkipManual.TabIndex = 71;
-      this.rdoFrameSkipManual.Text = "Manual";
-      this.rdoFrameSkipManual.UseVisualStyleBackColor = true;
-      this.rdoFrameSkipManual.CheckedChanged += new System.EventHandler(this.rdoFrameSkip_CheckedChanged);
       // 
       // lblFrameSkipCount
       // 
       this.lblFrameSkipCount.AutoSize = true;
-      this.lblFrameSkipCount.Location = new System.Drawing.Point(262, 235);
+      this.lblFrameSkipCount.Location = new System.Drawing.Point(196, 236);
       this.lblFrameSkipCount.Name = "lblFrameSkipCount";
       this.lblFrameSkipCount.Size = new System.Drawing.Size(70, 13);
       this.lblFrameSkipCount.TabIndex = 72;
@@ -371,7 +361,7 @@ namespace Kinovea.Root
       // 
       // nudFrameSkipCount
       // 
-      this.nudFrameSkipCount.Location = new System.Drawing.Point(336, 231);
+      this.nudFrameSkipCount.Location = new System.Drawing.Point(270, 232);
       this.nudFrameSkipCount.Maximum = new decimal(new int[] {
             10,
             0,
@@ -714,8 +704,8 @@ namespace Kinovea.Root
         private System.Windows.Forms.CheckBox chkHardwareDecoding;
         private System.Windows.Forms.CheckBox chkHardwareScaling;
         private System.Windows.Forms.CheckBox chkPreviewScaling;
-        private System.Windows.Forms.RadioButton rdoFrameSkipAuto;
-        private System.Windows.Forms.RadioButton rdoFrameSkipManual;
+
+        private System.Windows.Forms.ComboBox cbFrameSkipMode;
         private System.Windows.Forms.Label lblFrameSkipCount;
         private System.Windows.Forms.NumericUpDown nudFrameSkipCount;
     }

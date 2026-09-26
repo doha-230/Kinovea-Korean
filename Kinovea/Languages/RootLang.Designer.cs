@@ -2188,5 +2188,14 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Motion adaptive.
+        /// </summary>
+        internal static string dlgPreferences_Player_FrameSkipMotion {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_FrameSkipMotion", resourceCulture);
+            }
+        }
+
     }
 }

@@ -834,4 +834,7 @@
   <data name="mnuTimecodeTimestampsDebug" xml:space="preserve">
     <value>Timestamps (debug)</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipMotion" xml:space="preserve">
+    <value>Motion adaptive</value>
+  </data>
 </root>

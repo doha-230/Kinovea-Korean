@@ -35,5 +35,12 @@ namespace Kinovea.Services
         /// (<see cref="PlayerPreferences.FrameSkipCount"/>, 0 to MaxFrameSkip).
         /// </summary>
         Manual,
+
+        /// <summary>
+        /// The player skips frames according to the amount of movement in the
+        /// scene: when nothing moves it skips up to MaxFrameSkip frames, when
+        /// movement is fast it skips none. Opt-in (the default is Auto).
+        /// </summary>
+        MotionAdaptive,
     }
 }

@@ -781,4 +781,7 @@
   <data name="mnuTimecodeTimestampsDebug" xml:space="preserve">
     <value>타임스탬프 (디버그)</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipMotion" xml:space="preserve">
+    <value>모션 적응</value>
+  </data>
 </root>
