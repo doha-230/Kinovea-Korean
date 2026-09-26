@@ -714,4 +714,52 @@
   <data name="prefPanelGeneral_EnableAllLanguages" xml:space="preserve">
     <value>Show all languages</value>
   </data>
+  <data name="dlgPreferences_Player_ShowCacheInTimeline" xml:space="preserve">
+    <value>Show cache memory in the timeline</value>
+  </data>
+  <data name="dlgPreferences_Player_tabPlayer" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="dlgPreferences_Player_EnableHardwareDecoding" xml:space="preserve">
+    <value>Enable hardware decoding</value>
+  </data>
+  <data name="dlgPreferences_Player_EnableHardwareScaling" xml:space="preserve">
+    <value>Enable hardware scaling</value>
+  </data>
+  <data name="dlgPreferences_Player_AllowFrameSkipping" xml:space="preserve">
+    <value>Allow skipping frames if there is not enough time</value>
+  </data>
+  <data name="dlgPreferences_Player_SyncByMotion" xml:space="preserve">
+    <value>Use motion synchronization mode</value>
+  </data>
+  <data name="dlgPreferences_Player_ShowFramerate" xml:space="preserve">
+    <value>Show framerate in speed label</value>
+  </data>
+  <data name="dlgPreferences_Player_LoopPlayback" xml:space="preserve">
+    <value>Loop playback</value>
+  </data>
+  <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
+    <value>Jumping</value>
+  </data>
+  <data name="dlgPreferences_Player_grpJumping" xml:space="preserve">
+    <value>Timeline jumping</value>
+  </data>
+  <data name="dlgPreferences_Player_SmallJumpSize" xml:space="preserve">
+    <value>Small jump size:</value>
+  </data>
+  <data name="dlgPreferences_Player_LargeJumpSize" xml:space="preserve">
+    <value>Large jump size:</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitSeconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitMilliseconds" xml:space="preserve">
+    <value>Milliseconds</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitFrames" xml:space="preserve">
+    <value>Frames</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitPercent" xml:space="preserve">
+    <value>Percent</value>
+  </data>
 </root>

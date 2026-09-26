@@ -1850,5 +1850,148 @@ namespace Kinovea.Root.Languages {
                 return ResourceManager.GetString("TimeCodeFormat_TenThousandthOfHours", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Show cache memory in the timeline.
+        /// </summary>
+        internal static string dlgPreferences_Player_ShowCacheInTimeline {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_ShowCacheInTimeline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player.
+        /// </summary>
+        internal static string dlgPreferences_Player_tabPlayer {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_tabPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable hardware decoding.
+        /// </summary>
+        internal static string dlgPreferences_Player_EnableHardwareDecoding {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_EnableHardwareDecoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable hardware scaling.
+        /// </summary>
+        internal static string dlgPreferences_Player_EnableHardwareScaling {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_EnableHardwareScaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow skipping frames if there is not enough time.
+        /// </summary>
+        internal static string dlgPreferences_Player_AllowFrameSkipping {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_AllowFrameSkipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use motion synchronization mode.
+        /// </summary>
+        internal static string dlgPreferences_Player_SyncByMotion {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_SyncByMotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show framerate in speed label.
+        /// </summary>
+        internal static string dlgPreferences_Player_ShowFramerate {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_ShowFramerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loop playback.
+        /// </summary>
+        internal static string dlgPreferences_Player_LoopPlayback {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_LoopPlayback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jumping.
+        /// </summary>
+        internal static string dlgPreferences_Player_tabJumping {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_tabJumping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeline jumping.
+        /// </summary>
+        internal static string dlgPreferences_Player_grpJumping {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_grpJumping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small jump size:.
+        /// </summary>
+        internal static string dlgPreferences_Player_SmallJumpSize {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_SmallJumpSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large jump size:.
+        /// </summary>
+        internal static string dlgPreferences_Player_LargeJumpSize {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_LargeJumpSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seconds.
+        /// </summary>
+        internal static string dlgPreferences_Player_JumpUnitSeconds {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_JumpUnitSeconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Milliseconds.
+        /// </summary>
+        internal static string dlgPreferences_Player_JumpUnitMilliseconds {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_JumpUnitMilliseconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frames.
+        /// </summary>
+        internal static string dlgPreferences_Player_JumpUnitFrames {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_JumpUnitFrames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percent.
+        /// </summary>
+        internal static string dlgPreferences_Player_JumpUnitPercent {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_JumpUnitPercent", resourceCulture);
+            }
+        }
     }
 }

@@ -187,22 +187,22 @@ namespace Kinovea.Root
             trkMemoryBuffer.Value = memoryBuffer;
             UpdateMemoryLabel();
 
-            cbCacheInTimeline.Text = "Show cache memory in the timeline";
+            cbCacheInTimeline.Text = RootLang.dlgPreferences_Player_ShowCacheInTimeline;
             cbCacheInTimeline.Checked = showCacheInTimeline;
         }
 
         private void InitPagePlayer()
         {
-            tabPlayer.Text = "Player";
+            tabPlayer.Text = RootLang.dlgPreferences_Player_tabPlayer;
 
-            chkHardwareDecoding.Text = "Enable hardware decoding";
-            chkHardwareScaling.Text = "Enable hardware scaling";
-            chkEnableFrameSkipping.Text = "Allow skipping frames if there is not enough time";
+            chkHardwareDecoding.Text = RootLang.dlgPreferences_Player_EnableHardwareDecoding;
+            chkHardwareScaling.Text = RootLang.dlgPreferences_Player_EnableHardwareScaling;
+            chkEnableFrameSkipping.Text = RootLang.dlgPreferences_Player_AllowFrameSkipping;
             chkInteractiveTracker.Text = RootLang.dlgPreferences_Player_InteractiveFrameTracker;
             chkLockSpeeds.Text = RootLang.dlgPreferences_Player_SyncLockSpeeds;
-            chkSyncByMotion.Text = "Use motion synchronization mode";
-            chkShowFramerate.Text = "Show framerate in speed label";
-            chkLoopPlayback.Text = "Loop playback";
+            chkSyncByMotion.Text = RootLang.dlgPreferences_Player_SyncByMotion;
+            chkShowFramerate.Text = RootLang.dlgPreferences_Player_ShowFramerate;
+            chkLoopPlayback.Text = RootLang.dlgPreferences_Player_LoopPlayback;
 
             chkHardwareDecoding.Checked = enableHardwareDecoding;
             chkPreviewScaling.Checked = enablePreviewScaling;
@@ -217,29 +217,29 @@ namespace Kinovea.Root
 
         private void InitPageJumping()
         {
-            tabJumping.Text = "Jumping";
-            grpJumping.Text = "Timeline jumping";
+            tabJumping.Text = RootLang.dlgPreferences_Player_tabJumping;
+            grpJumping.Text = RootLang.dlgPreferences_Player_grpJumping;
 
-            lblSmallJump.Text = "Small jump size:";
-            lblLargeJump.Text = "Large jump size:";
+            lblSmallJump.Text = RootLang.dlgPreferences_Player_SmallJumpSize;
+            lblLargeJump.Text = RootLang.dlgPreferences_Player_LargeJumpSize;
    
             nudSmallJump.Value = (decimal)smallJumpSize;
             nudLargeJump.Value = (decimal)largeJumpSize;
             NudHelper.FixNudScroll(nudSmallJump);
             NudHelper.FixNudScroll(nudLargeJump);
 
-            cbSmallJump.Items.Add("Seconds");
-            cbSmallJump.Items.Add("Milliseconds");
-            cbSmallJump.Items.Add("Frames");
-            cbSmallJump.Items.Add("Percent");
+            cbSmallJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitSeconds);
+            cbSmallJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitMilliseconds);
+            cbSmallJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitFrames);
+            cbSmallJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitPercent);
             int currentSmallJumpUnitIndex = (int)smallJumpUnit;
             cbSmallJump.SelectedIndex = currentSmallJumpUnitIndex < cbSmallJump.Items.Count ?
                 currentSmallJumpUnitIndex : 0;
 
-            cbLargeJump.Items.Add("Seconds");
-            cbLargeJump.Items.Add("Milliseconds");
-            cbLargeJump.Items.Add("Frames");
-            cbLargeJump.Items.Add("Percent");
+            cbLargeJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitSeconds);
+            cbLargeJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitMilliseconds);
+            cbLargeJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitFrames);
+            cbLargeJump.Items.Add(RootLang.dlgPreferences_Player_JumpUnitPercent);
             int currentLargeJumpUnitIndex = (int)largeJumpUnit;
             cbLargeJump.SelectedIndex = currentLargeJumpUnitIndex < cbLargeJump.Items.Count ?
                 currentLargeJumpUnitIndex : 0;

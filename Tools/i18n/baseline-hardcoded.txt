@@ -1,26 +1,6 @@
 Kinovea/Kernel.cs:579: [h:][mm:]ss.xx[x]
 Kinovea/Kernel.cs:588: Timestamps (debug)
 Kinovea/Kernel.cs:610: www.kinovea.org
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:190: Show cache memory in the timeline
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:196: Player
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:198: Enable hardware decoding
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:199: Enable hardware scaling
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:200: Allow skipping frames if there is not enough time
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:203: Use motion synchronization mode
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:204: Show framerate in speed label
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:205: Loop playback
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:220: Jumping
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:221: Timeline jumping
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:223: Small jump size:
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:224: Large jump size:
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:231: Seconds
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:232: Milliseconds
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:233: Frames
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:234: Percent
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:239: Seconds
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:240: Milliseconds
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:241: Frames
-Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:242: Percent
 Kinovea/UserInterface/PreferencePanels/PreferencePanelGeneral.cs:114: Use drive-specific icons
 Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:183: [h:][mm:]ss.xx[x]
 Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:189: [h:][mm:]ss.xx[x] +
@@ -59,7 +39,7 @@ Kinovea.ScreenManager/ScreenManager.cs:1999: Microsoft Word…
 Kinovea.ScreenManager/ScreenManager.cs:2000: Markdown…
 Kinovea.ScreenManager/VideoFilters/CameraMotion/FormConfigureCameraMotion.cs:47: ORB
 Kinovea.ScreenManager/VideoFilters/CameraMotion/FormConfigureCameraMotion.cs:48: SIFT
-Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs:3605: Copy time
+Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs:3703: Copy time
 Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs:66: Selected cutoff frequencies:
 Kinovea.ScreenManager/Measurement/Plotting/FormMultiTrajectoryAnalysis.cs:199: Cutoff frequencies (Hz)
 Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:33: Preset:

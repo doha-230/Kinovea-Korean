@@ -661,4 +661,52 @@
   <data name="prefPanelGeneral_EnableAllLanguages" xml:space="preserve">
     <value>모든 언어들을 보여주시겠습니다</value>
   </data>
+  <data name="dlgPreferences_Player_ShowCacheInTimeline" xml:space="preserve">
+    <value>타임라인에 캐시 메모리 표시</value>
+  </data>
+  <data name="dlgPreferences_Player_tabPlayer" xml:space="preserve">
+    <value>재생</value>
+  </data>
+  <data name="dlgPreferences_Player_EnableHardwareDecoding" xml:space="preserve">
+    <value>하드웨어 디코딩 사용</value>
+  </data>
+  <data name="dlgPreferences_Player_EnableHardwareScaling" xml:space="preserve">
+    <value>하드웨어 스케일링 사용</value>
+  </data>
+  <data name="dlgPreferences_Player_AllowFrameSkipping" xml:space="preserve">
+    <value>시간이 부족하면 프레임 건너뛰기 허용</value>
+  </data>
+  <data name="dlgPreferences_Player_SyncByMotion" xml:space="preserve">
+    <value>모션 동기화 모드 사용</value>
+  </data>
+  <data name="dlgPreferences_Player_ShowFramerate" xml:space="preserve">
+    <value>속도 라벨에 프레임 레이트 표시</value>
+  </data>
+  <data name="dlgPreferences_Player_LoopPlayback" xml:space="preserve">
+    <value>반복 재생</value>
+  </data>
+  <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
+    <value>점프</value>
+  </data>
+  <data name="dlgPreferences_Player_grpJumping" xml:space="preserve">
+    <value>타임라인 점프</value>
+  </data>
+  <data name="dlgPreferences_Player_SmallJumpSize" xml:space="preserve">
+    <value>작은 점프 크기:</value>
+  </data>
+  <data name="dlgPreferences_Player_LargeJumpSize" xml:space="preserve">
+    <value>큰 점프 크기:</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitSeconds" xml:space="preserve">
+    <value>초</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitMilliseconds" xml:space="preserve">
+    <value>밀리초</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitFrames" xml:space="preserve">
+    <value>프레임</value>
+  </data>
+  <data name="dlgPreferences_Player_JumpUnitPercent" xml:space="preserve">
+    <value>퍼센트</value>
+  </data>
 </root>
