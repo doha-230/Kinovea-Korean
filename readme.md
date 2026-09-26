@@ -1,20 +1,48 @@
-﻿# Kinovea — 한국어(비아스키) 환경 대응 포크
+﻿# Kinovea-Korean — 스포츠 영상 분석 프로그램 (한국어 Windows 포크)
 
-> 원본 [Kinovea/Kinovea](https://github.com/Kinovea/Kinovea) 를 **한국어 Windows(CP949)** 환경에서
-> 정상적으로 **빌드·사용**할 수 있게 만든 포크입니다.
-> 한글 경로/파일명 영상이 정상 동작하고, **주요 UI가 한국어로 번역**되어 있으며,
-> 스포츠 분석 실사용에 필요한 **프레임 스킵 제어**(사용자 on/off · 모션 적응),
-> **트래킹 강건성** 개선, **오디오 음량 추출·내보내기**가 포함되어 있습니다.
+[![build](https://github.com/doha-230/Kinovea-Korean/actions/workflows/build.yml/badge.svg)](https://github.com/doha-230/Kinovea-Korean/actions/workflows/build.yml)
+[![release](https://img.shields.io/github/v/release/doha-230/Kinovea-Korean?sort=semver)](https://github.com/doha-230/Kinovea-Korean/releases/latest)
+[![license](https://img.shields.io/badge/license-GPLv2-blue)](license.md)
+
+> **한 줄 요약** — [Kinovea](https://github.com/Kinovea/Kinovea)(스포츠 동작 분석용 영상 도구)를
+> **한국어 Windows(CP949)** 에서 빌드·실행되도록 고친 포크입니다.
+> 한글 UI를 손봤고, **프레임 스킵 · 모션 적응 재생 · 트래킹 강건성 · 오디오 음량 추출**을 더했으며,
+> **바로 받아 쓰는 Windows 빌드**(설치 exe / 포터블 zip)를 제공합니다.
+
+## 이 저장소는 무엇인가
+
+| 질문 | 답 |
+|:--|:--|
+| **무엇** | 스포츠 동작 분석 도구 [Kinovea](https://www.kinovea.org) 의 **한국어 대응 포크** |
+| **왜** | 한국어 Windows(**CP949**)에서 업스트림 소스가 **빌드조차 되지 않았고**, 한글 UI 품질이 낮으며, 현장 분석에 필요한 재생·추적 기능이 부족했기 때문 |
+| **누구를 위해** | 한국어 환경에서 코칭 · 연구 · 현장 분석에 Kinovea를 쓰는 사용자 |
+| **무엇이 다른가** | ① CP949 빌드 실패 해결 ② 한글 UI(누락 0 · 기계번역 224건 정리) ③ **프레임 스킵**(on/off · 모드) ④ **모션 적응 재생** ⑤ 트래킹 재탐색 + 품질 표시 ⑥ **오디오 음량 추출·내보내기** ⑦ Excel 친화 인코딩 ⑧ 하드웨어 인코딩(옵션) |
+| **어떻게 받나** | [Releases](https://github.com/doha-230/Kinovea-Korean/releases/latest) 에서 설치 `.exe` 또는 포터블 `.zip` |
+| **믿을 근거** | 모든 변경을 CI가 검증 — Windows 빌드 + **정적 검사 6종** + **단위 테스트 17종** |
+| **원본과 관계** | 업스트림 `master` 를 **merge로 동기화**(rebase 금지), 포크 고유 변경만 유지 |
+
+## 저장소 구조 (빠른 지도)
+
+| 경로 | 내용 |
+|:--|:--|
+| `Kinovea.Services/Types/`, `Preferences/` | 설정·타입 (프레임 스킵, CSV 인코딩, 하드웨어 인코더 …) |
+| `Kinovea.ScreenManager/PlayerScreen/` | 재생 루프 · 모션 적응 스킵 · 트래킹 품질 토스트 |
+| `Kinovea.ScreenManager/Exporters/` | 내보내기 (스프레드시트 · 오디오 음량 · 비디오 인코딩) |
+| `*/Languages/` | 번역 리소스 (RootLang · ScreenManagerLang · CameraLang …) |
+| `Tools/lint/`, `Tools/i18n/` | 정적 검사기 · 번역 품질 검사기 (CI 게이트) |
+| `Kinovea.Tests/` | 단위 테스트 (CI에서 빌드·실행) |
+| `docs/index.html` | **사용자 매뉴얼** (HTML 단일 파일) |
+| `MAINTENANCE.md` | 유지보수 규칙 · 업스트림 동기화 · CI 도구 |
 
 업스트림 최신 `master` 와 동기화된 상태를 유지하며, 모든 변경은 **Windows x64 Release 빌드와
-자동 검사(정적 검사 5종 + 단위 테스트 15종)** 로 검증됩니다.
+자동 검사(정적 검사 6종 + 단위 테스트 17종)** 로 검증됩니다.
 
 | 항목 | 상태 |
 |:--|:--|
 | 플랫폼 | **Windows 10/11 x64 전용** |
 | 배포 산출물 | ① 설치용 단일 `.exe` ② 포터블용 단일 `.zip` |
 | 릴리스 | `v*` 태그 푸시 → 자동 빌드 + GitHub Release 발행 |
-| 검증 | CI 전 단계 성공 (빌드 · 정적 검사 5종 · 단위 테스트 15/15) |
+| 검증 | CI 전 단계 성공 (빌드 · 정적 검사 6종 · 단위 테스트 17/17) |
 
 ### 한눈에 보기 — 이 포크가 추가/해결한 것
 
@@ -26,13 +54,13 @@
 | 🔊 **오디오** | 오디오 음량을 시간축으로 추출 → CSV/Excel/TXT/JSON | 2.5 |
 | 🇰🇷 **번역** | 누락 0 + **기계번역 표기 224건 정리**, 품질 검사 CI 게이트 | 1.3 · 1.4 |
 | 📊 **내보내기** | 텍스트 인코딩 선택(Excel 한글 깨짐 해결) | 2.4 |
-| ✅ **품질** | 정적 검사 5종 CI 게이트 + 단위 테스트 CI 실행 | 5 |
+| ✅ **품질** | 정적 검사 6종 CI 게이트 + 단위 테스트 17종 CI 실행 | 5 |
 | 📦 **배포** | Windows 전용, 산출물 2개, 태그 자동 릴리스 | 4 |
 
 **바로 쓰기**
 ```bash
-git clone https://github.com/doha-230/Kinovea_kr.git
-cd Kinovea_kr
+git clone https://github.com/doha-230/Kinovea-Korean.git
+cd Kinovea-Korean
 MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64 /m
 ```
 릴리스 페이지에서 **설치 파일(.exe)** 또는 **포터블(.zip)** 을 바로 받을 수도 있습니다.
@@ -101,7 +129,7 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 - 업스트림의 테스트 프로젝트(`Kinovea.Tests`)는 **솔루션 밖**에 있어 아무것도 검증되지 않았고,
   일부 헬퍼는 오래된 API를 참조해 컴파일조차 되지 않았습니다.
 - **해결**: CI에서 **테스트 프로젝트를 빌드하고 실행**하도록 연결하고 단위 테스트를 추가,
-  정적 검사 5종을 게이트로 추가했습니다.
+  정적 검사 6종을 게이트로 추가했습니다.
 
 ### 1.8 환경설정(export) 저장 버그 2건
 
@@ -226,7 +254,7 @@ git push origin v2026.2.0
 이후 **본 빌드 → 테스트 프로젝트 빌드 → 단위 테스트 실행 → 인스톨러/포터블 생성**이 진행됩니다.
 
 단위 테스트는 **실패 개수를 종료 코드로 반환**하므로 CI가 실제로 실패합니다.
-현재 **15종**이 실행됩니다 — 모션 적응 지표 4종 + 오디오 음량 파서·집계 11종.
+현재 **17종**이 실행됩니다 — 모션 적응·램프·민감도 6종 + 오디오 음량 파서·집계 11종.
 
 ---
 
@@ -244,8 +272,8 @@ git push origin v2026.2.0
 
 ## 7. 검증 결과
 
-- CI(`build.yml`, Windows MSBuild x64 Release): **빌드 · 정적 검사 5종 · 단위 테스트 전 단계 성공**(최종 run #19)
-- 단위 테스트 **15/15 통과** — 모션 적응 지표 4개(무추정/정지/움직임/리셋) +
+- CI(`build.yml`, Windows MSBuild x64 Release): **빌드 · 정적 검사 6종 · 단위 테스트 전 단계 성공**(최종 run #26)
+- 단위 테스트 **17/17 통과** — 모션 적응 지표 4개(무추정/정지/움직임/리셋) +
   **오디오 음량 11개**(프레임 파싱, Overall·채널 선택, 무음 처리, 선형 영역 RMS 평균,
   창 중심 계산, 피크 최대, 빈 입력, ffmpeg 인수 생성)
 - 산출물 생성 확인: `Kinovea-Installer-2026.1.0` (86.2MB), `Kinovea-Portable-2026.1.0` (131.7MB)
@@ -262,16 +290,16 @@ git push origin v2026.2.0
 
 | 주제 | 내용 | 커밋 |
 |:--|:--|:--|
-| 🔊 **오디오 음량 추출·내보내기** (신규) | ffmpeg `astats` 추출 · 파서/집계 · CSV·XLSX·TXT·JSON · 옵션 UI · 단위 테스트 11종 | `61a8adad` `c03d0af4` |
-| 🎬 **프레임 스킵** | 설정 모델·커맨드/단축키, 재생 루프 연동, 모드 UI + 인포바 표시, **모션 적응** 모드 | `cefde85f` `40b57361` `de5c1f43` `58309a7e` |
+| 🔊 **오디오 음량 추출·내보내기** | ffmpeg `astats` 추출 · 파서/집계 · CSV·XLSX·TXT·JSON · 옵션 UI · 단위 테스트 11종 | `61a8adad` `c03d0af4` |
+| 🎬 **프레임 스킵** | 설정 모델·커맨드/단축키 · 재생 루프 연동 · 모드 UI + 인포바 표시 · **모션 적응(민감도·램프)** · 트래킹 중 경고 | `cefde85f` `40b57361` `de5c1f43` `58309a7e` `0b25fc24` |
 | 🇰🇷 **한국어 번역** | 플레이어·캡처·내보내기 환경설정, 비디오 인코딩 설정, 메뉴/상태 표시 이관(91→5건), 커버리지 100% | `d61cbfa0` `fb912763` `e092df9e` `d1feb65e` |
-| 🎯 **트래킹** | 실패 시 검색창 1.5×·2× 확대 재탐색 | `73d573b0` |
-| 🇰🇷 **번역 품질** | 기계번역 표기 **224건** 재작성(환경설정·캡처·프레임·클립보드…), 품질 검사기 + CI 게이트 | `(번역 품질 커밋)` |
-| 📊 **내보내기 인코딩** | `UTF-8` / `UTF-8 (BOM, Excel)` / `시스템 기본` | `bae8d57b` |
+| 🎯 **트래킹** | 실패 시 검색창 1.5×·2× 확대 재탐색 · **추적 품질 요약 표시** | `73d573b0` `0b25fc24` |
+| 🇰🇷 **번역 품질** | 기계번역 표기 **224건** 재작성(환경설정·캡처·프레임·클립보드…), 품질 검사기 + CI 게이트 | `0a487894` `653c40a7` |
+| 📊 **내보내기** | 텍스트 인코딩 `UTF-8` / `UTF-8 (BOM, Excel)` / `시스템 기본` · **H.264/H.265 하드웨어 인코딩(옵션)** | `bae8d57b` `557ab8f4` `c6a08da8` |
 | 🌐 **로케일** | TRC 가져오기 `InvariantCulture` 파싱 | `26101e95` |
 | 🐞 **버그 수정** | `ExportSpace` 폴스루(설정 미복원·도달 불가 코드), `ExportImagesInDocuments` 오기록 | `c03d0af4` |
-| ✅ **품질 게이트** | 정적 검사 도구 5종 + 기준선, CI 게이트 연결, 테스트 프로젝트 빌드·실행 | `995e66c2` `9809082a` `69d07529` `d51af435` `d8598c18` `ecb3dcaa` |
-| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) | `97b491f1` |
+| ✅ **품질 게이트** | 정적 검사 도구 6종 + 기준선, CI 게이트 연결, 테스트 프로젝트 빌드·실행 | `995e66c2` `9809082a` `69d07529` `d51af435` `d8598c18` `ecb3dcaa` |
+| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) · **현재 `v2026.2.0` 발행** | `97b491f1` |
 | 📄 **문서** | README 전면 정리, 유지보수 문서(불변식·도구·테스트 규칙), **사용자 매뉴얼(HTML)** | `6956c7de` `2fc9ec4b` `41ac3631` |
 
 ### 후속 검증 항목 (실기 필요)
