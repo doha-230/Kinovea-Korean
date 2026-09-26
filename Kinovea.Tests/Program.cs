@@ -12,15 +12,13 @@ namespace Kinovea.Tests
     {
         public static void Main(string[] args)
         {
-            //TestKVAFuzzer();
-            //TestKSVFuzzer();
-            //TestHistoryStack();
-            //TestLineClipping();
+            Console.WriteLine("Kinovea smoke tests");
 
-            TestTime();
+            int failures = 0;
+            failures += Kinovea.Tests.Player.MotionEstimatorTest.Run();
 
-            // Performance
-            //ImageCopy.Test();
+            Console.WriteLine(failures == 0 ? "ALL TESTS PASSED" : string.Format("{0} TEST(S) FAILED", failures));
+            Environment.ExitCode = failures;
         }
         private static void TestKVAFuzzer()
         {

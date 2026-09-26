@@ -117,6 +117,7 @@
     <Compile Include="Kinematics\VideoSynthesizer.cs" />
     <Compile Include="RandomExtension.cs" />
     <Compile Include="Time\TimecodeFormatTest.cs" />
+    <Compile Include="Player\MotionEstimatorTest.cs" />
     <Compile Include="Time\TimeTester.cs" />
   </ItemGroup>
   <ItemGroup>

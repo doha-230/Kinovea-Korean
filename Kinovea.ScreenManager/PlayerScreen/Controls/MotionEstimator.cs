@@ -52,6 +52,7 @@ namespace Kinovea.ScreenManager
         private int sampleWidth;
         private long previousTimestamp;
         private bool hasPrevious;
+        private bool hasEstimate;
         private double smoothed;
 
         /// <summary>Smoothed motion, in luma units per millisecond.</summary>
@@ -60,12 +61,22 @@ namespace Kinovea.ScreenManager
             get { return smoothed; }
         }
 
+        /// <summary>
+        /// Whether a motion measurement is available yet. Until then the policy
+        /// must not skip (the first frames are played frame by frame).
+        /// </summary>
+        public bool HasEstimate
+        {
+            get { return hasEstimate; }
+        }
+
         /// <summary>Forget the history. Call when playback (re)starts.</summary>
         public void Reset()
         {
             previous = null;
             previousTimestamp = 0;
             hasPrevious = false;
+            hasEstimate = false;
             smoothed = 0;
         }
 
@@ -95,7 +106,8 @@ namespace Kinovea.ScreenManager
                 if (delta > 0)
                 {
                     double motion = meanDifference / delta;
-                    smoothed = smoothed <= 0 ? motion : (1 - Smoothing) * smoothed + Smoothing * motion;
+                    smoothed = hasEstimate ? (1 - Smoothing) * smoothed + Smoothing * motion : motion;
+                    hasEstimate = true;
                 }
             }
 
@@ -112,7 +124,7 @@ namespace Kinovea.ScreenManager
         /// </summary>
         public int GetSkipCount(int maxSkip)
         {
-            if (maxSkip <= 0)
+            if (maxSkip <= 0 || !hasEstimate)
                 return 0;
 
             double normalized = smoothed / ReferenceMotionPerMs;

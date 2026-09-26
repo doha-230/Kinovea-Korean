@@ -75,6 +75,12 @@ jobs:
     - name: Build Solution
       run: msbuild Kinovea.VS2019.sln /p:Platform="x64" /p:Configuration=Release /p:AllowedReferenceRelatedFileExtensions=none
 
+    - name: Build test project
+      run: msbuild Kinovea.Tests\Kinovea.Tests.csproj /p:Platform=x64 /p:Configuration=Release
+
+    - name: Run smoke tests
+      run: .\Kinovea.Tests\bin\x64\Release\Kinovea.Tests.exe
+
     - name: Prepare Portable build
       shell: pwsh
       run: |
