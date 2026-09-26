@@ -135,10 +135,10 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 오디오 기능 구현 중 발견해 함께 수정했습니다.
 
-| 버그 | 내용 |
-|:--|:--|
-| `ExportSpace` 미복원 | `ReadXML` 에서 `case "ExportSpace":` 가 `CSVEncoding` 으로 **폴스루**되어 내보내기 좌표계 설정이 **읽히지 않았고**, 그 대입문은 도달 불가 코드였습니다 |
-| `ExportImagesInDocuments` 오기록 | 저장 시 export space 값(`WorldSpace` 등)을 **불리언 자리에 기록**하고 있었습니다 |
+| 버그 | 귀속 | 내용 |
+|:--|:--|:--|
+| `ExportSpace` 미복원 | **이 포크의 회귀**(수정 완료) | `CSVEncoding` 기능을 넣는 과정에서 `case "ExportSpace":` 가 `CSVEncoding` 으로 **폴스루**되어 좌표계 설정이 읽히지 않았고 대입문이 도달 불가가 되었습니다. 업스트림에는 없는 문제였습니다 |
+| `ExportImagesInDocuments` 오기록 | **업스트림 버그**(수정 완료) | 저장 시 export space 값(`WorldSpace` 등)을 **불리언 자리에 기록** → 다시 읽으면 `false` 라서 이 설정은 켤 수 없었습니다. 업스트림 `master` 에도 동일하게 존재하며, **업스트림 PR 후보**입니다 |
 
 ---
 

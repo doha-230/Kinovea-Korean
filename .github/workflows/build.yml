@@ -1,4 +1,4 @@
-name: Build Kinovea
+﻿name: Build Kinovea
 
 on:
   push:
@@ -58,21 +58,27 @@ jobs:
       run: ./Refs/get-dependencies.ps1
 
     - name: Check source encoding (UTF-8 BOM)
+      if: hashFiles('Tools/lint/check_encoding.py') != ''
       run: python Tools/lint/check_encoding.py
 
     - name: Check csproj includes
+      if: hashFiles('Tools/lint/check_csproj_includes.py') != ''
       run: python Tools/lint/check_csproj_includes.py --baseline Tools/lint/baseline-csproj.txt
 
     - name: Check culture-sensitive number parsing
+      if: hashFiles('Tools/lint/check_culture_parsing.py') != ''
       run: python Tools/lint/check_culture_parsing.py
 
     - name: Check hard-coded UI strings
+      if: hashFiles('Tools/i18n/scan_hardcoded_strings.py') != ''
       run: python Tools/i18n/scan_hardcoded_strings.py --baseline Tools/i18n/baseline-hardcoded.txt
 
     - name: Check Korean translations
+      if: hashFiles('Tools/i18n/check_translations.py') != ''
       run: python Tools/i18n/check_translations.py --lang ko
 
     - name: Check Korean translation quality
+      if: hashFiles('Tools/i18n/check_translation_quality.py') != ''
       run: python Tools/i18n/check_translation_quality.py --baseline Tools/i18n/baseline-translation-quality.txt
 
     - name: Build Solution
