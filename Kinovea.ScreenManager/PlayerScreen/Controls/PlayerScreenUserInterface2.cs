@@ -1618,6 +1618,20 @@ namespace Kinovea.ScreenManager
                     ChangeSpeed(true, false);
                     break;
 
+                // Frame skipping
+                case PlayerScreenCommands.ToggleFrameSkipEnabled:
+                    ToggleFrameSkipEnabled();
+                    break;
+                case PlayerScreenCommands.IncreaseFrameSkip:
+                    ChangeFrameSkipCount(1);
+                    break;
+                case PlayerScreenCommands.DecreaseFrameSkip:
+                    ChangeFrameSkipCount(-1);
+                    break;
+                case PlayerScreenCommands.ToggleFrameSkipMode:
+                    ToggleFrameSkipMode();
+                    break;
+
                 // Frame by frame navigation
                 case PlayerScreenCommands.GotoPreviousImage:
                     buttonGotoPrevious_Click(null, EventArgs.Empty);
@@ -2592,6 +2606,62 @@ namespace Kinovea.ScreenManager
             double sldrValue = timeMapper.ChangeSpeed(sldrSpeed.Value, large, up);
             sldrSpeed.Force(sldrValue);
         }
+
+        /// <summary>
+        /// Master on/off switch for frame skipping.
+        /// Takes effect on the next play loop iteration, no restart needed.
+        /// </summary>
+        private void ToggleFrameSkipEnabled()
+        {
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            prefs.EnableFrameSkipping = !prefs.EnableFrameSkipping;
+            RefreshFrameSkippingState();
+        }
+
+        /// <summary>
+        /// Adjust the manual frame skip count. Adjusting it also switches to Manual
+        /// mode so the effect is immediately visible. The count is clamped to
+        /// [0, MaxFrameSkip] by the preference setter itself.
+        /// </summary>
+        private void ChangeFrameSkipCount(int delta)
+        {
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            prefs.EnableFrameSkipping = true;
+            prefs.FrameSkipMode = FrameSkipMode.Manual;
+            prefs.FrameSkipCount = prefs.FrameSkipCount + delta;
+            RefreshFrameSkippingState();
+        }
+
+        /// <summary>
+        /// Switch between automatic and manual frame skipping.
+        /// </summary>
+        private void ToggleFrameSkipMode()
+        {
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            prefs.FrameSkipMode = prefs.FrameSkipMode == FrameSkipMode.Auto ?
+                FrameSkipMode.Manual : FrameSkipMode.Auto;
+            RefreshFrameSkippingState();
+        }
+
+        /// <summary>
+        /// Push the current frame skipping state to the decoder and repaint,
+        /// so that changing the settings applies without restarting playback.
+        /// </summary>
+        private void RefreshFrameSkippingState()
+        {
+            if (m_FrameServer != null && m_FrameServer.Loaded)
+            {
+                bool allowDecoderSkipping =
+                    PreferencesManager.PlayerPreferences.EnableFrameSkipping &&
+                    PreferencesManager.PlayerPreferences.FrameSkipMode == FrameSkipMode.Auto &&
+                    !m_FrameServer.Metadata.AnyTracking;
+
+                m_FrameServer.VideoReader.UpdateAllowFrameSkipping(allowDecoderSkipping);
+            }
+
+            UpdateSpeedLabel();
+            DoInvalidate();
+        }
         private void lblSpeedTuner_DoubleClick(object sender, EventArgs e)
         {
             double sldrValue = timeMapper.GetInputForNominalSpeed();
@@ -2898,8 +2968,11 @@ namespace Kinovea.ScreenManager
                 startTimestamp, playbackFrameInterval, refreshInterval);
 
             // Allow or disallow frame skipping based on preferences and whether we are tracking.
+            // In Manual mode the decoder must not apply its own skipping heuristics: the
+            // play loop advances by an explicit number of frames instead.
             bool allowFrameSkipping = 
                 PreferencesManager.PlayerPreferences.EnableFrameSkipping && 
+                PreferencesManager.PlayerPreferences.FrameSkipMode == FrameSkipMode.Auto &&
                 !m_FrameServer.Metadata.AnyTracking;
 
             m_FrameServer.VideoReader.UpdateAllowFrameSkipping(allowFrameSkipping);
@@ -3050,7 +3123,9 @@ namespace Kinovea.ScreenManager
             long oldTimestamp = currentTimestamp;
 
             bool isTracking = m_FrameServer.Metadata.AnyTracking;
-            bool allowFrameSkipping = PreferencesManager.PlayerPreferences.EnableFrameSkipping;
+            bool allowFrameSkipping = 
+                PreferencesManager.PlayerPreferences.EnableFrameSkipping &&
+                PreferencesManager.PlayerPreferences.FrameSkipMode == FrameSkipMode.Auto;
 
             if (allowFrameSkipping && !isTracking)
             {
@@ -3095,7 +3170,30 @@ namespace Kinovea.ScreenManager
                     return;
                 }
 
-                m_FrameServer.VideoReader.MoveNext();
+                // Manual frame skipping advances the reader by (1 + FrameSkipCount)
+                // contiguous frames. Staying contiguous keeps the cache usable for
+                // tracking, and the decoder load is the same as playing at full speed.
+                int advance = 1;
+                if (PreferencesManager.PlayerPreferences.EnableFrameSkipping &&
+                    PreferencesManager.PlayerPreferences.FrameSkipMode == FrameSkipMode.Manual)
+                {
+                    advance += PreferencesManager.PlayerPreferences.FrameSkipCount;
+                }
+
+                for (int i = 0; i < advance; i++)
+                {
+                    m_FrameServer.VideoReader.MoveNext();
+
+                    if (m_FrameServer.VideoReader.Current == null)
+                        break;
+
+                    currentTimestamp = m_FrameServer.VideoReader.Current.Timestamp;
+
+                    // Don't run past the end of the working zone; the next tick
+                    // will detect the end of file.
+                    if (currentTimestamp > workingZone.End)
+                        break;
+                }
             }
 
             // Bail out on error.
