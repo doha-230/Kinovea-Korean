@@ -252,6 +252,29 @@ namespace Kinovea.Services
             set { enableFrameSkipping = value; Save(); }
         }
 
+        /// <summary>
+        /// How the player picks the number of skipped frames, when frame skipping
+        /// is enabled (see <see cref="EnableFrameSkipping"/>).
+        /// </summary>
+        public FrameSkipMode FrameSkipMode
+        {
+            get { BeforeRead(); return frameSkipMode; }
+            set { frameSkipMode = value; Save(); }
+        }
+
+        /// <summary>
+        /// Number of frames to skip between two rendered frames, used in
+        /// <see cref="FrameSkipMode.Manual"/> mode. Clamped to [0, MaxFrameSkip].
+        /// </summary>
+        public int FrameSkipCount
+        {
+            get { BeforeRead(); return frameSkipCount; }
+            set { frameSkipCount = Math.Max(0, Math.Min(value, MaxFrameSkip)); Save(); }
+        }
+
+        /// <summary>Hard upper bound for the manual frame skip count.</summary>
+        public const int MaxFrameSkip = 10;
+
         public float TimelineJumpSmallSize
         {
             get { BeforeRead(); return timelineJumpSmallSize; }
@@ -363,6 +386,8 @@ namespace Kinovea.Services
         private bool showCacheInTimeline = false;
         private bool sideBySideHorizontal = true;
         private bool enableFrameSkipping = true;
+        private FrameSkipMode frameSkipMode = FrameSkipMode.Auto;
+        private int frameSkipCount = 0;
         private float timelineJumpSmallSize = 0.5f;
         private TimelineJumpUnit timelineJumpSmallUnit = TimelineJumpUnit.Second;
         private float timelineJumpLargeSize = 10f;
@@ -477,6 +502,8 @@ namespace Kinovea.Services
             writer.WriteElementString("PandocPath", pandocPath);
             writer.WriteElementString("SideBySideHorizontal", XmlHelper.WriteBoolean(sideBySideHorizontal));
             writer.WriteElementString("EnableFrameSkipping", XmlHelper.WriteBoolean(enableFrameSkipping));
+            writer.WriteElementString("FrameSkipMode", frameSkipMode.ToString());
+            writer.WriteElementString("FrameSkipCount", frameSkipCount.ToString(CultureInfo.InvariantCulture));
 
             writer.WriteElementString("TimelineJumpSmallSize", XmlHelper.WriteFloat(timelineJumpSmallSize));
             writer.WriteElementString("TimelineJumpSmallUnit", timelineJumpSmallUnit.ToString());
@@ -621,6 +648,12 @@ namespace Kinovea.Services
                         break;
                     case "EnableFrameSkipping":
                         enableFrameSkipping = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "FrameSkipMode":
+                        frameSkipMode = XmlHelper.ParseEnum<FrameSkipMode>(reader.ReadElementContentAsString(), FrameSkipMode.Auto);
+                        break;
+                    case "FrameSkipCount":
+                        frameSkipCount = Math.Max(0, Math.Min(reader.ReadElementContentAsInt(), MaxFrameSkip));
                         break;
                     case "TimelineJumpSmallSize":
                         timelineJumpSmallSize = XmlHelper.ParseFloat(reader.ReadElementContentAsString());

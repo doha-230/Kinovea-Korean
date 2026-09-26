@@ -150,6 +150,13 @@ namespace Kinovea.Services
                 make(PlayerScreenCommands.DecreaseSpeedRoundTo10, Keys.Shift | Keys.Down),
                 make(PlayerScreenCommands.DecreaseSpeedRoundTo25, Keys.Down),
 
+                // Frame skipping. Ctrl+Shift+Up/Down are free in this context
+                // (speed uses Up/Down with Ctrl/Shift/plain combinations).
+                make(PlayerScreenCommands.ToggleFrameSkipEnabled, Keys.Control | Keys.Shift | Keys.S),
+                make(PlayerScreenCommands.IncreaseFrameSkip, Keys.Control | Keys.Shift | Keys.Up),
+                make(PlayerScreenCommands.DecreaseFrameSkip, Keys.Control | Keys.Shift | Keys.Down),
+                make(PlayerScreenCommands.ToggleFrameSkipMode, Keys.None),
+
                 // Frame navigation
                 make(PlayerScreenCommands.GotoPreviousImage, Keys.Left),
                 make(PlayerScreenCommands.GotoNextImage, Keys.Right),

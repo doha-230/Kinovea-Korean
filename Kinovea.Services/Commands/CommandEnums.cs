@@ -68,6 +68,12 @@ namespace Kinovea.Services
         DecreaseSpeedRoundTo10,
         DecreaseSpeedRoundTo25,
 
+        // Frame skipping
+        ToggleFrameSkipEnabled,
+        IncreaseFrameSkip,
+        DecreaseFrameSkip,
+        ToggleFrameSkipMode,
+
         // Frame navigation
         GotoPreviousImage,
         GotoNextImage,
