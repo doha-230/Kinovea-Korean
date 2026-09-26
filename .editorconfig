@@ -1,14 +1,23 @@
 root=true
 
 [*.cs]
+charset = utf-8-bom
 indent_size = 4
 indent_style = space
 
 [*.cpp]
+charset = utf-8-bom
 indent_size = 4
 indent_style = space
 
 [*.h]
+charset = utf-8-bom
 indent_size = 4
 indent_style = space
 
+# Source/resource files must be saved as UTF-8 (with BOM) so the compiler
+# decodes them correctly regardless of the system code page (e.g. CP949).
+# Without this, saving a file under a non-Latin code page could re-introduce
+# the mangled-encoding build failures (CS1010/CS1003) that this fork fixed.
+[*.{vb,csproj,props,targets,resx,settings,config,manifest}]
+charset = utf-8-bom
