@@ -81,6 +81,10 @@ namespace Kinovea.Root
       this.nudLargeJump = new System.Windows.Forms.NumericUpDown();
       this.lblLargeJump = new System.Windows.Forms.Label();
       this.nudSmallJump = new System.Windows.Forms.NumericUpDown();
+      this.rdoFrameSkipAuto = new System.Windows.Forms.RadioButton();
+      this.rdoFrameSkipManual = new System.Windows.Forms.RadioButton();
+      this.lblFrameSkipCount = new System.Windows.Forms.Label();
+      this.nudFrameSkipCount = new System.Windows.Forms.NumericUpDown();
       this.lblSmallJump = new System.Windows.Forms.Label();
       this.tabImage = new System.Windows.Forms.TabPage();
       this.chkEnablePixelFiltering = new System.Windows.Forms.CheckBox();
@@ -99,6 +103,7 @@ namespace Kinovea.Root
       this.grpJumping.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudLargeJump)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSmallJump)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipCount)).BeginInit();
       this.tabImage.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -235,6 +240,10 @@ namespace Kinovea.Root
       this.tabPlayer.Controls.Add(this.chkEnableFrameSkipping);
       this.tabPlayer.Controls.Add(this.chkSyncByMotion);
       this.tabPlayer.Controls.Add(this.chkLockSpeeds);
+      this.tabPlayer.Controls.Add(this.rdoFrameSkipAuto);
+      this.tabPlayer.Controls.Add(this.rdoFrameSkipManual);
+      this.tabPlayer.Controls.Add(this.lblFrameSkipCount);
+      this.tabPlayer.Controls.Add(this.nudFrameSkipCount);
       this.tabPlayer.Location = new System.Drawing.Point(4, 22);
       this.tabPlayer.Name = "tabPlayer";
       this.tabPlayer.Size = new System.Drawing.Size(482, 296);
@@ -330,6 +339,48 @@ namespace Kinovea.Root
       this.chkLockSpeeds.Text = "dlgPreferences_SyncLockSpeeds";
       this.chkLockSpeeds.UseVisualStyleBackColor = true;
       this.chkLockSpeeds.CheckedChanged += new System.EventHandler(this.ChkLockSpeedsCheckedChanged);
+      // 
+      // rdoFrameSkipAuto
+      // 
+      this.rdoFrameSkipAuto.Location = new System.Drawing.Point(18, 232);
+      this.rdoFrameSkipAuto.Name = "rdoFrameSkipAuto";
+      this.rdoFrameSkipAuto.Size = new System.Drawing.Size(145, 20);
+      this.rdoFrameSkipAuto.TabIndex = 70;
+      this.rdoFrameSkipAuto.Text = "Automatic";
+      this.rdoFrameSkipAuto.UseVisualStyleBackColor = true;
+      this.rdoFrameSkipAuto.CheckedChanged += new System.EventHandler(this.rdoFrameSkip_CheckedChanged);
+      // 
+      // rdoFrameSkipManual
+      // 
+      this.rdoFrameSkipManual.Location = new System.Drawing.Point(168, 232);
+      this.rdoFrameSkipManual.Name = "rdoFrameSkipManual";
+      this.rdoFrameSkipManual.Size = new System.Drawing.Size(90, 20);
+      this.rdoFrameSkipManual.TabIndex = 71;
+      this.rdoFrameSkipManual.Text = "Manual";
+      this.rdoFrameSkipManual.UseVisualStyleBackColor = true;
+      this.rdoFrameSkipManual.CheckedChanged += new System.EventHandler(this.rdoFrameSkip_CheckedChanged);
+      // 
+      // lblFrameSkipCount
+      // 
+      this.lblFrameSkipCount.AutoSize = true;
+      this.lblFrameSkipCount.Location = new System.Drawing.Point(262, 235);
+      this.lblFrameSkipCount.Name = "lblFrameSkipCount";
+      this.lblFrameSkipCount.Size = new System.Drawing.Size(70, 13);
+      this.lblFrameSkipCount.TabIndex = 72;
+      this.lblFrameSkipCount.Text = "Frames to skip:";
+      // 
+      // nudFrameSkipCount
+      // 
+      this.nudFrameSkipCount.Location = new System.Drawing.Point(336, 231);
+      this.nudFrameSkipCount.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+      this.nudFrameSkipCount.Name = "nudFrameSkipCount";
+      this.nudFrameSkipCount.Size = new System.Drawing.Size(50, 20);
+      this.nudFrameSkipCount.TabIndex = 73;
+      this.nudFrameSkipCount.ValueChanged += new System.EventHandler(this.nudFrameSkipCount_ValueChanged);
       // 
       // tabJumping
       // 
@@ -616,6 +667,7 @@ namespace Kinovea.Root
       this.grpJumping.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudLargeJump)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSmallJump)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipCount)).EndInit();
       this.tabImage.ResumeLayout(false);
       this.tabImage.PerformLayout();
       this.ResumeLayout(false);
@@ -662,5 +714,9 @@ namespace Kinovea.Root
         private System.Windows.Forms.CheckBox chkHardwareDecoding;
         private System.Windows.Forms.CheckBox chkHardwareScaling;
         private System.Windows.Forms.CheckBox chkPreviewScaling;
+        private System.Windows.Forms.RadioButton rdoFrameSkipAuto;
+        private System.Windows.Forms.RadioButton rdoFrameSkipManual;
+        private System.Windows.Forms.Label lblFrameSkipCount;
+        private System.Windows.Forms.NumericUpDown nudFrameSkipCount;
     }
 }

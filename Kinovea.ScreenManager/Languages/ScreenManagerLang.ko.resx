@@ -1789,4 +1789,10 @@
   <data name="dlgExportVideo_SpeedSlow" xml:space="preserve">
     <value>느림</value>
   </data>
+  <data name="playerFrameSkip_Off" xml:space="preserve">
+    <value>스킵 꺼짐</value>
+  </data>
+  <data name="playerFrameSkip_Count" xml:space="preserve">
+    <value>스킵 {0}</value>
+  </data>
 </root>

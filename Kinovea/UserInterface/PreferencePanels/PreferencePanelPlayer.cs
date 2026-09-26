@@ -77,6 +77,8 @@ namespace Kinovea.Root
         private bool enablePreviewScaling;
         private bool enableHardwareScaling;
         private bool enableFrameSkipping;
+        private FrameSkipMode frameSkipMode;
+        private int frameSkipCount;
         private bool loopPlayback;
         private bool showFramerateInSpeedLabel;
         private bool interactiveFrameTracker;
@@ -140,6 +142,8 @@ namespace Kinovea.Root
             enablePreviewScaling = PreferencesManager.PlayerPreferences.EnablePreviewScaling;
             enableHardwareScaling = PreferencesManager.PlayerPreferences.EnableHardwareScaling;
             enableFrameSkipping = PreferencesManager.PlayerPreferences.EnableFrameSkipping;
+            frameSkipMode = PreferencesManager.PlayerPreferences.FrameSkipMode;
+            frameSkipCount = PreferencesManager.PlayerPreferences.FrameSkipCount;
             loopPlayback = PreferencesManager.PlayerPreferences.LoopPlayback;
             interactiveFrameTracker = PreferencesManager.PlayerPreferences.InteractiveFrameTracker;
             showFramerateInSpeedLabel = PreferencesManager.PlayerPreferences.SpeedLabelFramerate;
@@ -213,6 +217,16 @@ namespace Kinovea.Root
             chkSyncByMotion.Checked = syncByMotion;
             chkShowFramerate.Checked = showFramerateInSpeedLabel;
             chkLoopPlayback.Checked = loopPlayback;
+
+            rdoFrameSkipAuto.Text = RootLang.dlgPreferences_Player_FrameSkipAuto;
+            rdoFrameSkipManual.Text = RootLang.dlgPreferences_Player_FrameSkipManual;
+            lblFrameSkipCount.Text = RootLang.dlgPreferences_Player_FrameSkipCount;
+            nudFrameSkipCount.Minimum = 0;
+            nudFrameSkipCount.Maximum = PlayerPreferences.MaxFrameSkip;
+            rdoFrameSkipAuto.Checked = frameSkipMode == FrameSkipMode.Auto;
+            rdoFrameSkipManual.Checked = frameSkipMode == FrameSkipMode.Manual;
+            nudFrameSkipCount.Value = Math.Max(0, Math.Min(frameSkipCount, PlayerPreferences.MaxFrameSkip));
+            UpdateFrameSkipControlsEnabled();
         }
 
         private void InitPageJumping()
@@ -338,6 +352,31 @@ namespace Kinovea.Root
         private void ChkEnableFrameSkippingCheckedChanged(object sender, EventArgs e)
         {
             enableFrameSkipping = chkEnableFrameSkipping.Checked;
+            UpdateFrameSkipControlsEnabled();
+        }
+
+        /// <summary>
+        /// The frame skip mode and count only make sense while the master switch
+        /// is on, so they follow its enabled state.
+        /// </summary>
+        private void UpdateFrameSkipControlsEnabled()
+        {
+            bool enabled = chkEnableFrameSkipping.Checked;
+            rdoFrameSkipAuto.Enabled = enabled;
+            rdoFrameSkipManual.Enabled = enabled;
+            lblFrameSkipCount.Enabled = enabled;
+            nudFrameSkipCount.Enabled = enabled && rdoFrameSkipManual.Checked;
+        }
+
+        private void rdoFrameSkip_CheckedChanged(object sender, EventArgs e)
+        {
+            frameSkipMode = rdoFrameSkipManual.Checked ? FrameSkipMode.Manual : FrameSkipMode.Auto;
+            UpdateFrameSkipControlsEnabled();
+        }
+
+        private void nudFrameSkipCount_ValueChanged(object sender, EventArgs e)
+        {
+            frameSkipCount = (int)nudFrameSkipCount.Value;
         }
         private void chkInteractiveTracker_CheckedChanged(object sender, EventArgs e)
         {
@@ -507,6 +546,8 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.EnablePreviewScaling = enablePreviewScaling;
             PreferencesManager.PlayerPreferences.EnableHardwareScaling = enableHardwareScaling;
             PreferencesManager.PlayerPreferences.EnableFrameSkipping = enableFrameSkipping;
+            PreferencesManager.PlayerPreferences.FrameSkipMode = frameSkipMode;
+            PreferencesManager.PlayerPreferences.FrameSkipCount = frameSkipCount;
             PreferencesManager.PlayerPreferences.InteractiveFrameTracker = interactiveFrameTracker;
             PreferencesManager.PlayerPreferences.SyncLockSpeed = syncLockSpeeds;
             PreferencesManager.PlayerPreferences.SyncByMotion = syncByMotion;

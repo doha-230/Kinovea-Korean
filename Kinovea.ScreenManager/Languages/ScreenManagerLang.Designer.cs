@@ -5233,5 +5233,22 @@ namespace Kinovea.ScreenManager.Languages {
                 return ResourceManager.GetString("dlgExportVideo_SpeedSlow", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Skip off.
+        /// </summary>
+        internal static string playerFrameSkip_Off {
+            get {
+                return ResourceManager.GetString("playerFrameSkip_Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip {0}.
+        /// </summary>
+        internal static string playerFrameSkip_Count {
+            get {
+                return ResourceManager.GetString("playerFrameSkip_Count", resourceCulture);
+            }
+        }
     }
 }

@@ -762,4 +762,13 @@
   <data name="dlgPreferences_Player_JumpUnitPercent" xml:space="preserve">
     <value>Percent</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipAuto" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="dlgPreferences_Player_FrameSkipManual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="dlgPreferences_Player_FrameSkipCount" xml:space="preserve">
+    <value>Frames to skip:</value>
+  </data>
 </root>

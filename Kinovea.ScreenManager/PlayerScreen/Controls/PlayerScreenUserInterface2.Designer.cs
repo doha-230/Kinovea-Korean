@@ -26,6 +26,7 @@ namespace Kinovea.ScreenManager
       this.panelVideoControls = new System.Windows.Forms.Panel();
       this.sldrSpeed = new Kinovea.ScreenManager.SliderLinear();
       this.lblSpeedTuner = new System.Windows.Forms.Label();
+      this.lblFrameSkipIndicator = new System.Windows.Forms.Label();
       this.lblTimeTip = new System.Windows.Forms.Label();
       this.panel1 = new System.Windows.Forms.Panel();
       this.btnExportImage = new System.Windows.Forms.Button();
@@ -182,6 +183,7 @@ namespace Kinovea.ScreenManager
       this.panelVideoControls.BackColor = System.Drawing.Color.White;
       this.panelVideoControls.Controls.Add(this.sldrSpeed);
       this.panelVideoControls.Controls.Add(this.lblSpeedTuner);
+      this.panelVideoControls.Controls.Add(this.lblFrameSkipIndicator);
       this.panelVideoControls.Controls.Add(this.lblTimeTip);
       this.panelVideoControls.Controls.Add(this.panel1);
       this.panelVideoControls.Controls.Add(this.btnHandlersReset);
@@ -220,6 +222,18 @@ namespace Kinovea.ScreenManager
       this.sldrSpeed.TabIndex = 28;
       this.sldrSpeed.Text = "sliderLinear1";
       this.sldrSpeed.ValueChanged += new System.EventHandler(this.sldrSpeed_ValueChanged);
+      // 
+      // lblFrameSkipIndicator
+      // 
+      this.lblFrameSkipIndicator.AutoSize = true;
+      this.lblFrameSkipIndicator.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblFrameSkipIndicator.ForeColor = System.Drawing.Color.Black;
+      this.lblFrameSkipIndicator.Location = new System.Drawing.Point(440, 41);
+      this.lblFrameSkipIndicator.Margin = new System.Windows.Forms.Padding(0);
+      this.lblFrameSkipIndicator.Name = "lblFrameSkipIndicator";
+      this.lblFrameSkipIndicator.Size = new System.Drawing.Size(0, 13);
+      this.lblFrameSkipIndicator.TabIndex = 74;
+      this.lblFrameSkipIndicator.Text = "";
       // 
       // lblSpeedTuner
       // 
@@ -1059,6 +1073,7 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btn_HandlersLock;
         private System.Windows.Forms.Label lblSpeedTuner;
+        private System.Windows.Forms.Label lblFrameSkipIndicator;
         private FrameTracker trkFrame;
         private SelectionTracker trkSelection;
         private System.Windows.Forms.Button btnExportImage;

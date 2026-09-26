@@ -1993,5 +1993,31 @@ namespace Kinovea.Root.Languages {
                 return ResourceManager.GetString("dlgPreferences_Player_JumpUnitPercent", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic.
+        /// </summary>
+        internal static string dlgPreferences_Player_FrameSkipAuto {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_FrameSkipAuto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        internal static string dlgPreferences_Player_FrameSkipManual {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_FrameSkipManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frames to skip:.
+        /// </summary>
+        internal static string dlgPreferences_Player_FrameSkipCount {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_FrameSkipCount", resourceCulture);
+            }
+        }
     }
 }

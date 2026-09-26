@@ -1842,4 +1842,10 @@
   <data name="dlgExportVideo_SpeedSlow" xml:space="preserve">
     <value>Slow</value>
   </data>
+  <data name="playerFrameSkip_Off" xml:space="preserve">
+    <value>Skip off</value>
+  </data>
+  <data name="playerFrameSkip_Count" xml:space="preserve">
+    <value>Skip {0}</value>
+  </data>
 </root>

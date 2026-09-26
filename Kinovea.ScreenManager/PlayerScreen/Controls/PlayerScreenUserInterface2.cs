@@ -2693,6 +2693,33 @@ namespace Kinovea.ScreenManager
             string speedLabel = string.Join("|", tokens);
 
             lblSpeedTuner.Text = speedLabel;
+
+            UpdateFrameSkipIndicator();
+        }
+
+        /// <summary>
+        /// Reflect the frame skipping state in the infobar: "Skip off" when the
+        /// master switch is off, "Skip N" in manual mode. Automatic mode stays
+        /// silent because it is the default state.
+        /// </summary>
+        private void UpdateFrameSkipIndicator()
+        {
+            if (lblFrameSkipIndicator == null)
+                return;
+
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            string text = string.Empty;
+
+            if (!prefs.EnableFrameSkipping)
+            {
+                text = ScreenManagerLang.playerFrameSkip_Off;
+            }
+            else if (prefs.FrameSkipMode == FrameSkipMode.Manual && prefs.FrameSkipCount > 0)
+            {
+                text = string.Format(ScreenManagerLang.playerFrameSkip_Count, prefs.FrameSkipCount);
+            }
+
+            lblFrameSkipIndicator.Text = text;
         }
         #endregion
 

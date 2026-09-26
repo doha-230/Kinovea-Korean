@@ -709,4 +709,13 @@
   <data name="dlgPreferences_Player_JumpUnitPercent" xml:space="preserve">
     <value>퍼센트</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipAuto" xml:space="preserve">
+    <value>자동</value>
+  </data>
+  <data name="dlgPreferences_Player_FrameSkipManual" xml:space="preserve">
+    <value>수동</value>
+  </data>
+  <data name="dlgPreferences_Player_FrameSkipCount" xml:space="preserve">
+    <value>건너뛸 프레임:</value>
+  </data>
 </root>
