@@ -72,6 +72,9 @@ jobs:
     - name: Check Korean translations
       run: python Tools/i18n/check_translations.py --lang ko
 
+    - name: Check Korean translation quality
+      run: python Tools/i18n/check_translation_quality.py --baseline Tools/i18n/baseline-translation-quality.txt
+
     - name: Build Solution
       run: msbuild Kinovea.VS2019.sln /p:Platform="x64" /p:Configuration=Release /p:AllowedReferenceRelatedFileExtensions=none
 

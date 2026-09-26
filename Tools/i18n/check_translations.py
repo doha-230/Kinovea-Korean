@@ -21,6 +21,8 @@ import re
 import sys
 
 NAME_RE = re.compile(r'<data\s+name="([^"]+)"')
+VALUE_RE = re.compile(r'<data\s+name="([^"]+)"[^>]*>\s*<value>(.*?)</value>', re.S)
+PLACEHOLDER_RE = re.compile(r'\{\d+')
 
 # Boilerplate rows present in the resx template comment block, not real strings.
 IGNORE_KEYS = {'Bitmap1', 'Color1', 'Icon1', 'Name1'}
@@ -35,6 +37,15 @@ def keys(path: str) -> set[str]:
     return {k for k in NAME_RE.findall(text)}
 
 
+def values(path: str) -> dict[str, str]:
+    try:
+        with open(path, encoding='utf-8-sig', errors='replace') as fh:
+            text = fh.read()
+    except OSError:
+        return {}
+    return dict(VALUE_RE.findall(text))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--root', default='.')
@@ -47,6 +58,7 @@ def main() -> int:
     total_missing = 0
     total_keys = 0
     rows = []
+    placeholder_errors = []
 
     for tr in sorted(glob.glob(pattern, recursive=True)):
         base = re.sub(rf'\.{re.escape(args.lang)}\.resx$', '.resx', tr)
@@ -62,6 +74,16 @@ def main() -> int:
         rows.append((os.path.relpath(tr, args.root), len(base_keys), len(missing), len(extra),
                      ','.join(sorted(missing)[:5])))
 
+        # Placeholders such as {0} must survive translation, otherwise the string
+        # formats incorrectly (or throws) at run time.
+        base_values = values(base)
+        tr_values = values(tr)
+        for key in sorted(base_keys & tr_keys):
+            expected = sorted(PLACEHOLDER_RE.findall(base_values.get(key, '')))
+            actual = sorted(PLACEHOLDER_RE.findall(tr_values.get(key, '')))
+            if expected != actual:
+                placeholder_errors.append((os.path.relpath(tr, args.root), key, expected, actual))
+
     print(f"language: {args.lang}")
     print(f"{'resx':66s} {'KEYS':>6s} {'MISS':>6s} {'EXTRA':>6s}")
     for rel, nk, nm, ne, sample in rows:
@@ -71,7 +93,12 @@ def main() -> int:
     pct = 100.0 * (total_keys - total_missing) / total_keys if total_keys else 100.0
     print(f"\nTOTAL keys={total_keys} missing={total_missing} coverage={pct:.1f}%")
 
-    failed = total_missing > 0
+    if placeholder_errors:
+        print(f"\nPLACEHOLDER MISMATCHES: {len(placeholder_errors)}")
+        for rel, key, expected, actual in placeholder_errors[:10]:
+            print(f"  {rel} :: {key}  expected={expected} actual={actual}")
+
+    failed = total_missing > 0 or bool(placeholder_errors)
     if args.strict and any(r[3] for r in rows):
         failed = True
     return 1 if failed else 0
