@@ -1,0 +1,7 @@
+Kinovea.Camera/FormHandshakeResult.Designer.cs
+Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.Designer.cs
+Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs
+Kinovea.ScreenManager/UserInterface/FormCrashRecovery.Designer.cs
+Kinovea.Services/Types/TimeCodeFormat.cs
+Kinovea.Services/Types/TimeCodeType.cs
+Kinovea.Video.Gif/VideoReaderGif.cs

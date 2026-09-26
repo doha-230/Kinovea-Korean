@@ -5,6 +5,9 @@
 
 ## 불변식 (invariants)
 
+0. **새 `.cs` 파일은 반드시 해당 프로젝트의 `.csproj`에 등록**한다.
+   이 솔루션은 구형(non-SDK) 프로젝트라 파일이 디스크에만 있으면 컴파일되지 않는다
+   (`<Compile Include="폴더\파일.cs" />`). 미등록 시 `CS0246` 으로 빌드가 깨진다.
 1. **모든 소스/프로젝트 파일은 UTF-8 + BOM**
    - 확장자: `.cs .vb .cpp .h .hpp .c .cc .cxx .resx .csproj .vbproj .props .targets .config .settings .manifest .nsi`
    - 유지: `.editorconfig` 의 `charset = utf-8-bom`

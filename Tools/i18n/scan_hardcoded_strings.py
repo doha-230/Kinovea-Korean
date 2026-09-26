@@ -92,7 +92,9 @@ def main() -> int:
     args = ap.parse_args()
 
     findings = scan(args.root)
-    lines = [f"{p}:{i}: {v}".strip() for p, i, v in findings]
+    # Key findings by file+string (not line number) so that unrelated edits do not
+    # invalidate the baseline.
+    lines = [f"{p} :: {v}".strip() for p, i, v in findings]
 
     if args.csv:
         import csv

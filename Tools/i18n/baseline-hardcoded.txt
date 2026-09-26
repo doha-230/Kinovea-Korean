@@ -1,39 +1,39 @@
-Kinovea/Kernel.cs:579: [h:][mm:]ss.xx[x]
-Kinovea/Kernel.cs:588: Timestamps (debug)
-Kinovea/Kernel.cs:610: www.kinovea.org
-Kinovea/UserInterface/PreferencePanels/PreferencePanelGeneral.cs:114: Use drive-specific icons
-Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:183: [h:][mm:]ss.xx[x]
-Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:189: [h:][mm:]ss.xx[x] +
-Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:193: Normalized
-Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:194: Timestamps
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:231: Video codec:
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:233: Raw video
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:237: MJPEG encoding quality:
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:238: Perceptually lossless
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:239: High
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:240: Good
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:241: Medium
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:265: Save while recording
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:266: Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay.
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:268: Save after recording stops
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:269: The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage.
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:276: High-speed recording
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:277: Adjust playback frame rate for high-speed recordings
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:280: High-speed threshold (fps):
-Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:281: Playback frame rate (fps):
-Kinovea.ScreenManager/ScreenManager.cs:1958: Navigation pane
-Kinovea.ScreenManager/ScreenManager.cs:1959: File browser
-Kinovea.ScreenManager/ScreenManager.cs:1990: LibreOffice Calc…
-Kinovea.ScreenManager/ScreenManager.cs:1991: Microsoft Excel…
-Kinovea.ScreenManager/ScreenManager.cs:1994: Trajectory text…
-Kinovea.ScreenManager/ScreenManager.cs:1995: JSON…
-Kinovea.ScreenManager/ScreenManager.cs:1998: LibreOffice Writer…
-Kinovea.ScreenManager/ScreenManager.cs:1999: Microsoft Word…
-Kinovea.ScreenManager/ScreenManager.cs:2000: Markdown…
-Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs:3703: Copy time
-Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs:66: Selected cutoff frequencies:
-Kinovea.ScreenManager/Measurement/Plotting/FormMultiTrajectoryAnalysis.cs:199: Cutoff frequencies (Hz)
-Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:156: Enable hardware compression
-Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:157: Enable software demosaicing
-Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:158: Resulting framerate
-Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:169: GenICam XML
+Kinovea/Kernel.cs :: [h:][mm:]ss.xx[x]
+Kinovea/Kernel.cs :: Timestamps (debug)
+Kinovea/Kernel.cs :: www.kinovea.org
+Kinovea/UserInterface/PreferencePanels/PreferencePanelGeneral.cs :: Use drive-specific icons
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs :: [h:][mm:]ss.xx[x]
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs :: [h:][mm:]ss.xx[x] +
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs :: Normalized
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs :: Timestamps
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Video codec:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Raw video
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: MJPEG encoding quality:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Perceptually lossless
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: High
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Good
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Medium
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Save while recording
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay.
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Save after recording stops
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage.
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: High-speed recording
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Adjust playback frame rate for high-speed recordings
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: High-speed threshold (fps):
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs :: Playback frame rate (fps):
+Kinovea.ScreenManager/ScreenManager.cs :: Navigation pane
+Kinovea.ScreenManager/ScreenManager.cs :: File browser
+Kinovea.ScreenManager/ScreenManager.cs :: LibreOffice Calc…
+Kinovea.ScreenManager/ScreenManager.cs :: Microsoft Excel…
+Kinovea.ScreenManager/ScreenManager.cs :: Trajectory text…
+Kinovea.ScreenManager/ScreenManager.cs :: JSON…
+Kinovea.ScreenManager/ScreenManager.cs :: LibreOffice Writer…
+Kinovea.ScreenManager/ScreenManager.cs :: Microsoft Word…
+Kinovea.ScreenManager/ScreenManager.cs :: Markdown…
+Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs :: Copy time
+Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs :: Selected cutoff frequencies:
+Kinovea.ScreenManager/Measurement/Plotting/FormMultiTrajectoryAnalysis.cs :: Cutoff frequencies (Hz)
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Enable hardware compression
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Enable software demosaicing
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Resulting framerate
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: GenICam XML
