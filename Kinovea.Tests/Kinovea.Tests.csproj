@@ -105,10 +105,8 @@
     <Compile Include="HistoryStackTester\HistoryStackSimpleTester.cs" />
     <Compile Include="HistoryStackTester\State.cs" />
     <Compile Include="KSV\KSVFuzzer.cs" />
-    <Compile Include="Performance\ImageCopy.cs" />
     <Compile Include="Performance\Performance.cs" />
     <Compile Include="ProjectiveGeometry\LineClippingTester.cs" />
-    <Compile Include="Metadata\KVAFuzzer.cs" />
     <Compile Include="Metadata\TrackableDrawing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,8 +115,11 @@
     <Compile Include="Kinematics\VideoSynthesizer.cs" />
     <Compile Include="RandomExtension.cs" />
     <Compile Include="Time\TimecodeFormatTest.cs" />
+    <!-- Excluded: these upstream helpers reference APIs that no longer exist
+         (TimeMapper refactor, metadata changes) and have never been compiled
+         because the project is outside the solution. Kept on disk for upstream
+         sync; see MAINTENANCE.md. -->
     <Compile Include="Player\MotionEstimatorTest.cs" />
-    <Compile Include="Time\TimeTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kinovea.ScreenManager\Kinovea.ScreenManager.csproj">

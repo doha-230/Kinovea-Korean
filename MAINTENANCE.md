@@ -21,7 +21,7 @@
 | 스크립트 | 검사 | 기준선 |
 |:--|:--|:--|
 | `Tools/lint/check_encoding.py` | 모든 소스가 UTF-8 + BOM (0건 유지) | — |
-| `Tools/lint/check_csproj_includes.py` | .cs/.vb 가 csproj에 등록됨 | `Tools/lint/baseline-csproj.txt` (업스트림 미등록 7건) |
+| `Tools/lint/check_csproj_includes.py` | .cs/.vb 가 csproj에 등록됨 | `Tools/lint/baseline-csproj.txt` (10건: 업스트림 미등록 7 + 테스트 프로젝트의 구식 헬퍼 3) |
 | `Tools/lint/check_culture_parsing.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
 | `Tools/i18n/scan_hardcoded_strings.py` | UI 문자열 하드코딩 | `Tools/i18n/baseline-hardcoded.txt` |
 | `Tools/i18n/check_translations.py --lang ko` | 한국어 키 누락 0 | — |
@@ -29,6 +29,19 @@
 하드코딩 기준선에 남은 5건은 **의도적으로 허용**한 항목이다: GenICam 플러그인의
 구버전(< 2024.1) 대비 **영문 폴백 리터럴 3건**과 고유명사 `GenICam XML`,
 그리고 **컴파일되지 않는 파일**(`FormTrackAnalysis.cs`, csproj 미등록) 1건.
+
+## 테스트 (Kinovea.Tests)
+
+업스트림에서 이 프로젝트는 솔루션 밖에 있고 `Main` 이 수동 헬퍼만 실행했다.
+이 포크는 **빌드는 물론 실행까지 CI에서 수행**한다(`Build test project`, `Run smoke tests`).
+
+- 테스트 추가 방법: `Kinovea.Tests/` 에 클래스를 추가하고 `.csproj` 의 `<Compile>` 에 등록한 뒤,
+  `Program.Main` 에서 호출하고 **실패 개수를 `Environment.ExitCode` 로 반환**한다(0 = 성공).
+- `log4net` 은 이 프로젝트가 솔루션 밖이라 PackageReference 로는 복원되지 않는다.
+  다른 프로젝트와 동일하게 **`..\packages` 의 DLL 을 HintPath 로 직접 참조**한다.
+- 구식 헬퍼 3개(`Metadata\KVAFuzzer.cs`, `Performance\ImageCopy.cs`, `Time\TimeTester.cs`)는
+  제거된 API(`TimeMapper` 리팩터링 등)를 참조해 컴파일되지 않으므로 **csproj에서 제외**했다
+  (파일은 업스트림 동기화를 위해 남겨둠).
 
 ## 업스트림 동기화 절차
 

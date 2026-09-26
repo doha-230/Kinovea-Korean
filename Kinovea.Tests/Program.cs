@@ -20,12 +20,6 @@ namespace Kinovea.Tests
             Console.WriteLine(failures == 0 ? "ALL TESTS PASSED" : string.Format("{0} TEST(S) FAILED", failures));
             Environment.ExitCode = failures;
         }
-        private static void TestKVAFuzzer()
-        {
-            KVAFuzzer20 fuzzer = new KVAFuzzer20();
-            fuzzer.CreateKVA(@"");
-        }
-
         private static void TestKSVFuzzer()
         {
             int count = 10;

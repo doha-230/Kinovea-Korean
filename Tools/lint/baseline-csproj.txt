@@ -4,4 +4,7 @@ Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs
 Kinovea.ScreenManager/UserInterface/FormCrashRecovery.Designer.cs
 Kinovea.Services/Types/TimeCodeFormat.cs
 Kinovea.Services/Types/TimeCodeType.cs
+Kinovea.Tests/Metadata/KVAFuzzer.cs
+Kinovea.Tests/Performance/ImageCopy.cs
+Kinovea.Tests/Time/TimeTester.cs
 Kinovea.Video.Gif/VideoReaderGif.cs
