@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Kinovea.Tests.Metadata;
 using Kinovea.Tests.HistoryStackTester;
 using System.Threading;
 
