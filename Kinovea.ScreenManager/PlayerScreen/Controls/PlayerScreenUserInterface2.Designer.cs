@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 namespace Kinovea.ScreenManager
 {
     partial class PlayerScreenUserInterface

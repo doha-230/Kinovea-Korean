@@ -1,4 +1,4 @@
-namespace Kinovea.FileBrowser
+﻿namespace Kinovea.FileBrowser
 {
     partial class FileBrowserUserInterface
     {

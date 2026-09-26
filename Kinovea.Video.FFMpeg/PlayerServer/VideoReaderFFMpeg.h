@@ -1,6 +1,6 @@
-#pragma region License
+ï»¿#pragma region License
 /*
-Copyright © Joan Charmant 2008-2009.
+Copyright Â© Joan Charmant 2008-2009.
 jcharmant@gmail.com 
  
 This file is part of Kinovea.
@@ -29,7 +29,7 @@ along with Kinovea. If not, see http://www.gnu.org/licenses/.
 //				Has pointers to various parts of the buffer for planes. ->data[0] is scan0, top left of image.
 // - IntPtr	  : managed wrapper around the buffer *pointer*. Used to construct the Bitmap^ from the buffer pointer.
 // - Bitmap^  : managed wrapper around the buffer.
-// - VideoFrame^ : our wrapper around a Bitmap^ and the associated timestamp.
+// - VideoFrame^ :Â our wrapper around a Bitmap^ and the associated timestamp.
 // AVPacket is a wrapper around the *encoded* data. Only used temporarily during the reading.
 //
 //  -- Memory management --

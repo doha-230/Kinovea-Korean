@@ -1,6 +1,6 @@
-#region License
+ï»¿#region License
 /*
-Copyright © Joan Charmant 2011.
+Copyright Â© Joan Charmant 2011.
 jcharmant@gmail.com 
  
 This file is part of Kinovea.
@@ -514,7 +514,7 @@ namespace Kinovea.Root
       this.lblCSVDelimiter.Name = "lblCSVDelimiter";
       this.lblCSVDelimiter.Size = new System.Drawing.Size(107, 13);
       this.lblCSVDelimiter.TabIndex = 66;
-      this.lblCSVDelimiter.Text = "CSV Decimal symbol:";
+      this.lblCSVDelimiter.Text = "CSVÂ Decimal symbol:";
       // 
       // cmbDelimiter
       // 
