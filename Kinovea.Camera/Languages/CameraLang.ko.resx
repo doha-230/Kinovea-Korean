@@ -68,19 +68,19 @@
     <value>적용</value>
   </data>
   <data name="Generic_Cancel" xml:space="preserve">
-    <value>취소하다</value>
+    <value>취소</value>
   </data>
   <data name="FormHandshakeResult_Title" xml:space="preserve">
-    <value>연결 시험하다</value>
+    <value>연결 확인</value>
   </data>
   <data name="FormHandshakeResult_Failure_Title" xml:space="preserve">
-    <value>연결 시험 실패하다</value>
+    <value>연결 확인 실패</value>
   </data>
   <data name="FormHandshakeResult_Failure_Message" xml:space="preserve">
     <value>연결 시험 중 오류가 발생했습니다.</value>
   </data>
   <data name="FormConfiguration_Title" xml:space="preserve">
-    <value>촬영기 구성설정</value>
+    <value>카메라 설정</value>
   </data>
   <data name="FormConfiguration_Properties_StreamFormat" xml:space="preserve">
     <value>시냇물흐름 형식:</value>
@@ -95,7 +95,7 @@
     <value>높이:</value>
   </data>
   <data name="FormConfiguration_Properties_Framerate" xml:space="preserve">
-    <value>틀 비율:</value>
+    <value>프레임레이트:</value>
   </data>
   <data name="FormConfiguration_Properties_Exposure" xml:space="preserve">
     <value>노출:</value>
@@ -122,19 +122,19 @@
     <value>{0}의 장치 속성 장을 표시하는 동안 오류 하나가 발생했습니다.</value>
   </data>
   <data name="FormConfiguration_Reconnect" xml:space="preserve">
-    <value>다시 연결하십시오</value>
+    <value>다시 연결</value>
   </data>
   <data name="FormConfiguration_ImportParameters" xml:space="preserve">
     <value>매개 변수 들 가져오기</value>
   </data>
   <data name="FormConfiguration_Test" xml:space="preserve">
-    <value>시험하십시오</value>
+    <value>테스트</value>
   </data>
   <data name="FormConnectionWizard_Network" xml:space="preserve">
     <value>망</value>
   </data>
   <data name="FormConnectionWizard_Host" xml:space="preserve">
-    <value>숙주 (아이 피 주소)</value>
+    <value>호스트 (IP 주소)</value>
   </data>
   <data name="FormConnectionWizard_Port" xml:space="preserve">
     <value>항구</value>
@@ -152,7 +152,7 @@
     <value>비밀번호</value>
   </data>
   <data name="FormConnectionWizard_URL" xml:space="preserve">
-    <value>최종 유 알 엘</value>
+    <value>최종 URL</value>
   </data>
   <data name="FormConfiguration_EnableHardwareCompression" xml:space="preserve">
     <value>실제장치 압축 활성화</value>
@@ -161,6 +161,6 @@
     <value>제품 화소가리기처리안하는것 활성화</value>
   </data>
   <data name="FormConfiguration_ResultingFramerate" xml:space="preserve">
-    <value>틀 비율 결과냅니다:</value>
+    <value>결과 프레임레이트:</value>
   </data>
 </root>
