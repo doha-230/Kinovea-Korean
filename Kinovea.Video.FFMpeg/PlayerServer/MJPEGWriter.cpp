@@ -1,5 +1,5 @@
-/*
-Copyright © Joan Charmant 2008-2009.
+ï»¿/*
+Copyright Â© Joan Charmant 2008-2009.
 jcharmant@gmail.com 
  
 This file is part of Kinovea.
@@ -273,7 +273,7 @@ void MJPEGWriter::SanityCheck(AVFormatContext* s)
 
     if (s->nb_streams != 1) 
     {
-        log->Error("Sanity check failed: no streams.");
+        log->Error("Sanity check failed:Â no streams.");
         return;
     }
 

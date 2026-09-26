@@ -1,4 +1,4 @@
-#region License
+﻿#region License
 /*
 Copyright � Joan Charmant 2008-2009.
 jcharmant@gmail.com
