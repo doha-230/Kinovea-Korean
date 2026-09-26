@@ -195,6 +195,16 @@ namespace Kinovea.Services
             get { BeforeRead(); return defaultReplaySpeed; }
             set { defaultReplaySpeed = value; Save(); }
         }
+        /// <summary>
+        /// Number of frames to skip between each rendered frame during playback.
+        /// Applies to normal playback and (optionally) while tracking.
+        /// 0 means no skipping (frame by frame).
+        /// </summary>
+        public int FrameSkip
+        {
+            get { BeforeRead(); return frameSkip; }
+            set { frameSkip = value; Save(); }
+        }
         public bool DetectImageSequences
         {
             get { BeforeRead(); return detectImageSequences; }
@@ -286,6 +296,7 @@ namespace Kinovea.Services
         private bool enableHighSpeedDerivativesSmoothing = true;
         private bool enableCustomToolsDebugMode = false;
         private float defaultReplaySpeed = 100;
+        private int frameSkip = 0;
         private bool detectImageSequences = true;
         private int preloadKeyframes = 20;
         private string playbackKVA;
@@ -373,6 +384,7 @@ namespace Kinovea.Services
             writer.WriteElementString("EnableFiltering", XmlHelper.WriteBoolean(enableFiltering));
             writer.WriteElementString("EnableCustomToolsDebugMode", XmlHelper.WriteBoolean(enableCustomToolsDebugMode));
             writer.WriteElementString("DefaultReplaySpeed", defaultReplaySpeed.ToString("0", CultureInfo.InvariantCulture));
+            writer.WriteElementString("FrameSkip", frameSkip.ToString());
             writer.WriteElementString("DetectImageSequences", XmlHelper.WriteBoolean(detectImageSequences));
             writer.WriteElementString("PreloadKeyframes", preloadKeyframes.ToString());
             writer.WriteElementString("PlaybackKVA", playbackKVA);
@@ -502,6 +514,11 @@ namespace Kinovea.Services
                     case "DefaultReplaySpeed":
                         string str = reader.ReadElementContentAsString();
                         defaultReplaySpeed = float.Parse(str, CultureInfo.InvariantCulture);
+                        break;
+                    case "FrameSkip":
+                        frameSkip = reader.ReadElementContentAsInt();
+                        if (frameSkip < 0)
+                            frameSkip = 0;
                         break;
                     case "DetectImageSequences":
                         detectImageSequences = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
