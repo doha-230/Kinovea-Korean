@@ -1,0 +1,29 @@
+# Line endings and encoding guard.
+#
+# This repository intentionally keeps its historical mix of CRLF and LF.
+# We disable git's automatic text conversion so it never re-normalizes or
+# re-encodes files, which would otherwise create huge spurious diffs
+# (the same class of churn as the one-time UTF-8 normalization commit).
+#
+# Source files must be saved as UTF-8 (with BOM). See .editorconfig for the
+# per-extension `charset = utf-8-bom` rules that enforce this in editors.
+* -text
+
+# Binary assets: never diff or normalize.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.bmp  binary
+*.ico  binary
+*.cur  binary
+*.dll  binary
+*.exe  binary
+*.lib  binary
+*.pdb  binary
+*.zip  binary
+*.7z   binary
+*.gz   binary
+*.pdf  binary
+*.mp4  binary
+*.avi  binary
