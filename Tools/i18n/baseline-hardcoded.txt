@@ -1,6 +1,4 @@
-Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs :: Copy time
 Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs :: Selected cutoff frequencies:
-Kinovea.ScreenManager/Measurement/Plotting/FormMultiTrajectoryAnalysis.cs :: Cutoff frequencies (Hz)
 Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Enable hardware compression
 Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Enable software demosaicing
 Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs :: Resulting framerate

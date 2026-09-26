@@ -24,6 +24,7 @@ SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules'}
 PATTERNS = [
     re.compile(r'\.Text\s*=\s*"([^"\\]{2,})"'),           # .Text = "Foo"
     re.compile(r'\.Items\.Add\s*\(\s*"([^"\\]{2,})"'),    # .Items.Add("Foo")
+    re.compile(r'\.Columns\.Add\s*\(\s*"([^"\\]{2,})"'),  # .Columns.Add("Foo", 100)
     re.compile(r'MessageBox\.Show\s*\(\s*"([^"\\]{2,})"'),
     re.compile(r'\.ToolTipText\s*=\s*"([^"\\]{2,})"'),
 ]
