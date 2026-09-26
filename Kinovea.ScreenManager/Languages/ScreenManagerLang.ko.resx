@@ -1747,4 +1747,46 @@
   <data name="infobar_Drops0" xml:space="preserve">
     <value>떨어뜨렸습니다:{0}</value>
   </data>
+  <data name="dlgExportVideo_Preset" xml:space="preserve">
+    <value>프리셋:</value>
+  </data>
+  <data name="dlgExportVideo_Custom" xml:space="preserve">
+    <value>사용자 정의</value>
+  </data>
+  <data name="dlgExportVideo_Format" xml:space="preserve">
+    <value>형식:</value>
+  </data>
+  <data name="dlgExportVideo_VideoCodec" xml:space="preserve">
+    <value>비디오 코덱:</value>
+  </data>
+  <data name="dlgExportVideo_EncodingQuality" xml:space="preserve">
+    <value>인코딩 품질:</value>
+  </data>
+  <data name="dlgExportVideo_EncodingSpeed" xml:space="preserve">
+    <value>인코딩 속도:</value>
+  </data>
+  <data name="dlgExportVideo_GOPSize" xml:space="preserve">
+    <value>GOP 크기:</value>
+  </data>
+  <data name="dlgExportVideo_QualityPerceptuallyLossless" xml:space="preserve">
+    <value>지각적 무손실</value>
+  </data>
+  <data name="dlgExportVideo_QualityHigh" xml:space="preserve">
+    <value>높음</value>
+  </data>
+  <data name="dlgExportVideo_QualityGood" xml:space="preserve">
+    <value>좋음</value>
+  </data>
+  <data name="dlgExportVideo_QualityMedium" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="dlgExportVideo_SpeedFast" xml:space="preserve">
+    <value>빠름</value>
+  </data>
+  <data name="dlgExportVideo_SpeedMedium" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="dlgExportVideo_SpeedSlow" xml:space="preserve">
+    <value>느림</value>
+  </data>
 </root>

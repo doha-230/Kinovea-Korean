@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Find user-facing strings hard-coded in C# code instead of living in .resx.
 
 Targets only the patterns that actually put text in front of the user:
@@ -32,6 +32,23 @@ PATTERNS = [
 ALLOWLIST = {
     'RGGB', 'BGGR', 'GRBG', 'GBRG',  # Bayer patterns (proper nouns)
     'X', 'Y', 'Z', '<', '>', '-',
+    'MP4',
+    'MKV',
+    'AVI',
+    'MJPEG',
+    'H.264',
+    'H.265',
+    'JPG',
+    'PNG',
+    'BMP',
+    'ORB',
+    'SIFT',
+    'GOP',
+    'Raw',
+    'Mono',
+    'Color',
+    'JSON',
+    'CSV',
 }
 
 

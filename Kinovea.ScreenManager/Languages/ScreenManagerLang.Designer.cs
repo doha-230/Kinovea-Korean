@@ -5108,5 +5108,130 @@ namespace Kinovea.ScreenManager.Languages {
                 return ResourceManager.GetString("VideoFilterLensCalibration_ShowReprojectedCorners", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Preset:.
+        /// </summary>
+        internal static string dlgExportVideo_Preset {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_Preset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        internal static string dlgExportVideo_Custom {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format:.
+        /// </summary>
+        internal static string dlgExportVideo_Format {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video codec:.
+        /// </summary>
+        internal static string dlgExportVideo_VideoCodec {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_VideoCodec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding quality:.
+        /// </summary>
+        internal static string dlgExportVideo_EncodingQuality {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_EncodingQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding speed:.
+        /// </summary>
+        internal static string dlgExportVideo_EncodingSpeed {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_EncodingSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GOP size:.
+        /// </summary>
+        internal static string dlgExportVideo_GOPSize {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_GOPSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perceptually lossless.
+        /// </summary>
+        internal static string dlgExportVideo_QualityPerceptuallyLossless {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_QualityPerceptuallyLossless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        internal static string dlgExportVideo_QualityHigh {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_QualityHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        internal static string dlgExportVideo_QualityGood {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_QualityGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        internal static string dlgExportVideo_QualityMedium {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_QualityMedium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fast.
+        /// </summary>
+        internal static string dlgExportVideo_SpeedFast {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_SpeedFast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        internal static string dlgExportVideo_SpeedMedium {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_SpeedMedium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slow.
+        /// </summary>
+        internal static string dlgExportVideo_SpeedSlow {
+            get {
+                return ResourceManager.GetString("dlgExportVideo_SpeedSlow", resourceCulture);
+            }
+        }
     }
 }
