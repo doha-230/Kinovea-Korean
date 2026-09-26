@@ -116,6 +116,18 @@ namespace Kinovea.Services
             get { BeforeRead(); return audioLoudnessWindowMs; }
             set { audioLoudnessWindowMs = Math.Max(10, Math.Min(value, 5000)); Save(); }
         }
+
+        /// <summary>
+        /// Multiplier applied to the amount of motion that the motion-adaptive
+        /// frame skipping policy considers "fast". Higher values skip more
+        /// aggressively: only larger movements stop the skipping.
+        /// Clamped to [MinMotionSensitivity, MaxMotionSensitivity].
+        /// </summary>
+        public double FrameSkipMotionSensitivity
+        {
+            get { BeforeRead(); return frameSkipMotionSensitivity; }
+            set { frameSkipMotionSensitivity = Math.Max(MinMotionSensitivity, Math.Min(value, MaxMotionSensitivity)); Save(); }
+        }
         public ExportSpace ExportSpace
         {
             get { BeforeRead(); return exportSpace; }
@@ -294,6 +306,12 @@ namespace Kinovea.Services
         /// <summary>Hard upper bound for the manual frame skip count.</summary>
         public const int MaxFrameSkip = 10;
 
+        /// <summary>Lower bound of the motion-adaptive sensitivity.</summary>
+        public const double MinMotionSensitivity = 0.25;
+
+        /// <summary>Upper bound of the motion-adaptive sensitivity.</summary>
+        public const double MaxMotionSensitivity = 4.0;
+
         public float TimelineJumpSmallSize
         {
             get { BeforeRead(); return timelineJumpSmallSize; }
@@ -376,6 +394,7 @@ namespace Kinovea.Services
         private CSVDecimalSeparator csvDecimalSeparator = CSVDecimalSeparator.System;
         private CSVEncoding csvEncoding = CSVEncoding.Utf8NoBom;
         private int audioLoudnessWindowMs = 50;
+        private double frameSkipMotionSensitivity = 1.0;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -456,6 +475,7 @@ namespace Kinovea.Services
             writer.WriteElementString("CSVDecimalSeparator", csvDecimalSeparator.ToString());
             writer.WriteElementString("CSVEncoding", csvEncoding.ToString());
             writer.WriteElementString("AudioLoudnessWindowMs", audioLoudnessWindowMs.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString("FrameSkipMotionSensitivity", frameSkipMotionSensitivity.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
             writer.WriteElementString("AspectRatio", aspectRatio.ToString());
@@ -590,6 +610,9 @@ namespace Kinovea.Services
                         break;
                     case "AudioLoudnessWindowMs":
                         audioLoudnessWindowMs = Math.Max(10, Math.Min(reader.ReadElementContentAsInt(), 5000));
+                        break;
+                    case "FrameSkipMotionSensitivity":
+                        frameSkipMotionSensitivity = Math.Max(MinMotionSensitivity, Math.Min(reader.ReadElementContentAsDouble(), MaxMotionSensitivity));
                         break;
                     case "ExportImagesInDocuments":
                         exportImagesInDocuments = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());

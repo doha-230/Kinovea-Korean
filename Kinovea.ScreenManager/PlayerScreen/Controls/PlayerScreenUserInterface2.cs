@@ -321,6 +321,7 @@ namespace Kinovea.ScreenManager
         // The value we show on the speed slider is the final ratio to real time.
         private TimeMapper timeMapper = new TimeMapper();
         private MotionEstimator motionEstimator = new MotionEstimator();
+        private bool frameSkipTrackingWarningShown = false;
         private float timeGrabSpeed = 25.0f / 500.0f;       // In frames per pixel.
         private TimecodeFormat timecodeFormat = TimecodeFormat.ClassicTime;
 
@@ -2658,10 +2659,34 @@ namespace Kinovea.ScreenManager
                     !m_FrameServer.Metadata.AnyTracking;
 
                 m_FrameServer.VideoReader.UpdateAllowFrameSkipping(allowDecoderSkipping);
+
+                // Skipping frames while a tracking is running makes the tracker miss
+                // the object, so warn the user once (the setting is then honoured).
+                if (IsFrameSkippingActive() && m_FrameServer.Metadata.AnyTracking && !frameSkipTrackingWarningShown)
+                {
+                    frameSkipTrackingWarningShown = true;
+                    ToastMessage(ScreenManagerLang.FrameSkip_TrackingWarning, 3000);
+                }
             }
 
             UpdateSpeedLabel();
             DoInvalidate();
+        }
+
+        /// <summary>
+        /// Whether the current frame skipping settings actually skip frames.
+        /// Automatic mode is the default and does not warrant a warning.
+        /// </summary>
+        private bool IsFrameSkippingActive()
+        {
+            PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
+            if (!prefs.EnableFrameSkipping)
+                return false;
+
+            if (prefs.FrameSkipMode == FrameSkipMode.Manual)
+                return prefs.FrameSkipCount > 0;
+
+            return prefs.FrameSkipMode == FrameSkipMode.MotionAdaptive;
         }
 
         /// <summary>
@@ -2699,7 +2724,7 @@ namespace Kinovea.ScreenManager
                     motionEstimator.Update(frame.Image, frame.Timestamp);
             }
 
-            return motionEstimator.GetSkipCount(PlayerPreferences.MaxFrameSkip);
+            return motionEstimator.GetSkipCount(PlayerPreferences.MaxFrameSkip, PreferencesManager.PlayerPreferences.FrameSkipMotionSensitivity);
         }
         private void lblSpeedTuner_DoubleClick(object sender, EventArgs e)
         {
@@ -3377,6 +3402,8 @@ namespace Kinovea.ScreenManager
                 m_FrameServer.Metadata.BeforeTrackingStep(timestamp);
                 m_FrameServer.Metadata.SyncTrackableDrawings(timestamp);
                 m_FrameServer.Metadata.CameraTrackingStep();
+
+                ShowTrackingQuality();
             }
 
             sidePanelTracking.UpdateContent();
@@ -3389,7 +3416,35 @@ namespace Kinovea.ScreenManager
                 StopPlaying();
             }
 
+            if (m_FrameServer.Metadata.AnyTrackFailed())
+            {
+                ToastMessage(ScreenManagerLang.Tracking_Failed, 3000);
+            }
+
             UpdateAllowPreScaling();
+        }
+
+        /// <summary>
+        /// Report a short summary of the tracking that just ended: how many points
+        /// were tracked and how many of them look stuck (likely lost object).
+        /// </summary>
+        private void ShowTrackingQuality()
+        {
+            int total = 0;
+            int stuck = 0;
+
+            foreach (DrawingTrack track in m_FrameServer.Metadata.Tracks())
+            {
+                int points;
+                int trackStuck;
+                double maxJump;
+                track.GetTrackingQuality(out points, out trackStuck, out maxJump);
+                total += points;
+                stuck += trackStuck;
+            }
+
+            if (total > 0)
+                ToastMessage(string.Format(ScreenManagerLang.Tracking_QualitySummary, total, stuck), 3000);
         }
 
         private void Application_Idle(object sender, EventArgs e)

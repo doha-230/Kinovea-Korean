@@ -79,6 +79,7 @@ namespace Kinovea.Root
         private bool enableFrameSkipping;
         private FrameSkipMode frameSkipMode;
         private int frameSkipCount;
+        private double frameSkipMotionSensitivity = 1.0;
         private bool loopPlayback;
         private bool showFramerateInSpeedLabel;
         private bool interactiveFrameTracker;
@@ -144,6 +145,7 @@ namespace Kinovea.Root
             enableFrameSkipping = PreferencesManager.PlayerPreferences.EnableFrameSkipping;
             frameSkipMode = PreferencesManager.PlayerPreferences.FrameSkipMode;
             frameSkipCount = PreferencesManager.PlayerPreferences.FrameSkipCount;
+            frameSkipMotionSensitivity = PreferencesManager.PlayerPreferences.FrameSkipMotionSensitivity;
             loopPlayback = PreferencesManager.PlayerPreferences.LoopPlayback;
             interactiveFrameTracker = PreferencesManager.PlayerPreferences.InteractiveFrameTracker;
             showFramerateInSpeedLabel = PreferencesManager.PlayerPreferences.SpeedLabelFramerate;
@@ -228,6 +230,13 @@ namespace Kinovea.Root
             nudFrameSkipCount.Minimum = 0;
             nudFrameSkipCount.Maximum = PlayerPreferences.MaxFrameSkip;
             nudFrameSkipCount.Value = Math.Max(0, Math.Min(frameSkipCount, PlayerPreferences.MaxFrameSkip));
+            lblFrameSkipSensitivity.Text = RootLang.dlgPreferences_Player_FrameSkipSensitivity;
+            decimal sensitivity = (decimal)frameSkipMotionSensitivity;
+            if (sensitivity < nudFrameSkipSensitivity.Minimum)
+                sensitivity = nudFrameSkipSensitivity.Minimum;
+            if (sensitivity > nudFrameSkipSensitivity.Maximum)
+                sensitivity = nudFrameSkipSensitivity.Maximum;
+            nudFrameSkipSensitivity.Value = sensitivity;
             UpdateFrameSkipControlsEnabled();
         }
 
@@ -367,6 +376,8 @@ namespace Kinovea.Root
             cbFrameSkipMode.Enabled = enabled;
             lblFrameSkipCount.Enabled = enabled;
             nudFrameSkipCount.Enabled = enabled && frameSkipMode == FrameSkipMode.Manual;
+            lblFrameSkipSensitivity.Enabled = enabled;
+            nudFrameSkipSensitivity.Enabled = enabled && frameSkipMode == FrameSkipMode.MotionAdaptive;
         }
 
         private void cbFrameSkipMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -381,6 +392,10 @@ namespace Kinovea.Root
         private void nudFrameSkipCount_ValueChanged(object sender, EventArgs e)
         {
             frameSkipCount = (int)nudFrameSkipCount.Value;
+        }
+        private void nudFrameSkipSensitivity_ValueChanged(object sender, EventArgs e)
+        {
+            frameSkipMotionSensitivity = (double)nudFrameSkipSensitivity.Value;
         }
         private void chkInteractiveTracker_CheckedChanged(object sender, EventArgs e)
         {
@@ -552,6 +567,7 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.EnableFrameSkipping = enableFrameSkipping;
             PreferencesManager.PlayerPreferences.FrameSkipMode = frameSkipMode;
             PreferencesManager.PlayerPreferences.FrameSkipCount = frameSkipCount;
+            PreferencesManager.PlayerPreferences.FrameSkipMotionSensitivity = frameSkipMotionSensitivity;
             PreferencesManager.PlayerPreferences.InteractiveFrameTracker = interactiveFrameTracker;
             PreferencesManager.PlayerPreferences.SyncLockSpeed = syncLockSpeeds;
             PreferencesManager.PlayerPreferences.SyncByMotion = syncByMotion;

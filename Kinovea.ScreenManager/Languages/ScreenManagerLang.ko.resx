@@ -1864,4 +1864,13 @@
   <data name="dlgAudioLoudness_FormatText" xml:space="preserve">
     <value>텍스트 (txt)</value>
   </data>
+  <data name="FrameSkip_TrackingWarning" xml:space="preserve">
+    <value>트래킹 중에는 프레임 스킵을 권장하지 않습니다. 대상을 놓칠 수 있습니다.</value>
+  </data>
+  <data name="Tracking_QualitySummary" xml:space="preserve">
+    <value>추적 중지: {0}개 지점, 이동 없음 {1}개.</value>
+  </data>
+  <data name="Tracking_Failed" xml:space="preserve">
+    <value>추적에 실패했습니다. 검색창을 조정해 다시 시도하세요.</value>
+  </data>
 </root>

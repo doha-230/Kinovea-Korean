@@ -84,6 +84,8 @@ namespace Kinovea.Root
       this.cbFrameSkipMode = new System.Windows.Forms.ComboBox();
       this.lblFrameSkipCount = new System.Windows.Forms.Label();
       this.nudFrameSkipCount = new System.Windows.Forms.NumericUpDown();
+      this.lblFrameSkipSensitivity = new System.Windows.Forms.Label();
+      this.nudFrameSkipSensitivity = new System.Windows.Forms.NumericUpDown();
       this.lblSmallJump = new System.Windows.Forms.Label();
       this.tabImage = new System.Windows.Forms.TabPage();
       this.chkEnablePixelFiltering = new System.Windows.Forms.CheckBox();
@@ -103,6 +105,7 @@ namespace Kinovea.Root
       ((System.ComponentModel.ISupportInitialize)(this.nudLargeJump)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSmallJump)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipCount)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipSensitivity)).BeginInit();
       this.tabImage.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -243,6 +246,8 @@ namespace Kinovea.Root
       this.tabPlayer.Controls.Add(this.cbFrameSkipMode);
       this.tabPlayer.Controls.Add(this.lblFrameSkipCount);
       this.tabPlayer.Controls.Add(this.nudFrameSkipCount);
+      this.tabPlayer.Controls.Add(this.lblFrameSkipSensitivity);
+      this.tabPlayer.Controls.Add(this.nudFrameSkipSensitivity);
       this.tabPlayer.Location = new System.Drawing.Point(4, 22);
       this.tabPlayer.Name = "tabPlayer";
       this.tabPlayer.Size = new System.Drawing.Size(482, 296);
@@ -371,6 +376,44 @@ namespace Kinovea.Root
       this.nudFrameSkipCount.Size = new System.Drawing.Size(50, 20);
       this.nudFrameSkipCount.TabIndex = 73;
       this.nudFrameSkipCount.ValueChanged += new System.EventHandler(this.nudFrameSkipCount_ValueChanged);
+      // 
+      // lblFrameSkipSensitivity
+      // 
+      this.lblFrameSkipSensitivity.AutoSize = true;
+      this.lblFrameSkipSensitivity.Location = new System.Drawing.Point(326, 236);
+      this.lblFrameSkipSensitivity.Name = "lblFrameSkipSensitivity";
+      this.lblFrameSkipSensitivity.Size = new System.Drawing.Size(78, 13);
+      this.lblFrameSkipSensitivity.TabIndex = 74;
+      this.lblFrameSkipSensitivity.Text = "Sensitivity:";
+      // 
+      // nudFrameSkipSensitivity
+      // 
+      this.nudFrameSkipSensitivity.DecimalPlaces = 2;
+      this.nudFrameSkipSensitivity.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+      this.nudFrameSkipSensitivity.Location = new System.Drawing.Point(408, 232);
+      this.nudFrameSkipSensitivity.Maximum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+      this.nudFrameSkipSensitivity.Minimum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
+      this.nudFrameSkipSensitivity.Name = "nudFrameSkipSensitivity";
+      this.nudFrameSkipSensitivity.Size = new System.Drawing.Size(54, 20);
+      this.nudFrameSkipSensitivity.TabIndex = 75;
+      this.nudFrameSkipSensitivity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+      this.nudFrameSkipSensitivity.ValueChanged += new System.EventHandler(this.nudFrameSkipSensitivity_ValueChanged);
       // 
       // tabJumping
       // 
@@ -658,6 +701,7 @@ namespace Kinovea.Root
       ((System.ComponentModel.ISupportInitialize)(this.nudLargeJump)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSmallJump)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipCount)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.nudFrameSkipSensitivity)).EndInit();
       this.tabImage.ResumeLayout(false);
       this.tabImage.PerformLayout();
       this.ResumeLayout(false);
@@ -708,5 +752,7 @@ namespace Kinovea.Root
         private System.Windows.Forms.ComboBox cbFrameSkipMode;
         private System.Windows.Forms.Label lblFrameSkipCount;
         private System.Windows.Forms.NumericUpDown nudFrameSkipCount;
+        private System.Windows.Forms.Label lblFrameSkipSensitivity;
+        private System.Windows.Forms.NumericUpDown nudFrameSkipSensitivity;
     }
 }

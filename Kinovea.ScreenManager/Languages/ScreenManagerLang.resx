@@ -1917,4 +1917,13 @@
   <data name="dlgAudioLoudness_FormatText" xml:space="preserve">
     <value>Text (txt)</value>
   </data>
+  <data name="FrameSkip_TrackingWarning" xml:space="preserve">
+    <value>Frame skipping is not recommended while tracking: the tracker may lose the object.</value>
+  </data>
+  <data name="Tracking_QualitySummary" xml:space="preserve">
+    <value>Tracking stopped: {0} points, {1} without movement.</value>
+  </data>
+  <data name="Tracking_Failed" xml:space="preserve">
+    <value>Tracking failed. Adjust the search window and try again.</value>
+  </data>
 </root>

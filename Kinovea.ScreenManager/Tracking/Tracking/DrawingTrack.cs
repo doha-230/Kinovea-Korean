@@ -495,6 +495,30 @@ namespace Kinovea.ScreenManager
         #endregion
 
         #region AbstractDrawing implementation
+        /// <summary>
+        /// Rough quality report of the tracked path: how many points were tracked,
+        /// how many of them did not move from the previous one (a sign that the
+        /// tracker lost the object), and the largest jump between two points.
+        /// </summary>
+        public void GetTrackingQuality(out int points, out int stuck, out double maxJump)
+        {
+            points = positions.Count;
+            stuck = 0;
+            maxJump = 0;
+
+            for (int i = 1; i < positions.Count; i++)
+            {
+                double dx = positions[i].X - positions[i - 1].X;
+                double dy = positions[i].Y - positions[i - 1].Y;
+                double distance = Math.Sqrt(dx * dx + dy * dy);
+
+                if (distance <= 0.5)
+                    stuck++;
+                else if (distance > maxJump)
+                    maxJump = distance;
+            }
+        }
+
         public override void Draw(Graphics canvas, DistortionHelper distorter, CameraTransformer cameraTransformer, IImageToViewportTransformer transformer, bool selected, long currentTimestamp)
         {
             if (!isVisible || currentTimestamp < visibleTimestamp)

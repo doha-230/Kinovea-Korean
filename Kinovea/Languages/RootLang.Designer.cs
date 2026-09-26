@@ -2230,5 +2230,11 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        internal static string dlgPreferences_Player_FrameSkipSensitivity {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_FrameSkipSensitivity", resourceCulture);
+            }
+        }
+
     }
 }

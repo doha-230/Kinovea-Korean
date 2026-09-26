@@ -796,4 +796,7 @@
   <data name="dlgPreferences_Drawings_EncodingSystem" xml:space="preserve">
     <value>시스템 기본</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipSensitivity" xml:space="preserve">
+    <value>민감도:</value>
+  </data>
 </root>

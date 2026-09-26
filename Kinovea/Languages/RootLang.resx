@@ -849,4 +849,7 @@
   <data name="dlgPreferences_Drawings_EncodingSystem" xml:space="preserve">
     <value>System default</value>
   </data>
+  <data name="dlgPreferences_Player_FrameSkipSensitivity" xml:space="preserve">
+    <value>Sensitivity:</value>
+  </data>
 </root>

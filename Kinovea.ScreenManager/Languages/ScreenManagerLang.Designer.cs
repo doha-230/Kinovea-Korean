@@ -5438,5 +5438,21 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string FrameSkip_TrackingWarning {
+            get {
+                return ResourceManager.GetString("FrameSkip_TrackingWarning", resourceCulture);
+            }
+        }
+        internal static string Tracking_QualitySummary {
+            get {
+                return ResourceManager.GetString("Tracking_QualitySummary", resourceCulture);
+            }
+        }
+        internal static string Tracking_Failed {
+            get {
+                return ResourceManager.GetString("Tracking_Failed", resourceCulture);
+            }
+        }
+
     }
 }

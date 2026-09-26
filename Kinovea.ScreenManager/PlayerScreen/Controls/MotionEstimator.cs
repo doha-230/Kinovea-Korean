@@ -54,6 +54,8 @@ namespace Kinovea.ScreenManager
         private bool hasPrevious;
         private bool hasEstimate;
         private double smoothed;
+        private int lastSkip;
+        private bool hasSkipLevel;
 
         /// <summary>Smoothed motion, in luma units per millisecond.</summary>
         public double MotionPerMs
@@ -78,6 +80,8 @@ namespace Kinovea.ScreenManager
             hasPrevious = false;
             hasEstimate = false;
             smoothed = 0;
+            lastSkip = 0;
+            hasSkipLevel = false;
         }
 
         /// <summary>
@@ -119,21 +123,45 @@ namespace Kinovea.ScreenManager
         }
 
         /// <summary>
-        /// Frames to skip for the current motion: no motion -> maxSkip frames,
-        /// fast motion -> no skipping.
+        /// Number of frames to skip for the current motion: no motion -&gt; maxSkip,
+        /// fast motion -&gt; 0. The sensitivity multiplies the reference speed, so a
+        /// higher value keeps skipping longer (only faster motion stops it).
+        /// The result moves at most one frame per call so that the skip level
+        /// ramps up and down instead of oscillating between extremes.
         /// </summary>
-        public int GetSkipCount(int maxSkip)
+        public int GetSkipCount(int maxSkip, double sensitivity = 1.0)
         {
             if (maxSkip <= 0 || !hasEstimate)
                 return 0;
 
-            double normalized = smoothed / ReferenceMotionPerMs;
+            double reference = ReferenceMotionPerMs;
+            if (sensitivity > 0)
+                reference *= sensitivity;
+
+            double normalized = smoothed / reference;
             if (normalized < 0)
                 normalized = 0;
             if (normalized > 1)
                 normalized = 1;
 
-            return (int)Math.Round(maxSkip * (1 - normalized));
+            int target = (int)Math.Round(maxSkip * (1 - normalized));
+
+            // Ramp: never jump more than one frame at a time.
+            if (!hasSkipLevel)
+            {
+                lastSkip = target;
+                hasSkipLevel = true;
+            }
+            else if (target > lastSkip)
+            {
+                lastSkip = lastSkip + 1;
+            }
+            else if (target < lastSkip)
+            {
+                lastSkip = lastSkip - 1;
+            }
+
+            return lastSkip;
         }
 
         /// <summary>
