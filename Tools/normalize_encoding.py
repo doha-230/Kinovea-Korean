@@ -48,7 +48,7 @@ def normalize(path):
 def main(root):
     n_files = n_bom = n_rep = 0
     for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d not in ('.git', 'bin', 'obj', 'Refs')]
+        dirnames[:] = [d for d in dirnames if d not in ('.git', 'bin', 'obj', 'Refs', 'packages', 'node_modules', '.vs')]
         for fn in filenames:
             ext = os.path.splitext(fn)[1].lower()
             if ext not in EXTS:

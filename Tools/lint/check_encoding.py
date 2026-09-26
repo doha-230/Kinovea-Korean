@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Check the fork invariant: every source/project file is valid UTF-8 with a BOM.
 
 Needed because the C# compiler decodes source files using the system code page
@@ -15,7 +15,7 @@ import sys
 EXTS = {'.cs', '.vb', '.cpp', '.h', '.hpp', '.c', '.cc', '.cxx',
         '.resx', '.csproj', '.vbproj', '.props', '.targets',
         '.config', '.settings', '.manifest', '.nsi'}
-SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules'}
+SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules', 'packages'}
 BOM = b'\xef\xbb\xbf'
 
 

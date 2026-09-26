@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Scan C# sources for culture-sensitive number parsing/formatting.
 
 A `float.Parse(s)` / `double.Parse(s)` without an explicit culture uses
@@ -20,7 +20,7 @@ import sys
 
 # float/double/decimal.Parse(...) not followed by a culture argument on the same line.
 PARSE_RE = re.compile(r'\b(?:float|double|decimal)\.Parse\s*\(')
-SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules'}
+SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules', 'packages'}
 EXT = '.cs'
 
 

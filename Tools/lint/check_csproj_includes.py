@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Check that every .cs/.vb file on disk is referenced by a .csproj.
 
 This solution uses non-SDK projects with explicit <Compile Include> items and no
@@ -12,7 +12,7 @@ import argparse
 import os
 import sys
 
-SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules'}
+SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules', 'packages'}
 
 
 def scan(root):

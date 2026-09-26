@@ -19,7 +19,7 @@ import os
 import re
 import sys
 
-SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules'}
+SKIP_DIRS = {'.git', 'bin', 'obj', 'Refs', '.vs', 'node_modules', 'packages'}
 
 PATTERNS = [
     re.compile(r'\.Text\s*=\s*"([^"\\]{2,})"'),           # .Text = "Foo"
