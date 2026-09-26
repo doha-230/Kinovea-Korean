@@ -231,6 +231,7 @@
     <Compile Include="Types\Export\EncodingSpeed.cs" />
     <Compile Include="Types\Export\VideoCodec.cs" />
     <Compile Include="Types\Export\EncodingQuality.cs" />
+    <Compile Include="Types\Export\HardwareEncoder.cs" />
     <Compile Include="Types\Export\ExportProfile.cs" />
     <Compile Include="Types\TimelineJumpUnit.cs" />
     <Compile Include="Types\WindowContent.cs" />

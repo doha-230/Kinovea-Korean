@@ -82,6 +82,7 @@ namespace Kinovea.Root
         private KeyframePresetsParameters keyframePresets;
         private CSVDecimalSeparator csvDecimalSeparator;
         private CSVEncoding csvEncoding;
+        private HardwareEncoder videoHardwareEncoder;
         private ExportSpace exportSpace;
         private bool exportImagesInDocuments;
         private int presetsCount = 10;
@@ -133,6 +134,7 @@ namespace Kinovea.Root
             keyframePresets = PreferencesManager.PlayerPreferences.KeyframePresets;
             csvDecimalSeparator = PreferencesManager.PlayerPreferences.CSVDecimalSeparator;
             csvEncoding = PreferencesManager.PlayerPreferences.CSVEncoding;
+            videoHardwareEncoder = PreferencesManager.PlayerPreferences.VideoHardwareEncoder;
             exportSpace = PreferencesManager.PlayerPreferences.ExportSpace;
             exportImagesInDocuments = PreferencesManager.PlayerPreferences.ExportImagesInDocuments;
             pandocPath = PreferencesManager.PlayerPreferences.PandocPath;
@@ -371,6 +373,13 @@ namespace Kinovea.Root
             cmbDelimiter.Items.Add(RootLang.dlgPreferences_Drawings_CSVPoint);
             cmbDelimiter.Items.Add(RootLang.dlgPreferences_Drawings_CSVComma);
             lblTextEncoding.Text = RootLang.dlgPreferences_Drawings_TextEncoding;
+            lblVideoHardware.Text = RootLang.dlgPreferences_Drawings_HardwareEncoding;
+            cmbVideoHardware.Items.Clear();
+            cmbVideoHardware.Items.Add(RootLang.dlgPreferences_Drawings_HardwareNone);
+            cmbVideoHardware.Items.Add(RootLang.dlgPreferences_Drawings_HardwareNvenc);
+            cmbVideoHardware.Items.Add(RootLang.dlgPreferences_Drawings_HardwareQsv);
+            cmbVideoHardware.Items.Add(RootLang.dlgPreferences_Drawings_HardwareAmf);
+            cmbVideoHardware.SelectedIndex = Math.Max(0, Math.Min((int)videoHardwareEncoder, cmbVideoHardware.Items.Count - 1));
             cmbTextEncoding.Items.Clear();
             cmbTextEncoding.Items.Add(RootLang.dlgPreferences_Drawings_EncodingUtf8);
             cmbTextEncoding.Items.Add(RootLang.dlgPreferences_Drawings_EncodingUtf8Bom);
@@ -479,6 +488,14 @@ namespace Kinovea.Root
         {
             csvDecimalSeparator = (CSVDecimalSeparator)cmbDelimiter.SelectedIndex;
         }
+        private void cmbVideoHardware_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbVideoHardware.SelectedIndex < 0)
+                return;
+
+            videoHardwareEncoder = (HardwareEncoder)cmbVideoHardware.SelectedIndex;
+        }
+
         private void cmbTextEncoding_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbTextEncoding.SelectedIndex < 0)
@@ -539,6 +556,7 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.KeyframePresets = keyframePresets;
             PreferencesManager.PlayerPreferences.CSVDecimalSeparator = csvDecimalSeparator;
             PreferencesManager.PlayerPreferences.CSVEncoding = csvEncoding;
+            PreferencesManager.PlayerPreferences.VideoHardwareEncoder = videoHardwareEncoder;
             PreferencesManager.PlayerPreferences.ExportSpace = exportSpace;
             PreferencesManager.PlayerPreferences.ExportImagesInDocuments = exportImagesInDocuments;
             PreferencesManager.PlayerPreferences.PandocPath = pandocPath;

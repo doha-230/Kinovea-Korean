@@ -2236,5 +2236,31 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        internal static string dlgPreferences_Drawings_HardwareEncoding {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_HardwareEncoding", resourceCulture);
+            }
+        }
+        internal static string dlgPreferences_Drawings_HardwareNone {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_HardwareNone", resourceCulture);
+            }
+        }
+        internal static string dlgPreferences_Drawings_HardwareNvenc {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_HardwareNvenc", resourceCulture);
+            }
+        }
+        internal static string dlgPreferences_Drawings_HardwareQsv {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_HardwareQsv", resourceCulture);
+            }
+        }
+        internal static string dlgPreferences_Drawings_HardwareAmf {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Drawings_HardwareAmf", resourceCulture);
+            }
+        }
+
     }
 }

@@ -133,6 +133,17 @@ namespace Kinovea.Services
             get { BeforeRead(); return exportSpace; }
             set { exportSpace = value; Save(); }
         }
+
+        /// <summary>
+        /// Hardware encoder used for H.264/H.265 video export. Software encoding
+        /// (None) is the default and always works; hardware encoders are much
+        /// faster but require a compatible GPU and the matching ffmpeg encoder.
+        /// </summary>
+        public HardwareEncoder VideoHardwareEncoder
+        {
+            get { BeforeRead(); return videoHardwareEncoder; }
+            set { videoHardwareEncoder = value; Save(); }
+        }
         public bool ExportImagesInDocuments
         {
             get { BeforeRead(); return exportImagesInDocuments; }
@@ -396,6 +407,7 @@ namespace Kinovea.Services
         private int audioLoudnessWindowMs = 50;
         private double frameSkipMotionSensitivity = 1.0;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
+        private HardwareEncoder videoHardwareEncoder = HardwareEncoder.None;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
         private ImageAspectRatio aspectRatio = ImageAspectRatio.Auto;
@@ -477,6 +489,7 @@ namespace Kinovea.Services
             writer.WriteElementString("AudioLoudnessWindowMs", audioLoudnessWindowMs.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("FrameSkipMotionSensitivity", frameSkipMotionSensitivity.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
+            writer.WriteElementString("VideoHardwareEncoder", videoHardwareEncoder.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
             writer.WriteElementString("AspectRatio", aspectRatio.ToString());
             writer.WriteElementString("DeinterlaceByDefault", XmlHelper.WriteBoolean(deinterlaceByDefault));
@@ -613,6 +626,9 @@ namespace Kinovea.Services
                         break;
                     case "FrameSkipMotionSensitivity":
                         frameSkipMotionSensitivity = Math.Max(MinMotionSensitivity, Math.Min(reader.ReadElementContentAsDouble(), MaxMotionSensitivity));
+                        break;
+                    case "VideoHardwareEncoder":
+                        videoHardwareEncoder = XmlHelper.ParseEnum<HardwareEncoder>(reader.ReadElementContentAsString(), HardwareEncoder.None);
                         break;
                     case "ExportImagesInDocuments":
                         exportImagesInDocuments = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());

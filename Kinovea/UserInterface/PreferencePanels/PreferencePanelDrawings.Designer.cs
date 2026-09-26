@@ -87,6 +87,8 @@ namespace Kinovea.Root
       this.lblCSVDelimiter = new System.Windows.Forms.Label();
       this.cmbDelimiter = new System.Windows.Forms.ComboBox();
       this.cmbTextEncoding = new System.Windows.Forms.ComboBox();
+      this.cmbVideoHardware = new System.Windows.Forms.ComboBox();
+      this.lblVideoHardware = new System.Windows.Forms.Label();
       this.lblTextEncoding = new System.Windows.Forms.Label();
       this.cmbExportSpace = new System.Windows.Forms.ComboBox();
       this.lblExportSpace = new System.Windows.Forms.Label();
@@ -502,6 +504,8 @@ namespace Kinovea.Root
       this.gbSpreadsheet.Controls.Add(this.cmbDelimiter);
       this.gbSpreadsheet.Controls.Add(this.lblTextEncoding);
       this.gbSpreadsheet.Controls.Add(this.cmbTextEncoding);
+      this.gbSpreadsheet.Controls.Add(this.cmbVideoHardware);
+      this.gbSpreadsheet.Controls.Add(this.lblVideoHardware);
       this.gbSpreadsheet.Controls.Add(this.cmbExportSpace);
       this.gbSpreadsheet.Controls.Add(this.lblExportSpace);
       this.gbSpreadsheet.Location = new System.Drawing.Point(6, 15);
@@ -546,6 +550,25 @@ namespace Kinovea.Root
       this.lblExportSpace.Size = new System.Drawing.Size(71, 13);
       this.lblExportSpace.TabIndex = 68;
       this.lblExportSpace.Text = "Export metric:";
+      // 
+      // lblVideoHardware
+      // 
+      this.lblVideoHardware.AutoSize = true;
+      this.lblVideoHardware.Location = new System.Drawing.Point(28, 137);
+      this.lblVideoHardware.Name = "lblVideoHardware";
+      this.lblVideoHardware.Size = new System.Drawing.Size(121, 13);
+      this.lblVideoHardware.TabIndex = 76;
+      this.lblVideoHardware.Text = "Video hardware encoding:";
+      // 
+      // cmbVideoHardware
+      // 
+      this.cmbVideoHardware.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmbVideoHardware.FormattingEnabled = true;
+      this.cmbVideoHardware.Location = new System.Drawing.Point(287, 134);
+      this.cmbVideoHardware.Name = "cmbVideoHardware";
+      this.cmbVideoHardware.Size = new System.Drawing.Size(116, 21);
+      this.cmbVideoHardware.TabIndex = 77;
+      this.cmbVideoHardware.SelectedIndexChanged += new System.EventHandler(this.cmbVideoHardware_SelectedIndexChanged);
       // 
       // lblTextEncoding
       // 

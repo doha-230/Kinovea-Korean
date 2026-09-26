@@ -75,12 +75,20 @@ namespace Kinovea.ScreenManager
                     }
                 case VideoCodec.H264:
                     {
-                        AddH26xArgs(args, p, "libx264");
+                        HardwareEncoder hardware = PreferencesManager.PlayerPreferences.VideoHardwareEncoder;
+                        if (hardware != HardwareEncoder.None)
+                            AddH26xHardwareArgs(args, p, GetHardwareEncoderName(hardware, false));
+                        else
+                            AddH26xArgs(args, p, "libx264");
                         break;
                     }
                 case VideoCodec.H265:
                     {
-                        AddH26xArgs(args, p, "libx265");
+                        HardwareEncoder hardware = PreferencesManager.PlayerPreferences.VideoHardwareEncoder;
+                        if (hardware != HardwareEncoder.None)
+                            AddH26xHardwareArgs(args, p, GetHardwareEncoderName(hardware, true));
+                        else
+                            AddH26xArgs(args, p, "libx265");
                         break;
                     }
                 default:
@@ -102,6 +110,91 @@ namespace Kinovea.ScreenManager
 
             // No preset.
             // No GOP size since we are always intra-only.
+        }
+
+        /// <summary>Name of the hardware encoder to use for the requested codec.</summary>
+        private static string GetHardwareEncoderName(HardwareEncoder hardware, bool hevc)
+        {
+            switch (hardware)
+            {
+                case HardwareEncoder.Nvenc:
+                    return hevc ? "hevc_nvenc" : "h264_nvenc";
+                case HardwareEncoder.Qsv:
+                    return hevc ? "hevc_qsv" : "h264_qsv";
+                case HardwareEncoder.Amf:
+                    return hevc ? "hevc_amf" : "h264_amf";
+                default:
+                    return hevc ? "libx265" : "libx264";
+            }
+        }
+
+        /// <summary>
+        /// Hardware encoders do not share the libx264/libx265 options: they bring
+        /// their own rate control. The quality target is preserved; the
+        /// compression-effort preset only maps to the NVENC p1..p7 presets.
+        /// </summary>
+        private static void AddH26xHardwareArgs(StringBuilder args, ExportProfile p, string name)
+        {
+            int quality = ExportProfile.GetCRF(p.EncodingQuality, p.Codec);
+
+            Add(args, "-c:v");
+            Add(args, name);
+
+            if (name.EndsWith("_qsv"))
+            {
+                Add(args, "-pix_fmt");
+                Add(args, "nv12");
+
+                // Quality target in ICQ mode: lower is better.
+                Add(args, "-global_quality");
+                Add(args, quality.ToString());
+            }
+            else if (name.EndsWith("_nvenc"))
+            {
+                Add(args, "-pix_fmt");
+                Add(args, "yuv420p");
+
+                string preset = "p4";
+                switch (p.EncodingSpeed)
+                {
+                    case EncodingSpeed.Fast:
+                        preset = "p1";
+                        break;
+                    case EncodingSpeed.Medium:
+                        preset = "p4";
+                        break;
+                    case EncodingSpeed.Slow:
+                        preset = "p7";
+                        break;
+                }
+
+                Add(args, "-preset");
+                Add(args, preset);
+                Add(args, "-rc");
+                Add(args, "vbr");
+                Add(args, "-cq");
+                Add(args, quality.ToString());
+                Add(args, "-b:v");
+                Add(args, "0");
+            }
+            else
+            {
+                // AMD AMF: constant quantizer.
+                Add(args, "-pix_fmt");
+                Add(args, "yuv420p");
+                Add(args, "-rc");
+                Add(args, "cqp");
+                Add(args, "-qp_i");
+                Add(args, quality.ToString());
+                Add(args, "-qp_p");
+                Add(args, quality.ToString());
+            }
+
+            if (p.GOPSize > 0)
+            {
+                Add(args, "-g");
+                Add(args, p.GOPSize.ToString());
+            }
         }
 
         private static void AddH26xArgs(StringBuilder args, ExportProfile p, string name)
