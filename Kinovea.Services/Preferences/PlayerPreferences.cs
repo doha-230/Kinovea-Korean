@@ -384,7 +384,7 @@ namespace Kinovea.Services
             writer.WriteElementString("EnableFiltering", XmlHelper.WriteBoolean(enableFiltering));
             writer.WriteElementString("EnableCustomToolsDebugMode", XmlHelper.WriteBoolean(enableCustomToolsDebugMode));
             writer.WriteElementString("DefaultReplaySpeed", defaultReplaySpeed.ToString("0", CultureInfo.InvariantCulture));
-            writer.WriteElementString("FrameSkip", frameSkip.ToString());
+            writer.WriteElementString("FrameSkip", frameSkip.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("DetectImageSequences", XmlHelper.WriteBoolean(detectImageSequences));
             writer.WriteElementString("PreloadKeyframes", preloadKeyframes.ToString());
             writer.WriteElementString("PlaybackKVA", playbackKVA);

@@ -245,7 +245,7 @@ namespace Kinovea.ScreenManager
       // lblFrameSkip
       // 
       this.lblFrameSkip.AutoSize = true;
-      this.lblFrameSkip.Location = new System.Drawing.Point(400, 94);
+      this.lblFrameSkip.Location = new System.Drawing.Point(250, 27);
       this.lblFrameSkip.Name = "lblFrameSkip";
       this.lblFrameSkip.Size = new System.Drawing.Size(58, 13);
       this.lblFrameSkip.TabIndex = 56;
@@ -253,7 +253,7 @@ namespace Kinovea.ScreenManager
       // 
       // tbFrameSkip
       // 
-      this.tbFrameSkip.Location = new System.Drawing.Point(462, 92);
+      this.tbFrameSkip.Location = new System.Drawing.Point(315, 25);
       this.tbFrameSkip.Name = "tbFrameSkip";
       this.tbFrameSkip.Size = new System.Drawing.Size(32, 20);
       this.tbFrameSkip.TabIndex = 57;
