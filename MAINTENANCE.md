@@ -43,6 +43,15 @@
   제거된 API(`TimeMapper` 리팩터링 등)를 참조해 컴파일되지 않으므로 **csproj에서 제외**했다
   (파일은 업스트림 동기화를 위해 남겨둠).
 
+## 오디오 음량 추출 (Exporters\Audio)
+
+- 렌더링/재생 경로와 무관한 **내보내기 전용** 기능이다. 오디오 디코딩은
+  `ReaderFFMpeg`(C++/CLI)를 건드리지 않고, 앱에 이미 포함된 `ffmpeg.exe`
+  (`astats` + `ametadata` 필터)를 실행해 수행한다 — `WriterFFMpegCLI` 와 같은 바이너리에 의존한다.
+- 추출 결과의 **파싱·집계는 `AudioLoudnessParser` 에 분리**되어 있어 ffmpeg 없이 단위 테스트된다
+  (`Kinovea.Tests/Player/AudioLoudnessTest.cs`). 새 내보내기 형식을 추가할 때도 이 계층을 재사용한다.
+- 무음은 메모리에서 `-∞ dBFS`, 파일에는 `-100 dBFS`(표시 하한)로 기록한다.
+
 ## 업스트림 동기화 절차
 
 ```bash
