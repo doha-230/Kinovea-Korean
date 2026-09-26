@@ -1,0 +1,91 @@
+Kinovea/Kernel.cs:579: [h:][mm:]ss.xx[x]
+Kinovea/Kernel.cs:588: Timestamps (debug)
+Kinovea/Kernel.cs:610: www.kinovea.org
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:190: Show cache memory in the timeline
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:196: Player
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:198: Enable hardware decoding
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:199: Enable hardware scaling
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:200: Allow skipping frames if there is not enough time
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:203: Use motion synchronization mode
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:204: Show framerate in speed label
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:205: Loop playback
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:220: Jumping
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:221: Timeline jumping
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:223: Small jump size:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:224: Large jump size:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:231: Seconds
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:232: Milliseconds
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:233: Frames
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:234: Percent
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:239: Seconds
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:240: Milliseconds
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:241: Frames
+Kinovea/UserInterface/PreferencePanels/PreferencePanelPlayer.cs:242: Percent
+Kinovea/UserInterface/PreferencePanels/PreferencePanelGeneral.cs:114: Use drive-specific icons
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:183: [h:][mm:]ss.xx[x]
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:189: [h:][mm:]ss.xx[x] +
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:193: Normalized
+Kinovea/UserInterface/PreferencePanels/PreferencePanelDrawings.cs:194: Timestamps
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:218: JPG
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:219: PNG
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:220: BMP
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:225: MP4
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:226: MKV
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:227: AVI
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:231: Video codec:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:232: MJPEG
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:233: Raw video
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:237: MJPEG encoding quality:
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:238: Perceptually lossless
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:239: High
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:240: Good
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:241: Medium
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:265: Save while recording
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:266: Frames are saved to the video file as recording progresses. This supports recordings of any length and can also be used with video delay.
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:268: Save after recording stops
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:269: The complete recording is kept in memory, then saved to the video file when recording ends. The recording duration is limited by the available buffer, but this can work better at high frame rates or with slower storage.
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:276: High-speed recording
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:277: Adjust playback frame rate for high-speed recordings
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:280: High-speed threshold (fps):
+Kinovea/UserInterface/PreferencePanels/PreferencePanelCapture.cs:281: Playback frame rate (fps):
+Kinovea.ScreenManager/ScreenManager.cs:1958: Navigation pane
+Kinovea.ScreenManager/ScreenManager.cs:1959: File browser
+Kinovea.ScreenManager/ScreenManager.cs:1990: LibreOffice Calc…
+Kinovea.ScreenManager/ScreenManager.cs:1991: Microsoft Excel…
+Kinovea.ScreenManager/ScreenManager.cs:1994: Trajectory text…
+Kinovea.ScreenManager/ScreenManager.cs:1995: JSON…
+Kinovea.ScreenManager/ScreenManager.cs:1998: LibreOffice Writer…
+Kinovea.ScreenManager/ScreenManager.cs:1999: Microsoft Word…
+Kinovea.ScreenManager/ScreenManager.cs:2000: Markdown…
+Kinovea.ScreenManager/VideoFilters/CameraMotion/FormConfigureCameraMotion.cs:47: ORB
+Kinovea.ScreenManager/VideoFilters/CameraMotion/FormConfigureCameraMotion.cs:48: SIFT
+Kinovea.ScreenManager/PlayerScreen/Controls/PlayerScreenUserInterface2.cs:3605: Copy time
+Kinovea.ScreenManager/Measurement/Plotting/FormTrackAnalysis.cs:66: Selected cutoff frequencies:
+Kinovea.ScreenManager/Measurement/Plotting/FormMultiTrajectoryAnalysis.cs:199: Cutoff frequencies (Hz)
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:33: Preset:
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:38: Custom
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:42: Format:
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:43: MP4
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:44: MKV
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:45: AVI
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:49: Video codec:
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:50: MJPEG
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:51: H.264
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:52: H.265
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:56: Encoding quality:
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:57: Perceptually lossless
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:58: High
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:59: Good
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:60: Medium
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:64: Encoding speed:
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:65: Fast
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:66: Medium
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:67: Slow
+Kinovea.ScreenManager/Exporters/Video/ControlEncodingSettings.cs:70: GOP size:
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:156: Enable hardware compression
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:157: Enable software demosaicing
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:158: Resulting framerate
+Kinovea.Camera.GenICam/Configuration/FormConfiguration.cs:169: GenICam XML
+Kinovea.Camera.Basler/Configuration/FormConfiguration.cs:182: Raw
+Kinovea.Camera.Basler/Configuration/FormConfiguration.cs:183: Mono
+Kinovea.Camera.Basler/Configuration/FormConfiguration.cs:184: Color
