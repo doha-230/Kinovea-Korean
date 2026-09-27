@@ -2397,7 +2397,7 @@ namespace Kinovea.ScreenManager
                     candidate.Failed = true;
             }
 
-            CandidateMetrics.Rank(candidateSet.Candidates);
+            CandidateMetrics.RankCandidates(candidateSet.Candidates);
         }
 
         /// <summary>Drop the candidates (after adoption or on user request).</summary>

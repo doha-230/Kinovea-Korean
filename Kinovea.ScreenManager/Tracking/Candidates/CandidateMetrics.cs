@@ -149,7 +149,7 @@ namespace Kinovea.ScreenManager
         /// Ties keep the order the candidates were created in, so the result is deterministic.
         /// Failed candidates are ranked last.
         /// </summary>
-        public static void Rank(IList<TrackCandidate> candidates)
+        public static void RankCandidates(IList<TrackCandidate> candidates)
         {
             if (candidates == null || candidates.Count == 0)
                 return;

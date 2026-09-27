@@ -179,7 +179,7 @@ namespace Kinovea.Tests.Tracking
             List<TrackCandidate> candidates = new List<TrackCandidate>();
             candidates.Add(Candidate("stuck", Line(10, 0, 33), 0.9, new Size(20, 20)));
             candidates.Add(Candidate("moving", Line(10, 10, 33), 0.9, new Size(20, 20)));
-            CandidateMetrics.Rank(candidates);
+            CandidateMetrics.RankCandidates(candidates);
             return candidates[1].Rank == 1 && candidates[0].Rank == 2;
         }
 
@@ -189,7 +189,7 @@ namespace Kinovea.Tests.Tracking
             candidates.Add(Candidate("first", Line(10, 10, 33), 0.9, new Size(20, 20)));
             candidates.Add(Candidate("second", Line(10, 10, 33), 0.9, new Size(20, 20)));
             candidates.Add(Candidate("third", Line(10, 10, 33), 0.9, new Size(20, 20)));
-            CandidateMetrics.Rank(candidates);
+            CandidateMetrics.RankCandidates(candidates);
             return candidates[0].Rank == 1 && candidates[1].Rank == 2 && candidates[2].Rank == 3;
         }
 
@@ -200,7 +200,7 @@ namespace Kinovea.Tests.Tracking
             failed.Failed = true;
             candidates.Add(failed);
             candidates.Add(Candidate("ok", Line(10, 10, 33), 0.5, new Size(20, 20)));
-            CandidateMetrics.Rank(candidates);
+            CandidateMetrics.RankCandidates(candidates);
             return candidates[0].Rank == 2 && candidates[1].Rank == 1;
         }
 
@@ -209,7 +209,7 @@ namespace Kinovea.Tests.Tracking
             List<TrackCandidate> candidates = new List<TrackCandidate>();
             candidates.Add(Candidate("a", Line(10, 0, 33), 0.9, new Size(20, 20)));
             candidates.Add(Candidate("b", Line(10, 10, 33), 0.9, new Size(20, 20)));
-            CandidateMetrics.Rank(candidates);
+            CandidateMetrics.RankCandidates(candidates);
             return candidates[1].Rank == 1 && candidates[1].Metrics.Rank == 1;
         }
 
