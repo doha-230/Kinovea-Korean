@@ -34,6 +34,12 @@ namespace Kinovea.ScreenManager
     {
         public abstract TrackingParameters Parameters { get; }
 
+        /// <summary>
+        /// Score of the last match attempt (0 when the tracker did not attempt one).
+        /// Used to report the tracking quality while it runs.
+        /// </summary>
+        public double LastScore { get; protected set; }
+
 
         #region Abstract Methods
 

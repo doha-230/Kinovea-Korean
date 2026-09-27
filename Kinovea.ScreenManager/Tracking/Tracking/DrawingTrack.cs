@@ -131,6 +131,14 @@ namespace Kinovea.ScreenManager
                 AfterTrackingStatusChanged();
             }
         }
+        /// <summary>
+        /// Score of the last match attempt of the underlying tracker (0 when unknown).
+        /// </summary>
+        public double LastMatchScore
+        {
+            get { return tracker == null ? 0 : tracker.LastScore; }
+        }
+
         public TrackingParameters TrackingParameters
         {
             get { return tracker.Parameters; }

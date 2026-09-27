@@ -78,6 +78,9 @@ namespace Kinovea.ScreenManager
             cbTrackingAlgorithm.DrawItem += cbTrackingAlgorithm_DrawItem;
 
             pnlViewport.Controls.Add(viewportController.View);
+
+            // The live tracking status is an overlay on top of the mini viewport.
+            lblTrackingLive.BringToFront();
             viewportController.View.Dock = DockStyle.Fill;
             viewportController.View.DoubleClick += pnlViewport_DoubleClick;
             viewportController.View.MouseEnter += miniViewport_MouseEnter;
@@ -106,6 +109,7 @@ namespace Kinovea.ScreenManager
             lblUpdateThreshold.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.track_UpdateThreshold;
             btnStartStop.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Start;
             btnTrimTrack.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_DeleteEndOfTrack;
+            lblTrackingLive.Text = string.Empty;
         }
         #endregion
 
@@ -197,6 +201,38 @@ namespace Kinovea.ScreenManager
         /// The timestamp, bitmap or tracking parameters were updated from the main viewport.
         /// Update video image and recenter.
         /// </summary>
+        /// <summary>
+        /// Refresh the live tracking status line (progress and match score).
+        /// </summary>
+        private void UpdateLiveStatus()
+        {
+            if (track == null || track.Status != TrackStatus.Edit || metadata == null)
+            {
+                lblTrackingLive.Text = string.Empty;
+                return;
+            }
+
+            long start = metadata.SelectionStart;
+            long end = metadata.SelectionEnd;
+            long now = hostView.CurrentTimestamp;
+            int percent = 0;
+            if (end > start)
+                percent = (int)Math.Max(0, Math.Min(100, Math.Round(100.0 * (now - start) / (end - start))));
+
+            double score = track.LastMatchScore;
+            double threshold = track.TrackingParameters.SimilarityThreshold;
+
+            lblTrackingLive.Text = string.Format(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_LiveStatus, percent, score);
+            if (score <= 0)
+                lblTrackingLive.ForeColor = System.Drawing.SystemColors.GrayText;
+            else if (score < threshold)
+                lblTrackingLive.ForeColor = System.Drawing.Color.Firebrick;
+            else if (score < Math.Min(1.0, threshold + 0.15))
+                lblTrackingLive.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            else
+                lblTrackingLive.ForeColor = System.Drawing.Color.ForestGreen;
+        }
+
         public void UpdateContent()
         {
             metadataManipulator.SetFixedTimestamp(hostView.CurrentTimestamp);
@@ -206,6 +242,7 @@ namespace Kinovea.ScreenManager
 
             InitializeDisplayRectangle(bitmap.Size, hostView.CurrentTimestamp);
             viewportController.Refresh();
+            UpdateLiveStatus();
         }
         #endregion
 
@@ -350,6 +387,27 @@ namespace Kinovea.ScreenManager
                 track.StartTracking();
         }
 
+        /// <summary>
+        /// Cheap sanity check of the search and object windows before starting a track.
+        /// </summary>
+        private bool ValidateTrackingParameters()
+        {
+            TrackingParameters tp = track.TrackingParameters;
+            bool objectTooSmall = tp.BlockWindow.Width < 6 || tp.BlockWindow.Height < 6;
+            bool searchTooSmall = tp.SearchWindow.Width < tp.BlockWindow.Width + 8 ||
+                                  tp.SearchWindow.Height < tp.BlockWindow.Height + 8;
+
+            if (!objectTooSmall && !searchTooSmall)
+                return true;
+
+            MessageBox.Show(this,
+                Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_InvalidParameters_Text,
+                Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_InvalidParameters_Title,
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            return false;
+        }
+
         private void RaiseDrawingModified(DrawingAction action)
         {
             if (drawing != null)
@@ -480,6 +538,10 @@ namespace Kinovea.ScreenManager
         {
             if (track != null)
             {
+                // Refuse to start with parameters that cannot work, and say why.
+                if (track.Status != TrackStatus.Edit && !ValidateTrackingParameters())
+                    return;
+
                 // Update the data.
                 track.ToggleTracking();
                 

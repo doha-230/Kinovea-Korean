@@ -32,6 +32,7 @@ namespace Kinovea.ScreenManager
       this.pnlViewport = new System.Windows.Forms.Panel();
       this.grpTracking = new System.Windows.Forms.GroupBox();
       this.btnTrimTrack = new System.Windows.Forms.Button();
+      this.lblTrackingLive = new System.Windows.Forms.Label();
       this.btnStartStop = new System.Windows.Forms.Button();
       this.nudUpdateThreshold = new System.Windows.Forms.NumericUpDown();
       this.lblUpdateThreshold = new System.Windows.Forms.Label();
@@ -98,6 +99,13 @@ namespace Kinovea.ScreenManager
       this.grpTracking.TabIndex = 54;
       this.grpTracking.TabStop = false;
       this.grpTracking.Text = "Tracking";
+      // 
+      // lblTrackingLive
+      this.lblTrackingLive.Location = new System.Drawing.Point(8, 250);
+      this.lblTrackingLive.Name = "lblTrackingLive";
+      this.lblTrackingLive.Size = new System.Drawing.Size(334, 18);
+      this.lblTrackingLive.TabIndex = 40;
+      this.lblTrackingLive.Text = "";
       // 
       // btnTrimTrack
       // 
@@ -364,6 +372,7 @@ namespace Kinovea.ScreenManager
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.Gainsboro;
       this.Controls.Add(this.grpTracking);
+      this.pnlViewport.Controls.Add(this.lblTrackingLive);
       this.Controls.Add(this.pnlViewport);
       this.DoubleBuffered = true;
       this.ForeColor = System.Drawing.Color.Gray;
@@ -403,6 +412,7 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.NumericUpDown nudUpdateThreshold;
         private System.Windows.Forms.Label lblUpdateThreshold;
         private System.Windows.Forms.Button btnTrimTrack;
+        private System.Windows.Forms.Label lblTrackingLive;
         private System.Windows.Forms.Button btnStartStop;
     }
 }

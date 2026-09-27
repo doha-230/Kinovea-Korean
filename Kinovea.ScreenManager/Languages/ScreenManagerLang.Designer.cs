@@ -5454,5 +5454,21 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_LiveStatus {
+            get {
+                return ResourceManager.GetString("tracking_LiveStatus", resourceCulture);
+            }
+        }
+        internal static string tracking_InvalidParameters_Title {
+            get {
+                return ResourceManager.GetString("tracking_InvalidParameters_Title", resourceCulture);
+            }
+        }
+        internal static string tracking_InvalidParameters_Text {
+            get {
+                return ResourceManager.GetString("tracking_InvalidParameters_Text", resourceCulture);
+            }
+        }
+
     }
 }

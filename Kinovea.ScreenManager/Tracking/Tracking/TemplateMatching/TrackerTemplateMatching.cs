@@ -141,6 +141,7 @@ namespace Kinovea.ScreenManager
                 // Unrecoverable issue.
                 currentPoint = CreateTrackPoint(lastTrackPoint.Point, time, cvImage, timeline);
                 log.Error("Tracking impossible: no input image.");
+                LastScore = 0;
                 return false;
             }
             
@@ -151,11 +152,13 @@ namespace Kinovea.ScreenManager
                 // InvalidProgram: this should have been caught by IsReady().
                 currentPoint = CreateTrackPoint(lastTrackPoint.Point, time, cvImage, timeline);
                 log.Error("Tracking impossible: tracker is not ready.");
+                LastScore = 0;
                 return false;
             }
             
             // Perform the template matching.
             TemplateMatchResult result = MatchTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point);
+            LastScore = result.Similarity;
 
             // If the nominal search window didn't find the object, try again with a
             // larger one before declaring a failure: fast movement can push the object
@@ -198,6 +201,7 @@ namespace Kinovea.ScreenManager
                 // Keep the point at the previous location.
                 TemplateMatchResult dummy = new TemplateMatchResult(0, lastTrackPoint.Point);
                 currentPoint = CreateTrackPoint(dummy, time, cvImage, timeline);
+                LastScore = result.Similarity;
                 log.DebugFormat("Tracking failed. Best candidate: {0} < {1}.", result.Similarity, parameters.SimilarityThreshold);
             }
             else
