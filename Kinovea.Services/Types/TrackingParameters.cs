@@ -249,6 +249,9 @@ namespace Kinovea.Services
             clone.blockWindow = this.blockWindow;
             clone.similarityThreshold = this.similarityThreshold;
             clone.templateUpdateThreshold = this.templateUpdateThreshold;
+            clone.predictiveSearch = this.predictiveSearch;
+            clone.rejectOutliers = this.rejectOutliers;
+            clone.scaleAdaptive = this.scaleAdaptive;
             clone.useMask = this.useMask;
             clone.hsvRange = this.hsvRange.Clone();
             clone.dilate = this.dilate;

@@ -2318,22 +2318,9 @@ namespace Kinovea.ScreenManager
         #region Miscellaneous private methods
         private void InitializeTracker(TrackingParameters trackingParameters)
         {
-            // Initialize the tracker.
-            switch (trackingParameters.TrackingAlgorithm)
-            {
-                case TrackingAlgorithm.Blob:
-                    tracker = new TrackerBlob(trackingParameters);
-                    break;
-                case TrackingAlgorithm.Circle:
-                    tracker = new TrackerCircle(trackingParameters);
-                    break;
-                case TrackingAlgorithm.Correlation:
-                default:
-                    tracker = new TrackerTemplateMatching(trackingParameters);
-                    break;
-            }
-
-            tracker.Parameters.ResetOnMove = false;
+            // Initialize the tracker. The mapping lives in the factory so that the
+            // candidate tracking uses exactly the same algorithms.
+            tracker = TrackCandidateFactory.CreateTracker(trackingParameters);
         }
 
         /// <summary>

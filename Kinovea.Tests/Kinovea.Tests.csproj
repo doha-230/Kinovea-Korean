@@ -120,6 +120,7 @@
          because the project is outside the solution. Kept on disk for upstream
          sync; see MAINTENANCE.md. -->
     <Compile Include="Player\MotionEstimatorTest.cs" />
+    <Compile Include="Tracking\CandidateMetricsTest.cs" />
     <Compile Include="Player\AudioLoudnessTest.cs" />
   </ItemGroup>
   <ItemGroup>
