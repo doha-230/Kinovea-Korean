@@ -2663,7 +2663,9 @@ namespace Kinovea.ScreenManager
 
                 // Skipping frames while a tracking is running makes the tracker miss
                 // the object, so warn the user once (the setting is then honoured).
-                if (IsFrameSkippingActive() && m_FrameServer.Metadata.AnyTracking && !frameSkipTrackingWarningShown)
+                // Part of the extended tracking UI, off by default like upstream.
+                if (IsFrameSkippingActive() && m_FrameServer.Metadata.AnyTracking && !frameSkipTrackingWarningShown &&
+                    PreferencesManager.PlayerPreferences.TrackingPanelExtras)
                 {
                     frameSkipTrackingWarningShown = true;
                     ToastMessage(ScreenManagerLang.FrameSkip_TrackingWarning, 3000);
@@ -3443,6 +3445,10 @@ namespace Kinovea.ScreenManager
         /// </summary>
         private void ShowTrackingQuality()
         {
+            // Part of the extended tracking UI, off by default like upstream.
+            if (!PreferencesManager.PlayerPreferences.TrackingPanelExtras)
+                return;
+
             int total = 0;
             int stuck = 0;
 

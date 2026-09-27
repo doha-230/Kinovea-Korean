@@ -847,4 +847,13 @@
   <data name="dlgPreferences_Tracking_DilateErode" xml:space="preserve">
     <value>팽창 / 침식</value>
   </data>
+  <data name="dlgPreferences_Tracking_RetryOnFailure" xml:space="preserve">
+    <value>매칭 실패 시 검색창을 넓혀 재시도</value>
+  </data>
+  <data name="dlgPreferences_Tracking_ValidateParameters" xml:space="preserve">
+    <value>창 크기가 부적절하면 경고 후 시작 차단</value>
+  </data>
+  <data name="dlgPreferences_Tracking_PanelExtras" xml:space="preserve">
+    <value>트래킹 패널 확장 표시(상태줄·일괄 버튼)</value>
+  </data>
 </root>

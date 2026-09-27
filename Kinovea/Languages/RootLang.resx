@@ -900,4 +900,13 @@
   <data name="dlgPreferences_Tracking_DilateErode" xml:space="preserve">
     <value>Dilate / Erode</value>
   </data>
+  <data name="dlgPreferences_Tracking_RetryOnFailure" xml:space="preserve">
+    <value>Retry a failed match with a larger search window</value>
+  </data>
+  <data name="dlgPreferences_Tracking_ValidateParameters" xml:space="preserve">
+    <value>Warn and refuse to start when the windows look wrong</value>
+  </data>
+  <data name="dlgPreferences_Tracking_PanelExtras" xml:space="preserve">
+    <value>Show the extended tracking panel (status line, bulk buttons)</value>
+  </data>
 </root>

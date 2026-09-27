@@ -175,7 +175,8 @@ namespace Kinovea.ScreenManager
             // larger one before declaring a failure: fast movement can push the object
             // outside the nominal window in a single frame. This only runs where we
             // would otherwise fail, so the nominal behaviour is unchanged.
-            if (result.Similarity < parameters.SimilarityThreshold)
+            if (PreferencesManager.PlayerPreferences.TrackingRetryOnFailure &&
+                result.Similarity < parameters.SimilarityThreshold)
             {
                 double[] factors = new double[] { 1.5, 2.0 };
                 foreach (double factor in factors)

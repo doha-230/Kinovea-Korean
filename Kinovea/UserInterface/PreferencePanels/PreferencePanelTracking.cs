@@ -34,6 +34,9 @@ namespace Kinovea.Root
         private Label lblDilateErode;
         private NumericUpDown nudDilate;
         private NumericUpDown nudErode;
+        private CheckBox chkRetryOnFailure;
+        private CheckBox chkValidateParameters;
+        private CheckBox chkPanelExtras;
         private Label lblStopOnFailureHelp;
 
         public string Description
@@ -137,6 +140,27 @@ namespace Kinovea.Root
             nudHueMin.Maximum = 179;
             nudHueMax.Maximum = 179;
 
+            // Behaviour of the tracking itself. All of these are off by default so that
+            // a fresh installation tracks exactly like upstream.
+            chkRetryOnFailure = new CheckBox();
+            chkRetryOnFailure.AutoSize = true;
+            chkRetryOnFailure.Location = new Point(240, 224);
+            chkRetryOnFailure.UseVisualStyleBackColor = true;
+
+            chkValidateParameters = new CheckBox();
+            chkValidateParameters.AutoSize = true;
+            chkValidateParameters.Location = new Point(240, 275);
+            chkValidateParameters.UseVisualStyleBackColor = true;
+
+            chkPanelExtras = new CheckBox();
+            chkPanelExtras.AutoSize = true;
+            chkPanelExtras.Location = new Point(240, 301);
+            chkPanelExtras.UseVisualStyleBackColor = true;
+
+            this.Controls.Add(chkRetryOnFailure);
+            this.Controls.Add(chkValidateParameters);
+            this.Controls.Add(chkPanelExtras);
+
             this.Controls.Add(lblHsvRange);
             this.Controls.Add(lblHue);
             this.Controls.Add(nudHueMin);
@@ -178,6 +202,9 @@ namespace Kinovea.Root
             lblSaturation.Text = RootLang.dlgPreferences_Tracking_Saturation;
             lblValue.Text = RootLang.dlgPreferences_Tracking_Value;
             lblDilateErode.Text = RootLang.dlgPreferences_Tracking_DilateErode;
+            chkRetryOnFailure.Text = RootLang.dlgPreferences_Tracking_RetryOnFailure;
+            chkValidateParameters.Text = RootLang.dlgPreferences_Tracking_ValidateParameters;
+            chkPanelExtras.Text = RootLang.dlgPreferences_Tracking_PanelExtras;
         }
 
         private void ReadPreferences()
@@ -187,6 +214,9 @@ namespace Kinovea.Root
             chkRejectOutliers.Checked = tp.RejectOutliers;
             chkScaleAdaptive.Checked = tp.ScaleAdaptive;
             chkStopOnFailure.Checked = PreferencesManager.PlayerPreferences.StopTrackingOnFailure;
+            chkRetryOnFailure.Checked = PreferencesManager.PlayerPreferences.TrackingRetryOnFailure;
+            chkValidateParameters.Checked = PreferencesManager.PlayerPreferences.TrackingValidateParameters;
+            chkPanelExtras.Checked = PreferencesManager.PlayerPreferences.TrackingPanelExtras;
 
             HSVRange hsv = tp.HSVRange;
             nudHueMin.Value = Clamp(hsv.HueMin, 179);
@@ -227,6 +257,9 @@ namespace Kinovea.Root
             tp.Erode = (int)nudErode.Value;
 
             PreferencesManager.PlayerPreferences.StopTrackingOnFailure = chkStopOnFailure.Checked;
+            PreferencesManager.PlayerPreferences.TrackingRetryOnFailure = chkRetryOnFailure.Checked;
+            PreferencesManager.PlayerPreferences.TrackingValidateParameters = chkValidateParameters.Checked;
+            PreferencesManager.PlayerPreferences.TrackingPanelExtras = chkPanelExtras.Checked;
         }
 
         public void OpenTab(PreferenceTab tab)

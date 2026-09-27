@@ -133,6 +133,34 @@ namespace Kinovea.Services
         /// When false the tracker keeps trying with its reference template and can
         /// recover after a brief occlusion. Default: true (historical behaviour).
         /// </summary>
+
+        /// <summary>
+        /// Retry a failed match with a larger search window. Changes the tracking results, so it is off by default.
+        /// </summary>
+        public bool TrackingRetryOnFailure
+        {
+            get { BeforeRead(); return trackingRetryOnFailure; }
+            set { trackingRetryOnFailure = value; Save(); }
+        }
+
+        /// <summary>
+        /// Warn about, and refuse to start, a track whose search and object windows look wrong. Off by default.
+        /// </summary>
+        public bool TrackingValidateParameters
+        {
+            get { BeforeRead(); return trackingValidateParameters; }
+            set { trackingValidateParameters = value; Save(); }
+        }
+
+        /// <summary>
+        /// Show the extended tracking panel: live status line, "track all" and "apply to all". Off by default.
+        /// </summary>
+        public bool TrackingPanelExtras
+        {
+            get { BeforeRead(); return trackingPanelExtras; }
+            set { trackingPanelExtras = value; Save(); }
+        }
+
         public bool StopTrackingOnFailure
         {
             get { BeforeRead(); return stopTrackingOnFailure; }
@@ -419,6 +447,9 @@ namespace Kinovea.Services
         private double frameSkipMotionSensitivity = 1.0;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
         private bool stopTrackingOnFailure = true;
+        private bool trackingRetryOnFailure = false;
+        private bool trackingValidateParameters = false;
+        private bool trackingPanelExtras = false;
         private HardwareEncoder videoHardwareEncoder = HardwareEncoder.None;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -501,6 +532,9 @@ namespace Kinovea.Services
             writer.WriteElementString("AudioLoudnessWindowMs", audioLoudnessWindowMs.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("FrameSkipMotionSensitivity", frameSkipMotionSensitivity.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("StopTrackingOnFailure", XmlHelper.WriteBoolean(stopTrackingOnFailure));
+            writer.WriteElementString("TrackingRetryOnFailure", XmlHelper.WriteBoolean(trackingRetryOnFailure));
+            writer.WriteElementString("TrackingValidateParameters", XmlHelper.WriteBoolean(trackingValidateParameters));
+            writer.WriteElementString("TrackingPanelExtras", XmlHelper.WriteBoolean(trackingPanelExtras));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("VideoHardwareEncoder", videoHardwareEncoder.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
@@ -627,6 +661,15 @@ namespace Kinovea.Services
                         break;
                     case "CSVDecimalSeparator":
                         csvDecimalSeparator = (CSVDecimalSeparator)Enum.Parse(typeof(CSVDecimalSeparator), reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingRetryOnFailure":
+                        trackingRetryOnFailure = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingValidateParameters":
+                        trackingValidateParameters = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingPanelExtras":
+                        trackingPanelExtras = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
                         break;
                     case "StopTrackingOnFailure":
                         stopTrackingOnFailure = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());

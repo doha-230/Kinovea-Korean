@@ -98,7 +98,8 @@ namespace Kinovea.ScreenManager
             btnStartStop.ImageAlign = ContentAlignment.MiddleLeft;
 
             btnTrimTrack.Image = Properties.Drawings.tracking_trim;
-        }
+                    UpdatePanelExtras();
+}
 
         public void RefreshCulture()
         {
@@ -260,6 +261,7 @@ namespace Kinovea.ScreenManager
 
         public void UpdateContent()
         {
+            UpdatePanelExtras();
             metadataManipulator.SetFixedTimestamp(hostView.CurrentTimestamp);
             Bitmap bitmap = BitmapHelper.CopyBasic(hostView.CurrentImage);
             viewportController.Bitmap = bitmap;
@@ -359,6 +361,20 @@ namespace Kinovea.ScreenManager
         /// <summary>
         /// Update the tracking nuds with values from the drawing.
         /// </summary>
+        /// <summary>
+        /// The extra panel controls (status line and the bulk buttons) are opt-in,
+        /// the default panel is the upstream one.
+        /// </summary>
+        private void UpdatePanelExtras()
+        {
+            bool extras = PreferencesManager.PlayerPreferences.TrackingPanelExtras;
+            lblTrackingLive.Visible = extras;
+            btnTrackAll.Visible = extras;
+            btnApplyToAll.Visible = extras;
+            if (!extras)
+                lblTrackingLive.Text = string.Empty;
+        }
+
         private void UpdateTrackingParameters()
         {
             manualUpdate = true;
@@ -419,6 +435,10 @@ namespace Kinovea.ScreenManager
         /// </summary>
         private bool ValidateTrackingParameters()
         {
+            // Opt-in: upstream starts the track whatever the window sizes are.
+            if (!PreferencesManager.PlayerPreferences.TrackingValidateParameters)
+                return true;
+
             TrackingParameters tp = track.TrackingParameters;
             bool objectTooSmall = tp.BlockWindow.Width < 6 || tp.BlockWindow.Height < 6;
             bool searchTooSmall = tp.SearchWindow.Width < tp.BlockWindow.Width + 8 ||
