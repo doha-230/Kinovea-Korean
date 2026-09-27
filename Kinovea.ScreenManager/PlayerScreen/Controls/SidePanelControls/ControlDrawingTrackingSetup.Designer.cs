@@ -450,6 +450,5 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.Button btnTrackAll;
       private System.Windows.Forms.Button btnApplyToAll;
-        private System.Windows.Forms.Button btnApplyToAll;
     }
 }
