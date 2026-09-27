@@ -56,6 +56,7 @@ namespace Kinovea.ScreenManager
         public static readonly List<TrackingAlgorithm> options = new List<TrackingAlgorithm>() {
             TrackingAlgorithm.Correlation,
             TrackingAlgorithm.Circle,
+            TrackingAlgorithm.Blob,
         };
 
         // Viewport
@@ -224,7 +225,11 @@ namespace Kinovea.ScreenManager
             double score = track.LastMatchScore;
             double threshold = track.TrackingParameters.SimilarityThreshold;
 
-            lblTrackingLive.Text = string.Format(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_LiveStatus, percent, score);
+            // Only the correlation tracker reports a comparable match score.
+            bool hasScore = score > 0 && track.TrackingParameters.TrackingAlgorithm == TrackingAlgorithm.Correlation;
+            lblTrackingLive.Text = hasScore
+                ? string.Format(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_LiveStatus, percent, score)
+                : string.Format(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_LiveProgress, percent);
             if (score <= 0)
                 lblTrackingLive.ForeColor = System.Drawing.SystemColors.GrayText;
             else if (score < threshold)
@@ -671,6 +676,12 @@ namespace Kinovea.ScreenManager
                     {
                         e.Graphics.DrawImage(Properties.Resources.bring_forward_16, rect);
                         e.Graphics.DrawString("Correlation", e.Font, Brushes.Black, textTopLeft);
+                        break;
+                    }
+                case TrackingAlgorithm.Blob:
+                    {
+                        e.Graphics.DrawImage(Properties.Resources.ellipse_16, rect);
+                        e.Graphics.DrawString("Blob", e.Font, Brushes.Black, textTopLeft);
                         break;
                     }
                 case TrackingAlgorithm.Circle:

@@ -832,4 +832,19 @@
   <data name="dlgPreferences_Tracking_StopOnFailure_Help" xml:space="preserve">
     <value>끄면 참조 템플릿으로 계속 시도하여 짧은 가림 구간을 넘길 수 있습니다.</value>
   </data>
+  <data name="dlgPreferences_Tracking_HsvRange" xml:space="preserve">
+    <value>HSV 범위 검출(새 트랙에 적용)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Hue" xml:space="preserve">
+    <value>색상(H)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Saturation" xml:space="preserve">
+    <value>채도(S)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Value" xml:space="preserve">
+    <value>명도(V)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_DilateErode" xml:space="preserve">
+    <value>팽창 / 침식</value>
+  </data>
 </root>

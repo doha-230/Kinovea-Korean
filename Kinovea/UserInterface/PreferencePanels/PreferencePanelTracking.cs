@@ -21,6 +21,19 @@ namespace Kinovea.Root
         private CheckBox chkRejectOutliers;
         private CheckBox chkScaleAdaptive;
         private CheckBox chkStopOnFailure;
+        private Label lblHsvRange;
+        private Label lblHue;
+        private NumericUpDown nudHueMin;
+        private NumericUpDown nudHueMax;
+        private Label lblSaturation;
+        private NumericUpDown nudSaturationMin;
+        private NumericUpDown nudSaturationMax;
+        private Label lblValue;
+        private NumericUpDown nudValueMin;
+        private NumericUpDown nudValueMax;
+        private Label lblDilateErode;
+        private NumericUpDown nudDilate;
+        private NumericUpDown nudErode;
         private Label lblStopOnFailureHelp;
 
         public string Description
@@ -84,6 +97,68 @@ namespace Kinovea.Root
             this.Controls.Add(chkScaleAdaptive);
             this.Controls.Add(chkStopOnFailure);
             this.Controls.Add(lblStopOnFailureHelp);
+
+            // Blob (HSV) bounds. Used by the Blob tracking algorithm and applied to new tracks.
+            lblHsvRange = new Label();
+            lblHsvRange.AutoSize = true;
+            lblHsvRange.Location = new Point(18, 226);
+
+            lblHue = new Label();
+            lblHue.AutoSize = true;
+            lblHue.Location = new Point(18, 254);
+
+            nudHueMin = MakeNud(new Point(96, 251));
+            nudHueMax = MakeNud(new Point(160, 251));
+
+            lblSaturation = new Label();
+            lblSaturation.AutoSize = true;
+            lblSaturation.Location = new Point(18, 280);
+
+            nudSaturationMin = MakeNud(new Point(96, 277));
+            nudSaturationMax = MakeNud(new Point(160, 277));
+
+            lblValue = new Label();
+            lblValue.AutoSize = true;
+            lblValue.Location = new Point(18, 306);
+
+            nudValueMin = MakeNud(new Point(96, 303));
+            nudValueMax = MakeNud(new Point(160, 303));
+
+            lblDilateErode = new Label();
+            lblDilateErode.AutoSize = true;
+            lblDilateErode.Location = new Point(240, 254);
+
+            nudDilate = MakeNud(new Point(318, 251));
+            nudErode = MakeNud(new Point(382, 251));
+            nudDilate.Maximum = 10;
+            nudErode.Maximum = 10;
+
+            this.Controls.Add(lblHsvRange);
+            this.Controls.Add(lblHue);
+            this.Controls.Add(nudHueMin);
+            this.Controls.Add(nudHueMax);
+            this.Controls.Add(lblSaturation);
+            this.Controls.Add(nudSaturationMin);
+            this.Controls.Add(nudSaturationMax);
+            this.Controls.Add(lblValue);
+            this.Controls.Add(nudValueMin);
+            this.Controls.Add(nudValueMax);
+            this.Controls.Add(lblDilateErode);
+            this.Controls.Add(nudDilate);
+            this.Controls.Add(nudErode);
+        }
+
+        /// <summary>
+        /// Small numeric field for the HSV bounds.
+        /// </summary>
+        private NumericUpDown MakeNud(Point location)
+        {
+            NumericUpDown nud = new NumericUpDown();
+            nud.Location = location;
+            nud.Size = new Size(56, 20);
+            nud.Minimum = 0;
+            nud.Maximum = 255;
+            return nud;
         }
 
         private void RefreshCulture()
@@ -94,6 +169,11 @@ namespace Kinovea.Root
             chkScaleAdaptive.Text = RootLang.dlgPreferences_Tracking_ScaleAdaptive;
             chkStopOnFailure.Text = RootLang.dlgPreferences_Tracking_StopOnFailure;
             lblStopOnFailureHelp.Text = RootLang.dlgPreferences_Tracking_StopOnFailure_Help;
+            lblHsvRange.Text = RootLang.dlgPreferences_Tracking_HsvRange;
+            lblHue.Text = RootLang.dlgPreferences_Tracking_Hue;
+            lblSaturation.Text = RootLang.dlgPreferences_Tracking_Saturation;
+            lblValue.Text = RootLang.dlgPreferences_Tracking_Value;
+            lblDilateErode.Text = RootLang.dlgPreferences_Tracking_DilateErode;
         }
 
         private void ReadPreferences()
@@ -103,6 +183,21 @@ namespace Kinovea.Root
             chkRejectOutliers.Checked = tp.RejectOutliers;
             chkScaleAdaptive.Checked = tp.ScaleAdaptive;
             chkStopOnFailure.Checked = PreferencesManager.PlayerPreferences.StopTrackingOnFailure;
+
+            HSVRange hsv = tp.HSVRange;
+            nudHueMin.Value = Clamp(hsv.HueMin);
+            nudHueMax.Value = Clamp(hsv.HueMax);
+            nudSaturationMin.Value = Clamp(hsv.SaturationMin);
+            nudSaturationMax.Value = Clamp(hsv.SaturationMax);
+            nudValueMin.Value = Clamp(hsv.ValueMin);
+            nudValueMax.Value = Clamp(hsv.ValueMax);
+            nudDilate.Value = Clamp(tp.Dilate);
+            nudErode.Value = Clamp(tp.Erode);
+        }
+
+        private static decimal Clamp(float value)
+        {
+            return (decimal)Math.Max(0, Math.Min(255, value));
         }
 
         public void CommitChanges()
@@ -111,6 +206,16 @@ namespace Kinovea.Root
             tp.PredictiveSearch = chkPredictiveSearch.Checked;
             tp.RejectOutliers = chkRejectOutliers.Checked;
             tp.ScaleAdaptive = chkScaleAdaptive.Checked;
+
+            HSVRange hsv = tp.HSVRange;
+            hsv.HueMin = (float)nudHueMin.Value;
+            hsv.HueMax = (float)nudHueMax.Value;
+            hsv.SaturationMin = (float)nudSaturationMin.Value;
+            hsv.SaturationMax = (float)nudSaturationMax.Value;
+            hsv.ValueMin = (float)nudValueMin.Value;
+            hsv.ValueMax = (float)nudValueMax.Value;
+            tp.Dilate = (int)nudDilate.Value;
+            tp.Erode = (int)nudErode.Value;
 
             PreferencesManager.PlayerPreferences.StopTrackingOnFailure = chkStopOnFailure.Checked;
         }

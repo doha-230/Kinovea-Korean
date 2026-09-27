@@ -5487,5 +5487,11 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_LiveProgress {
+            get {
+                return ResourceManager.GetString("tracking_LiveProgress", resourceCulture);
+            }
+        }
+
     }
 }

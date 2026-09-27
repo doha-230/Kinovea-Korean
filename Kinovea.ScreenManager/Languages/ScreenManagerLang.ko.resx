@@ -1891,4 +1891,7 @@
   <data name="tracking_PredictiveSearch" xml:space="preserve">
     <value>예측 검색</value>
   </data>
+  <data name="tracking_LiveProgress" xml:space="preserve">
+    <value>추적 중 · {0}%</value>
+  </data>
 </root>

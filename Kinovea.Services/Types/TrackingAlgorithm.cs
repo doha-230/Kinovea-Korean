@@ -18,9 +18,10 @@ namespace Kinovea.Services
         Circle,
 
         /// <summary>
-        /// Finds blobs.
+        /// Finds blobs in an HSV range and follows the closest one.
+        /// The Hue/Saturation/Value bounds are the tracking parameters of the track.
         /// </summary>
-        //Blob,
+        Blob,
 
         /// <summary>
         /// Finds the central corner of a 2x2 checkerboard marker.

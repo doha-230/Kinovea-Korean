@@ -2268,6 +2268,9 @@ namespace Kinovea.ScreenManager
             // Initialize the tracker.
             switch (trackingParameters.TrackingAlgorithm)
             {
+                case TrackingAlgorithm.Blob:
+                    tracker = new TrackerBlob(trackingParameters);
+                    break;
                 case TrackingAlgorithm.Circle:
                     tracker = new TrackerCircle(trackingParameters);
                     break;

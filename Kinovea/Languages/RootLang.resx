@@ -885,4 +885,19 @@
   <data name="dlgPreferences_Tracking_StopOnFailure_Help" xml:space="preserve">
     <value>With this off, the tracker keeps trying with its reference template and can recover after a brief occlusion.</value>
   </data>
+  <data name="dlgPreferences_Tracking_HsvRange" xml:space="preserve">
+    <value>Blob detection (HSV bounds, applied to new tracks)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Hue" xml:space="preserve">
+    <value>Hue</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Saturation" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="dlgPreferences_Tracking_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="dlgPreferences_Tracking_DilateErode" xml:space="preserve">
+    <value>Dilate / Erode</value>
+  </data>
 </root>
