@@ -257,6 +257,10 @@ namespace Kinovea.ScreenManager
         // Tracker tool.
         private AbstractTracker tracker;
 
+        /// <summary>Candidates tracked alongside this track. Volatile: never serialized.</summary>
+        private TrackCandidateSet candidateSet = new TrackCandidateSet();
+        private bool candidatesActive;
+
         // Cache for distortion and camera tracking.
         private int distorterContentHash = 0;
         private int cameraTransformerContentHash = 0;
@@ -2282,6 +2286,160 @@ namespace Kinovea.ScreenManager
                 position.T += beginTimeStamp;
 
             endTimeStamp += beginTimeStamp;
+        }
+
+        /// <summary>Candidates attached to this track (volatile).</summary>
+        public TrackCandidateSet CandidateSet
+        {
+            get { return candidateSet; }
+        }
+
+        /// <summary>True when at least one candidate is waiting to be compared or adopted.</summary>
+        public bool HasCandidates
+        {
+            get { return candidateSet.HasCandidates; }
+        }
+
+        /// <summary>True while the candidates are being tracked on every frame.</summary>
+        public bool CandidatesActive
+        {
+            get { return candidatesActive; }
+        }
+
+        /// <summary>
+        /// Start the candidate sweep: every candidate gets its own tracker and starts from the
+        /// current end of the track, so all of them see the same seed.
+        /// </summary>
+        public bool StartCandidates()
+        {
+            if (!candidateSet.HasCandidates || positions.Count == 0)
+                return false;
+
+            TimedPoint seed = positions.Last();
+            foreach (TrackCandidate candidate in candidateSet.Candidates)
+            {
+                if (candidate.Parameters == null)
+                    continue;
+
+                candidate.Positions.Clear();
+                candidate.Failed = false;
+                candidate.Metrics = null;
+                candidate.ResetScores();
+                candidate.Tracker = TrackCandidateFactory.CreateTracker(candidate.Parameters);
+                candidate.Positions.Add(new TimedPoint(seed.X, seed.Y, seed.T, seed.R));
+            }
+
+            candidateSet.ResetVisibility();
+            candidatesActive = true;
+            return true;
+        }
+
+        /// <summary>
+        /// One tracking step for one candidate. Runs inside the parallel loop of
+        /// Metadata.PerformTracking, next to the regular tracks. Only the candidate itself is
+        /// touched, so the calls are independent.
+        /// </summary>
+        public void PerformCandidateTracking(VideoFrame current, OpenCvSharp.Mat cvImage, TrackCandidate candidate)
+        {
+            if (candidate == null || candidate.Tracker == null || candidate.Failed)
+                return;
+
+            List<TimedPoint> timeline = candidate.Positions;
+            if (timeline.Count == 0)
+                return;
+
+            TimedPoint last = timeline[timeline.Count - 1];
+            if (current.Timestamp <= last.T)
+                return;
+
+            candidate.Tracker.UpdateImage(current.Timestamp, cvImage, timeline);
+            if (!candidate.Tracker.IsReady(last))
+                candidate.Tracker.CreateReferenceTrackPoint(last, cvImage);
+
+            TimedPoint tp = null;
+            bool matched = candidate.Tracker.TrackStep(timeline, current.Timestamp, cvImage, out tp);
+
+            if (tp == null)
+            {
+                // Same as the regular track: a null point is a definitive failure for this
+                // candidate, the others keep going.
+                candidate.Failed = true;
+                return;
+            }
+
+            timeline.Add(tp);
+
+            // Only the correlation tracker reports a comparable score.
+            if (candidate.Parameters.TrackingAlgorithm == TrackingAlgorithm.Correlation)
+                candidate.AddScore(candidate.Tracker.LastScore);
+        }
+
+        /// <summary>
+        /// End the sweep: compute the proxy metrics and rank the candidates. Called when the
+        /// tracking session stops, so the user can compare the results.
+        /// </summary>
+        public void StopCandidates()
+        {
+            if (!candidatesActive)
+                return;
+
+            candidatesActive = false;
+
+            foreach (TrackCandidate candidate in candidateSet.Candidates)
+            {
+                candidate.FinalizeScore();
+                System.Drawing.Size block = candidate.Parameters == null
+                    ? System.Drawing.Size.Empty
+                    : candidate.Parameters.BlockWindow;
+                candidate.Metrics = CandidateMetrics.Compute(candidate.Positions, candidate.MeanScore, block, 0);
+
+                if (candidate.Positions.Count < 2)
+                    candidate.Failed = true;
+            }
+
+            CandidateMetrics.Rank(candidateSet.Candidates);
+        }
+
+        /// <summary>Drop the candidates (after adoption or on user request).</summary>
+        public void ClearCandidates()
+        {
+            candidatesActive = false;
+            candidateSet.Clear();
+        }
+
+        /// <summary>
+        /// Replace the trajectory with the one of the adopted candidate. Respects undo: the
+        /// previous trajectory is pushed on the stack and the candidates are dropped.
+        /// Returns false when the candidate has no usable trajectory.
+        /// </summary>
+        public bool AdoptCandidate(int index)
+        {
+            List<TimedPoint> adopted = candidateSet.Adopt(index);
+            if (adopted == null || adopted.Count < 2)
+                return false;
+
+            CaptureMemento(SerializationFilter.Core);
+
+            positions.Clear();
+            mapTimestampToIndex.Clear();
+            cachedPoints.Clear();
+
+            // The tracker is rebuilt from the new last point on the next tracking step
+            // (PerformTracking calls CreateReferenceTrackPoint when the tracker is not ready).
+            tracker.Clear();
+
+            foreach (TimedPoint point in adopted)
+            {
+                positions.Add(point);
+                mapTimestampToIndex[point.T] = positions.Count - 1;
+            }
+
+            beginTimeStamp = positions[0].T;
+            endTimeStamp = positions.Last().T;
+            lastTrackingFailed = false;
+
+            ClearCandidates();
+            return true;
         }
 
         public PointF GetPosition(long timestamp)

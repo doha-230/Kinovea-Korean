@@ -646,6 +646,7 @@
     <Compile Include="Tracking\Candidates\TrackCandidateValidator.cs" />
     <Compile Include="Tracking\Candidates\TrackCandidateSet.cs" />
     <Compile Include="Tracking\Candidates\TrackCandidateFactory.cs" />
+    <Compile Include="Tracking\Candidates\TrackWorkItem.cs" />
     <Compile Include="Tracking\Tracking\Circle\TrackerCircle.cs" />
     <Compile Include="Tracking\Tracking\Blob\TrackerBlob.cs" />
     <Compile Include="Tracking\Tracking\TrackStatus.cs" />

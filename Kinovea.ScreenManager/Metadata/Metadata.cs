@@ -1676,10 +1676,35 @@ namespace Kinovea.ScreenManager
         {
             using (var cvImage = OpenCvSharp.Extensions.BitmapConverter.ToMat(videoframe.Image))
             {
-                // Run tracking in parallel.
+                // Build the work list: every track, plus one item per candidate of the tracks
+                // running a candidate sweep. With no candidate this is one item per track, in
+                // the same order as before.
                 List<DrawingTrack> tt = Tracks();
-                Parallel.ForEach(tt, t =>
+                List<TrackWorkItem> work = new List<TrackWorkItem>();
+                foreach (DrawingTrack track in tt)
                 {
+                    work.Add(new TrackWorkItem(track, null));
+                    if (track.CandidatesActive)
+                    {
+                        foreach (TrackCandidate candidate in track.CandidateSet.Candidates)
+                            work.Add(new TrackWorkItem(track, candidate));
+                    }
+                }
+
+                // Run tracking in parallel. The candidates ride along the regular tracks, so the
+                // frame is still converted once for the whole step.
+                ParallelOptions parallelOptions = new ParallelOptions();
+                parallelOptions.MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount);
+                Parallel.ForEach(work, parallelOptions, item =>
+                {
+                    // Candidate step: independent trajectory, nothing is written to the document.
+                    if (item.Candidate != null)
+                    {
+                        item.Track.PerformCandidateTracking(videoframe, cvImage, item.Candidate);
+                        return;
+                    }
+
+                    DrawingTrack t = item.Track;
                     if (t.Status == TrackStatus.Edit)
                     {
                         TimedPoint tp = t.PerformTracking(videoframe, cvImage);
@@ -1705,7 +1730,13 @@ namespace Kinovea.ScreenManager
         public void StopAllTracking()
         {
             foreach(DrawingTrack t in Tracks())
+            {
+                // Finalize the candidate sweep first so the user can compare the results.
+                if (t.CandidatesActive)
+                    t.StopCandidates();
+
                 t.StopTracking();
+            }
         }
 
         /// <summary>

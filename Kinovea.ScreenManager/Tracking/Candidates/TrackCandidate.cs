@@ -41,6 +41,34 @@ namespace Kinovea.ScreenManager
             this.MeanScore = double.NaN;
         }
 
+        /// <summary>Sum of the match scores collected while tracking.</summary>
+        private double scoreSum;
+        private int scoreCount;
+
+        /// <summary>Accumulate one match score. Scores that the algorithm does not report are ignored.</summary>
+        public void AddScore(double score)
+        {
+            if (double.IsNaN(score))
+                return;
+
+            scoreSum += score;
+            scoreCount++;
+        }
+
+        /// <summary>Turn the accumulated scores into the average, NaN when none was reported.</summary>
+        public void FinalizeScore()
+        {
+            MeanScore = scoreCount > 0 ? scoreSum / scoreCount : double.NaN;
+        }
+
+        /// <summary>Forget the scores of a previous run.</summary>
+        public void ResetScores()
+        {
+            scoreSum = 0;
+            scoreCount = 0;
+            MeanScore = double.NaN;
+        }
+
         /// <summary>Rank among the candidates of the set, 1 is the recommended one. 0 when not ranked yet.</summary>
         public int Rank
         {
