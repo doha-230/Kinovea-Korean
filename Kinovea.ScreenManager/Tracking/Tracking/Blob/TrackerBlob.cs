@@ -77,7 +77,7 @@ namespace Kinovea.ScreenManager
         {
             this.parameters = parameters;
         }
-        public void Dispose()
+        public override void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
