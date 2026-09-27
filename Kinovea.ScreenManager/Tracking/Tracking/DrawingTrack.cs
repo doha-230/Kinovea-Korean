@@ -324,6 +324,7 @@ namespace Kinovea.ScreenManager
         private ToolStripMenuItem mnuTrackingStop = new ToolStripMenuItem();
         private ToolStripMenuItem mnuTrackingTrim = new ToolStripMenuItem();
         private ToolStripMenuItem mnuTrackingRetrack = new ToolStripMenuItem();
+        private ToolStripMenuItem mnuTrackingSmooth = new ToolStripMenuItem();
 
         private ToolStripMenuItem mnuMeasurement = new ToolStripMenuItem();
         private Dictionary<MeasureLabelType, ToolStripMenuItem> mnuMeasureLabelTypes = new Dictionary<MeasureLabelType, ToolStripMenuItem>();
@@ -441,14 +442,17 @@ namespace Kinovea.ScreenManager
             mnuTrackingStop.Image = Properties.Drawings.tracking_stop;
             mnuTrackingTrim.Image = Properties.Drawings.tracking_trim;
             mnuTrackingRetrack.Image = Properties.Drawings.tracking_start;
+            mnuTrackingSmooth.Image = Properties.Drawings.tracking_trim;
             mnuTrackingStart.Click += MnuTrackingStart_Click;
             mnuTrackingStop.Click += MnuTrackingStop_Click;
             mnuTrackingTrim.Click += MnuTrackingTrim_Click;
             mnuTrackingRetrack.Click += MnuTrackingRetrack_Click;
+            mnuTrackingSmooth.Click += MnuTrackingSmooth_Click;
             mnuTracking.DropDownItems.AddRange(new ToolStripItem[] {
                 mnuTrackingStart,
                 mnuTrackingStop,
                 mnuTrackingRetrack,
+                mnuTrackingSmooth,
                 new ToolStripSeparator(),
                 mnuTrackingTrim,
             });
@@ -1468,6 +1472,36 @@ namespace Kinovea.ScreenManager
             InvalidateFromMenu(sender);
         }
 
+        /// <summary>
+        /// Soften the tracked path with a small moving average, to damp the
+        /// frame-to-frame jitter of the match. The timestamps are kept, so labels,
+        /// key images and measurements are unaffected; the operation is undoable.
+        /// </summary>
+        private void MnuTrackingSmooth_Click(object sender, EventArgs e)
+        {
+            if (positions.Count < 3)
+                return;
+
+            CaptureMemento(SerializationFilter.Core);
+
+            // 3-point moving average, the ends are left alone.
+            float[] xs = new float[positions.Count];
+            float[] ys = new float[positions.Count];
+            for (int i = 0; i < positions.Count; i++)
+            {
+                xs[i] = positions[i].X;
+                ys[i] = positions[i].Y;
+            }
+
+            for (int i = 1; i < positions.Count - 1; i++)
+            {
+                positions[i].X = (xs[i - 1] + xs[i] + xs[i + 1]) / 3.0f;
+                positions[i].Y = (ys[i - 1] + ys[i] + ys[i + 1]) / 3.0f;
+            }
+
+            InvalidateFromMenu(sender);
+        }
+
         private float ComputeSpaceSpan()
         {
             // This is used as a normalization factor for interactive manipulation.
@@ -2326,6 +2360,7 @@ namespace Kinovea.ScreenManager
             mnuTrackingStop.Text = ScreenManagerLang.tracking_Stop;
             mnuTrackingTrim.Text = ScreenManagerLang.mnuDeleteEndOfTrajectory;
             mnuTrackingRetrack.Text = ScreenManagerLang.tracking_RetrackFromHere;
+            mnuTrackingSmooth.Text = ScreenManagerLang.tracking_SmoothTrajectory;
 
             // Measurement
             mnuMeasurement.Text = ScreenManagerLang.mnuMeasure_Labels_Menu;

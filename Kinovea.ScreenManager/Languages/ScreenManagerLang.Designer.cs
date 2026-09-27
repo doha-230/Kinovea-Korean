@@ -5499,5 +5499,26 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_SmoothTrajectory {
+            get {
+                return ResourceManager.GetString("tracking_SmoothTrajectory", resourceCulture);
+            }
+        }
+        internal static string tracking_ApplyToAllTracks {
+            get {
+                return ResourceManager.GetString("tracking_ApplyToAllTracks", resourceCulture);
+            }
+        }
+        internal static string tracking_ApplyToAllHint {
+            get {
+                return ResourceManager.GetString("tracking_ApplyToAllHint", resourceCulture);
+            }
+        }
+        internal static string tracking_QualitySummary {
+            get {
+                return ResourceManager.GetString("tracking_QualitySummary", resourceCulture);
+            }
+        }
+
     }
 }

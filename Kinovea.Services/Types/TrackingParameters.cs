@@ -218,6 +218,29 @@ namespace Kinovea.Services
             get { return Math.Max(8.0, 2.0 * Math.Max(blockWindow.Width, blockWindow.Height)); }
         }
 
+        /// <summary>
+        /// Copy the tracking settings of another set of parameters into this one.
+        /// Volume, color space and HSV bounds are copied by value.
+        /// </summary>
+        public void CopyFrom(TrackingParameters other)
+        {
+            if (other == null)
+                return;
+
+            this.trackingAlgorithm = other.trackingAlgorithm;
+            this.searchWindow = other.searchWindow;
+            this.blockWindow = other.blockWindow;
+            this.similarityThreshold = other.similarityThreshold;
+            this.templateUpdateThreshold = other.templateUpdateThreshold;
+            this.predictiveSearch = other.predictiveSearch;
+            this.rejectOutliers = other.rejectOutliers;
+            this.scaleAdaptive = other.scaleAdaptive;
+            this.useMask = other.useMask;
+            this.dilate = other.dilate;
+            this.erode = other.erode;
+            this.hsvRange = other.hsvRange.Clone();
+        }
+
         public TrackingParameters Clone()
         {
             TrackingParameters clone = new TrackingParameters();

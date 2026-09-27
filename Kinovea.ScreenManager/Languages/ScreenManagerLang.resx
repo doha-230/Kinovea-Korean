@@ -1950,4 +1950,16 @@
   <data name="tracking_RetrackFromHere" xml:space="preserve">
     <value>Re-track from here</value>
   </data>
+  <data name="tracking_SmoothTrajectory" xml:space="preserve">
+    <value>Smooth trajectory</value>
+  </data>
+  <data name="tracking_ApplyToAllTracks" xml:space="preserve">
+    <value>Apply to all</value>
+  </data>
+  <data name="tracking_ApplyToAllHint" xml:space="preserve">
+    <value>Settings applied to all tracks</value>
+  </data>
+  <data name="tracking_QualitySummary" xml:space="preserve">
+    <value>Points: {0} · possibly stuck: {1}</value>
+  </data>
 </root>

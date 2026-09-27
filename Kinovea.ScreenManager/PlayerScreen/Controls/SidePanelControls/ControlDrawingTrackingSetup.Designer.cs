@@ -36,6 +36,7 @@ namespace Kinovea.ScreenManager
       this.chkPredictiveSearch = new System.Windows.Forms.CheckBox();
       this.btnStartStop = new System.Windows.Forms.Button();
       this.btnTrackAll = new System.Windows.Forms.Button();
+      this.btnApplyToAll = new System.Windows.Forms.Button();
       this.nudUpdateThreshold = new System.Windows.Forms.NumericUpDown();
       this.lblUpdateThreshold = new System.Windows.Forms.Label();
       this.nudMatchTreshold = new System.Windows.Forms.NumericUpDown();
@@ -80,6 +81,7 @@ namespace Kinovea.ScreenManager
       this.grpTracking.Controls.Add(this.btnTrimTrack);
       this.grpTracking.Controls.Add(this.btnStartStop);
       this.grpTracking.Controls.Add(this.btnTrackAll);
+      this.grpTracking.Controls.Add(this.btnApplyToAll);
       this.grpTracking.Controls.Add(this.chkPredictiveSearch);
       this.grpTracking.Controls.Add(this.nudUpdateThreshold);
       this.grpTracking.Controls.Add(this.lblUpdateThreshold);
@@ -120,6 +122,15 @@ namespace Kinovea.ScreenManager
       this.chkPredictiveSearch.UseVisualStyleBackColor = true;
       this.chkPredictiveSearch.CheckedChanged += new System.EventHandler(this.ChkPredictiveSearch_CheckedChanged);
       // 
+      // btnApplyToAll
+      this.btnApplyToAll.Location = new System.Drawing.Point(254, 213);
+      this.btnApplyToAll.Name = "btnApplyToAll";
+      this.btnApplyToAll.Size = new System.Drawing.Size(100, 27);
+      this.btnApplyToAll.TabIndex = 45;
+      this.btnApplyToAll.Text = "Apply to all";
+      this.btnApplyToAll.UseVisualStyleBackColor = true;
+      this.btnApplyToAll.Click += new System.EventHandler(this.BtnApplyToAll_Click);
+
       // btnTrackAll
       this.btnTrackAll.Location = new System.Drawing.Point(254, 180);
       this.btnTrackAll.Name = "btnTrackAll";
@@ -438,5 +449,7 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.CheckBox chkPredictiveSearch;
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.Button btnTrackAll;
+      private System.Windows.Forms.Button btnApplyToAll;
+        private System.Windows.Forms.Button btnApplyToAll;
     }
 }

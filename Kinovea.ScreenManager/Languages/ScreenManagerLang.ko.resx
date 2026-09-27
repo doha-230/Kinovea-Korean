@@ -1897,4 +1897,16 @@
   <data name="tracking_RetrackFromHere" xml:space="preserve">
     <value>이 지점부터 다시 추적</value>
   </data>
+  <data name="tracking_SmoothTrajectory" xml:space="preserve">
+    <value>궤적 평활화</value>
+  </data>
+  <data name="tracking_ApplyToAllTracks" xml:space="preserve">
+    <value>모든 트랙에 적용</value>
+  </data>
+  <data name="tracking_ApplyToAllHint" xml:space="preserve">
+    <value>모든 트랙에 설정 적용됨</value>
+  </data>
+  <data name="tracking_QualitySummary" xml:space="preserve">
+    <value>지점 {0} · 정지 의심 {1}</value>
+  </data>
 </root>

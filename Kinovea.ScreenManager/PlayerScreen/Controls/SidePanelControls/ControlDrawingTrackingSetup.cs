@@ -110,6 +110,7 @@ namespace Kinovea.ScreenManager
             lblUpdateThreshold.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.track_UpdateThreshold;
             btnStartStop.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Start;
             btnTrackAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAll;
+            btnApplyToAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_ApplyToAllTracks;
             chkPredictiveSearch.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_PredictiveSearch;
             btnTrimTrack.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_DeleteEndOfTrack;
             lblTrackingLive.Text = string.Empty;
@@ -211,7 +212,24 @@ namespace Kinovea.ScreenManager
         {
             if (track == null || track.Status != TrackStatus.Edit || metadata == null)
             {
+                // Idle: report the size of the path and how much of it looks stuck.
                 lblTrackingLive.Text = string.Empty;
+                lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
+
+                if (track != null)
+                {
+                    int points;
+                    int stuck;
+                    double maxJump;
+                    track.GetTrackingQuality(out points, out stuck, out maxJump);
+
+                    if (points > 0)
+                    {
+                        lblTrackingLive.Text = string.Format(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_QualitySummary, points, stuck);
+                        lblTrackingLive.ForeColor = stuck > 0 ? System.Drawing.Color.Firebrick : System.Drawing.SystemColors.ControlText;
+                    }
+                }
+
                 return;
             }
 
@@ -547,6 +565,27 @@ namespace Kinovea.ScreenManager
         /// Arm every trackable drawing of the document at once so that the next
         /// playback pass tracks them all, instead of starting them one by one.
         /// </summary>
+        /// <summary>
+        /// Copy the settings of the current track to every other track of the document,
+        /// so that a multi-point analysis does not have to be configured point by point.
+        /// </summary>
+        private void BtnApplyToAll_Click(object sender, EventArgs e)
+        {
+            if (metadata == null || track == null)
+                return;
+
+            foreach (DrawingTrack t in metadata.Tracks())
+            {
+                if (t == track)
+                    continue;
+
+                t.TrackingParameters.CopyFrom(track.TrackingParameters);
+            }
+
+            lblTrackingLive.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_ApplyToAllHint;
+            lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
+        }
+
         private void BtnTrackAll_Click(object sender, EventArgs e)
         {
             if (metadata == null)
