@@ -323,6 +323,7 @@ namespace Kinovea.ScreenManager
         private ToolStripMenuItem mnuTrackingStart = new ToolStripMenuItem();
         private ToolStripMenuItem mnuTrackingStop = new ToolStripMenuItem();
         private ToolStripMenuItem mnuTrackingTrim = new ToolStripMenuItem();
+        private ToolStripMenuItem mnuTrackingRetrack = new ToolStripMenuItem();
 
         private ToolStripMenuItem mnuMeasurement = new ToolStripMenuItem();
         private Dictionary<MeasureLabelType, ToolStripMenuItem> mnuMeasureLabelTypes = new Dictionary<MeasureLabelType, ToolStripMenuItem>();
@@ -439,12 +440,15 @@ namespace Kinovea.ScreenManager
             mnuTrackingStart.Image = Properties.Drawings.tracking_start;
             mnuTrackingStop.Image = Properties.Drawings.tracking_stop;
             mnuTrackingTrim.Image = Properties.Drawings.tracking_trim;
+            mnuTrackingRetrack.Image = Properties.Drawings.tracking_start;
             mnuTrackingStart.Click += MnuTrackingStart_Click;
             mnuTrackingStop.Click += MnuTrackingStop_Click;
             mnuTrackingTrim.Click += MnuTrackingTrim_Click;
+            mnuTrackingRetrack.Click += MnuTrackingRetrack_Click;
             mnuTracking.DropDownItems.AddRange(new ToolStripItem[] {
                 mnuTrackingStart,
                 mnuTrackingStop,
+                mnuTrackingRetrack,
                 new ToolStripSeparator(),
                 mnuTrackingTrim,
             });
@@ -1449,6 +1453,21 @@ namespace Kinovea.ScreenManager
             InvalidateFromMenu(sender);
         }
 
+        /// <summary>
+        /// Drop the points after the current position and arm the tracking again.
+        /// Lets a segment that was tracked wrongly, or a point adjusted by hand,
+        /// be redone without restarting the whole track.
+        /// </summary>
+        private void MnuTrackingRetrack_Click(object sender, EventArgs e)
+        {
+            long timestamp = CurrentTimestampFromMenu(sender);
+            Trim(timestamp);
+            StartTracking();
+
+            UpdateFramesMarkersFromMenu(sender);
+            InvalidateFromMenu(sender);
+        }
+
         private float ComputeSpaceSpan()
         {
             // This is used as a normalization factor for interactive manipulation.
@@ -2306,6 +2325,7 @@ namespace Kinovea.ScreenManager
             mnuTrackingStart.Text = ScreenManagerLang.tracking_Start;
             mnuTrackingStop.Text = ScreenManagerLang.tracking_Stop;
             mnuTrackingTrim.Text = ScreenManagerLang.mnuDeleteEndOfTrajectory;
+            mnuTrackingRetrack.Text = ScreenManagerLang.tracking_RetrackFromHere;
 
             // Measurement
             mnuMeasurement.Text = ScreenManagerLang.mnuMeasure_Labels_Menu;

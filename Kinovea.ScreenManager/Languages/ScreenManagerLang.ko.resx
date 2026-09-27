@@ -1894,4 +1894,7 @@
   <data name="tracking_LiveProgress" xml:space="preserve">
     <value>추적 중 · {0}%</value>
   </data>
+  <data name="tracking_RetrackFromHere" xml:space="preserve">
+    <value>이 지점부터 다시 추적</value>
+  </data>
 </root>

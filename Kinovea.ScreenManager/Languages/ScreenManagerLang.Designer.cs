@@ -5493,5 +5493,11 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_RetrackFromHere {
+            get {
+                return ResourceManager.GetString("tracking_RetrackFromHere", resourceCulture);
+            }
+        }
+
     }
 }
