@@ -23,6 +23,7 @@
 | `Tools/lint/check_encoding.py` | 모든 소스가 UTF-8 + BOM (0건 유지) | — |
 | `Tools/lint/check_csproj_includes.py` | .cs/.vb 가 csproj에 등록됨 | `Tools/lint/baseline-csproj.txt` (10건: 업스트림 미등록 7 + 테스트 프로젝트의 구식 헬퍼 3) |
 | `Tools/lint/check_culture_parsing.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
+| `Tools/lint/check_preference_defaults.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
 | `Tools/i18n/scan_hardcoded_strings.py` | UI 문자열 하드코딩 | `Tools/i18n/baseline-hardcoded.txt` |
 | `Tools/i18n/check_translations.py --lang ko` | 한국어 키 누락 0 | — |
 | `Tools/i18n/check_translation_quality.py` | 기계번역 흔적(음차 약어·동사형 라벨·미번역·오역 용어) 0건 | `Tools/i18n/baseline-translation-quality.txt` |

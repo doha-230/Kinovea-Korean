@@ -3370,6 +3370,12 @@ namespace Kinovea.ScreenManager
             if (!PreferencesManager.PlayerPreferences.TrackingFollowObject)
                 return;
 
+            // Only while the playback is actually running: panning the view on a
+            // paused frame (while scrubbing the timeline for example) would move the
+            // image under the user without any tracking going on.
+            if (!isCurrentlyPlaying)
+                return;
+
             if (!m_FrameServer.Metadata.AnyTracking)
                 return;
 

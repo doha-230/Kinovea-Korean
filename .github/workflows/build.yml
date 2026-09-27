@@ -69,6 +69,9 @@ jobs:
       if: hashFiles('Tools/lint/check_culture_parsing.py') != ''
       run: python Tools/lint/check_culture_parsing.py
 
+    - name: Check preference defaults
+      if: hashFiles('Tools/lint/check_preference_defaults.py') != ''
+      run: python Tools/lint/check_preference_defaults.py
     - name: Check hard-coded UI strings
       if: hashFiles('Tools/i18n/scan_hardcoded_strings.py') != ''
       run: python Tools/i18n/scan_hardcoded_strings.py --baseline Tools/i18n/baseline-hardcoded.txt
