@@ -21,6 +21,9 @@ namespace Kinovea.Root
         private CheckBox chkRejectOutliers;
         private CheckBox chkScaleAdaptive;
         private CheckBox chkStopOnFailure;
+        private CheckBox chkCandidatesEnabled;
+        private Label lblCandidateMax;
+        private NumericUpDown nudCandidateMax;
         private Label lblHsvRange;
         private Label lblHue;
         private NumericUpDown nudHueMin;
@@ -65,7 +68,7 @@ namespace Kinovea.Root
         private void BuildUi()
         {
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.Size = new Size(490, 348);
+            this.Size = new Size(490, 372);
 
             lblScope = new Label();
             lblScope.AutoSize = true;
@@ -168,6 +171,22 @@ namespace Kinovea.Root
             chkFollowObject.UseVisualStyleBackColor = true;
             this.Controls.Add(chkFollowObject);
 
+            chkCandidatesEnabled = new CheckBox();
+            chkCandidatesEnabled.AutoSize = true;
+            chkCandidatesEnabled.Location = new Point(18, 350);
+            chkCandidatesEnabled.UseVisualStyleBackColor = true;
+            this.Controls.Add(chkCandidatesEnabled);
+
+            lblCandidateMax = new Label();
+            lblCandidateMax.AutoSize = true;
+            lblCandidateMax.Location = new Point(286, 352);
+            this.Controls.Add(lblCandidateMax);
+
+            nudCandidateMax = MakeNud(new Point(400, 350));
+            nudCandidateMax.Minimum = 1;
+            nudCandidateMax.Maximum = 8;
+            this.Controls.Add(nudCandidateMax);
+
             this.Controls.Add(lblHsvRange);
             this.Controls.Add(lblHue);
             this.Controls.Add(nudHueMin);
@@ -205,6 +224,8 @@ namespace Kinovea.Root
             chkStopOnFailure.Text = RootLang.dlgPreferences_Tracking_StopOnFailure;
             lblStopOnFailureHelp.Text = RootLang.dlgPreferences_Tracking_StopOnFailure_Help;
             lblHsvRange.Text = RootLang.dlgPreferences_Tracking_HsvRange;
+            chkCandidatesEnabled.Text = RootLang.dlgPreferences_Tracking_Candidates;
+            lblCandidateMax.Text = RootLang.dlgPreferences_Tracking_CandidateMax;
             lblHue.Text = RootLang.dlgPreferences_Tracking_Hue;
             lblSaturation.Text = RootLang.dlgPreferences_Tracking_Saturation;
             lblValue.Text = RootLang.dlgPreferences_Tracking_Value;
@@ -222,6 +243,9 @@ namespace Kinovea.Root
             chkRejectOutliers.Checked = tp.RejectOutliers;
             chkScaleAdaptive.Checked = tp.ScaleAdaptive;
             chkStopOnFailure.Checked = PreferencesManager.PlayerPreferences.StopTrackingOnFailure;
+            chkCandidatesEnabled.Checked = PreferencesManager.PlayerPreferences.TrackingCandidatesEnabled;
+            nudCandidateMax.Value = Math.Max(nudCandidateMax.Minimum,
+                Math.Min(nudCandidateMax.Maximum, PreferencesManager.PlayerPreferences.TrackingCandidateMax));
             chkRetryOnFailure.Checked = PreferencesManager.PlayerPreferences.TrackingRetryOnFailure;
             chkValidateParameters.Checked = PreferencesManager.PlayerPreferences.TrackingValidateParameters;
             chkPanelExtras.Checked = PreferencesManager.PlayerPreferences.TrackingPanelExtras;
@@ -270,6 +294,12 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.TrackingValidateParameters = chkValidateParameters.Checked;
             PreferencesManager.PlayerPreferences.TrackingPanelExtras = chkPanelExtras.Checked;
             PreferencesManager.PlayerPreferences.TrackingFollowObject = chkFollowObject.Checked;
+
+            // Nested objects (the tracking parameters above) do not trigger a save on their own,
+            // so save explicitly once everything is written.
+            PreferencesManager.PlayerPreferences.TrackingCandidatesEnabled = chkCandidatesEnabled.Checked;
+            PreferencesManager.PlayerPreferences.TrackingCandidateMax = (int)nudCandidateMax.Value;
+            PreferencesManager.Save();
         }
 
         public void OpenTab(PreferenceTab tab)

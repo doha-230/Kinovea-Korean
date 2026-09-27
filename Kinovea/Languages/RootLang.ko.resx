@@ -814,6 +814,12 @@
   <data name="dlgPreferences_Drawings_HardwareAmf" xml:space="preserve">
     <value>AMD (AMF)</value>
   </data>
+  <data name="dlgPreferences_Tracking_Candidates" xml:space="preserve">
+    <value>트래킹 후보군(여러 파라미터 조합을 비교)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_CandidateMax" xml:space="preserve">
+    <value>동시 최대 개수:</value>
+  </data>
   <data name="dlgPreferences_Tracking_Scope" xml:space="preserve">
     <value>아래 값은 새 트랙의 기본 설정입니다. 각 그림은 자체 값을 유지합니다.</value>
   </data>

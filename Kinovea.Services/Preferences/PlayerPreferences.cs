@@ -137,6 +137,29 @@ namespace Kinovea.Services
         /// <summary>
         /// Retry a failed match with a larger search window. Changes the tracking results, so it is off by default.
         /// </summary>
+        /// <summary>
+        /// Enable the tracking candidate sweep (compare several parameter sets at once).
+        /// Off by default: an untouched installation behaves like upstream.
+        /// </summary>
+        public bool TrackingCandidatesEnabled
+        {
+            get { BeforeRead(); return trackingCandidatesEnabled; }
+            set { trackingCandidatesEnabled = value; Save(); }
+        }
+
+        /// <summary>Maximum number of candidates that can be tracked at once.</summary>
+        public int TrackingCandidateMax
+        {
+            get { BeforeRead(); return trackingCandidateMax; }
+            set { trackingCandidateMax = Math.Max(1, Math.Min(value, MaxTrackingCandidates)); Save(); }
+        }
+
+        /// <summary>Hard upper bound for the candidate count, follows the core count.</summary>
+        public static int MaxTrackingCandidates
+        {
+            get { return Math.Max(1, Math.Min(Environment.ProcessorCount, 8)); }
+        }
+
         public bool TrackingRetryOnFailure
         {
             get { BeforeRead(); return trackingRetryOnFailure; }
@@ -461,6 +484,8 @@ namespace Kinovea.Services
         private bool trackingValidateParameters = false;
         private bool trackingPanelExtras = false;
         private bool trackingFollowObject = false;
+        private bool trackingCandidatesEnabled = false;
+        private int trackingCandidateMax = 5;
         private HardwareEncoder videoHardwareEncoder = HardwareEncoder.None;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -547,6 +572,8 @@ namespace Kinovea.Services
             writer.WriteElementString("TrackingValidateParameters", XmlHelper.WriteBoolean(trackingValidateParameters));
             writer.WriteElementString("TrackingPanelExtras", XmlHelper.WriteBoolean(trackingPanelExtras));
             writer.WriteElementString("TrackingFollowObject", XmlHelper.WriteBoolean(trackingFollowObject));
+            writer.WriteElementString("TrackingCandidatesEnabled", XmlHelper.WriteBoolean(trackingCandidatesEnabled));
+            writer.WriteElementString("TrackingCandidateMax", trackingCandidateMax.ToString());
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("VideoHardwareEncoder", videoHardwareEncoder.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
@@ -679,6 +706,12 @@ namespace Kinovea.Services
                         break;
                     case "TrackingValidateParameters":
                         trackingValidateParameters = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingCandidatesEnabled":
+                        trackingCandidatesEnabled = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingCandidateMax":
+                        trackingCandidateMax = int.Parse(reader.ReadElementContentAsString(), System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "TrackingFollowObject":
                         trackingFollowObject = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());

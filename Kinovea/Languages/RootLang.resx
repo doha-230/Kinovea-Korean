@@ -867,6 +867,12 @@
   <data name="dlgPreferences_Drawings_HardwareAmf" xml:space="preserve">
     <value>AMD (AMF)</value>
   </data>
+  <data name="dlgPreferences_Tracking_Candidates" xml:space="preserve">
+    <value>Tracking candidate sweep (compare several parameter sets)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_CandidateMax" xml:space="preserve">
+    <value>Max at once:</value>
+  </data>
   <data name="dlgPreferences_Tracking_Scope" xml:space="preserve">
     <value>These values are the defaults for new tracks. Each drawing keeps its own values.</value>
   </data>

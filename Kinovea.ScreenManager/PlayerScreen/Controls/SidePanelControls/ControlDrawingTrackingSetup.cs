@@ -658,8 +658,11 @@ namespace Kinovea.ScreenManager
 
         #region Tracking candidates
 
-        /// <summary>Upper bound for the number of candidates. Follows the physical core count.</summary>
-        private const int MaxCandidateCount = 5;
+        /// <summary>Upper bound for the number of candidates, from the preferences.</summary>
+        private static int MaxCandidateCount
+        {
+            get { return PreferencesManager.PlayerPreferences.TrackingCandidateMax; }
+        }
 
         /// <summary>Signature of the last rendered candidate list, to avoid rebuilding the tabs every frame.</summary>
         private string candidatesUiSignature = string.Empty;
@@ -710,6 +713,9 @@ namespace Kinovea.ScreenManager
                     updatingCandidatesUi = false;
                 }
             }
+
+            // The whole feature is opt-in: with the option off the group box is not shown at all.
+            grpCandidates.Visible = PreferencesManager.PlayerPreferences.TrackingCandidatesEnabled;
 
             btnCandidateDuplicate.Enabled = count > 0;
             btnCandidateRemove.Enabled = count > 0;

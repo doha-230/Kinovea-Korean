@@ -2262,6 +2262,23 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to Tracking candidate sweep (compare several parameter sets).
+        /// </summary>
+        internal static string dlgPreferences_Tracking_Candidates {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Tracking_Candidates", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Max at once:.
+        /// </summary>
+        internal static string dlgPreferences_Tracking_CandidateMax {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Tracking_CandidateMax", resourceCulture);
+            }
+        }
+
         internal static string dlgPreferences_Tracking_Scope {
             get {
                 return ResourceManager.GetString("dlgPreferences_Tracking_Scope", resourceCulture);
