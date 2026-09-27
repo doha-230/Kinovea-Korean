@@ -856,4 +856,7 @@
   <data name="dlgPreferences_Tracking_PanelExtras" xml:space="preserve">
     <value>트래킹 패널 확장 표시(상태줄·일괄 버튼)</value>
   </data>
+  <data name="dlgPreferences_Tracking_FollowObject" xml:space="preserve">
+    <value>추적 대상을 화면 안에 유지(확대 시 뷰포트 자동 이동)</value>
+  </data>
 </root>

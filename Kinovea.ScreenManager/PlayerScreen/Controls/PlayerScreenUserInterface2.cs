@@ -3359,6 +3359,60 @@ namespace Kinovea.ScreenManager
         /// updated to the underlying position from the track, even if we are not actively tracking.
         /// This handles both object tracking and camera tracking.
         /// </summary>
+        /// <summary>
+        /// Keep the tracked object inside the visible area: when it leaves a margin band,
+        /// pan the viewport just enough to bring it back. Opt-in feature, when the option
+        /// is off the viewport stays exactly where the user put it (upstream behaviour).
+        /// Uses the same zoom window move as the mouse panning.
+        /// </summary>
+        private void FollowTrackedObject()
+        {
+            if (!PreferencesManager.PlayerPreferences.TrackingFollowObject)
+                return;
+
+            if (!m_FrameServer.Metadata.AnyTracking)
+                return;
+
+            Size rendering = m_viewportManipulator.RenderingSize;
+            if (rendering.Width <= 0 || rendering.Height <= 0)
+                return;
+
+            ImageTransform transform = m_FrameServer.ImageTransform;
+            int marginX = (int)Math.Round(rendering.Width * 0.25);
+            int marginY = (int)Math.Round(rendering.Height * 0.25);
+
+            foreach (DrawingTrack track in m_FrameServer.Metadata.Tracks())
+            {
+                if (track.Status != TrackStatus.Edit)
+                    continue;
+
+                TimedPoint tracked = track.GetTimedPoint(currentTimestamp);
+                if (tracked == null)
+                    continue;
+
+                System.Drawing.Point surface = transform.Transform(tracked.Point);
+
+                // Movement to apply to the object so that it comes back in the band.
+                float dx = 0;
+                float dy = 0;
+
+                if (surface.X < marginX)
+                    dx = marginX - surface.X;
+                else if (surface.X > rendering.Width - marginX)
+                    dx = (rendering.Width - marginX) - surface.X;
+
+                if (surface.Y < marginY)
+                    dy = marginY - surface.Y;
+                else if (surface.Y > rendering.Height - marginY)
+                    dy = (rendering.Height - marginY) - surface.Y;
+
+                if (dx != 0 || dy != 0)
+                {
+                    transform.MoveZoomWindow(dx, dy, true);
+                    DoInvalidate();
+                }
+            }
+        }
         private void ComputeOrStopTracking(bool contiguous)
         {
             // Subtlety: when at least one track is actively tracking we go through 
@@ -3435,6 +3489,8 @@ namespace Kinovea.ScreenManager
             {
                 trackingFailureReported = false;
             }
+
+            FollowTrackedObject();
 
             UpdateAllowPreScaling();
         }

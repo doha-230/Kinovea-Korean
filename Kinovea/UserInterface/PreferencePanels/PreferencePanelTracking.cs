@@ -37,6 +37,7 @@ namespace Kinovea.Root
         private CheckBox chkRetryOnFailure;
         private CheckBox chkValidateParameters;
         private CheckBox chkPanelExtras;
+        private CheckBox chkFollowObject;
         private Label lblStopOnFailureHelp;
 
         public string Description
@@ -64,7 +65,7 @@ namespace Kinovea.Root
         private void BuildUi()
         {
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.Size = new Size(490, 322);
+            this.Size = new Size(490, 348);
 
             lblScope = new Label();
             lblScope.AutoSize = true;
@@ -161,6 +162,12 @@ namespace Kinovea.Root
             this.Controls.Add(chkValidateParameters);
             this.Controls.Add(chkPanelExtras);
 
+            chkFollowObject = new CheckBox();
+            chkFollowObject.AutoSize = true;
+            chkFollowObject.Location = new Point(18, 324);
+            chkFollowObject.UseVisualStyleBackColor = true;
+            this.Controls.Add(chkFollowObject);
+
             this.Controls.Add(lblHsvRange);
             this.Controls.Add(lblHue);
             this.Controls.Add(nudHueMin);
@@ -205,6 +212,7 @@ namespace Kinovea.Root
             chkRetryOnFailure.Text = RootLang.dlgPreferences_Tracking_RetryOnFailure;
             chkValidateParameters.Text = RootLang.dlgPreferences_Tracking_ValidateParameters;
             chkPanelExtras.Text = RootLang.dlgPreferences_Tracking_PanelExtras;
+            chkFollowObject.Text = RootLang.dlgPreferences_Tracking_FollowObject;
         }
 
         private void ReadPreferences()
@@ -217,6 +225,7 @@ namespace Kinovea.Root
             chkRetryOnFailure.Checked = PreferencesManager.PlayerPreferences.TrackingRetryOnFailure;
             chkValidateParameters.Checked = PreferencesManager.PlayerPreferences.TrackingValidateParameters;
             chkPanelExtras.Checked = PreferencesManager.PlayerPreferences.TrackingPanelExtras;
+            chkFollowObject.Checked = PreferencesManager.PlayerPreferences.TrackingFollowObject;
 
             HSVRange hsv = tp.HSVRange;
             nudHueMin.Value = Clamp(hsv.HueMin, 179);
@@ -260,6 +269,7 @@ namespace Kinovea.Root
             PreferencesManager.PlayerPreferences.TrackingRetryOnFailure = chkRetryOnFailure.Checked;
             PreferencesManager.PlayerPreferences.TrackingValidateParameters = chkValidateParameters.Checked;
             PreferencesManager.PlayerPreferences.TrackingPanelExtras = chkPanelExtras.Checked;
+            PreferencesManager.PlayerPreferences.TrackingFollowObject = chkFollowObject.Checked;
         }
 
         public void OpenTab(PreferenceTab tab)

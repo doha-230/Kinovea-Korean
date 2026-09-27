@@ -909,4 +909,7 @@
   <data name="dlgPreferences_Tracking_PanelExtras" xml:space="preserve">
     <value>Show the extended tracking panel (status line, bulk buttons)</value>
   </data>
+  <data name="dlgPreferences_Tracking_FollowObject" xml:space="preserve">
+    <value>Follow the tracked object with the viewport (keep it visible when zoomed)</value>
+  </data>
 </root>

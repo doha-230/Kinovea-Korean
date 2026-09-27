@@ -2335,5 +2335,11 @@ namespace Kinovea.Root.Languages {
             }
         }
 
+        internal static string dlgPreferences_Tracking_FollowObject {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Tracking_FollowObject", resourceCulture);
+            }
+        }
+
     }
 }

@@ -155,6 +155,16 @@ namespace Kinovea.Services
         /// <summary>
         /// Show the extended tracking panel: live status line, "track all" and "apply to all". Off by default.
         /// </summary>
+        /// <summary>
+        /// Keep the tracked object inside the visible area by panning the viewport
+        /// while a track is running. Off by default: upstream never moves the viewport.
+        /// </summary>
+        public bool TrackingFollowObject
+        {
+            get { BeforeRead(); return trackingFollowObject; }
+            set { trackingFollowObject = value; Save(); }
+        }
+
         public bool TrackingPanelExtras
         {
             get { BeforeRead(); return trackingPanelExtras; }
@@ -450,6 +460,7 @@ namespace Kinovea.Services
         private bool trackingRetryOnFailure = false;
         private bool trackingValidateParameters = false;
         private bool trackingPanelExtras = false;
+        private bool trackingFollowObject = false;
         private HardwareEncoder videoHardwareEncoder = HardwareEncoder.None;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -535,6 +546,7 @@ namespace Kinovea.Services
             writer.WriteElementString("TrackingRetryOnFailure", XmlHelper.WriteBoolean(trackingRetryOnFailure));
             writer.WriteElementString("TrackingValidateParameters", XmlHelper.WriteBoolean(trackingValidateParameters));
             writer.WriteElementString("TrackingPanelExtras", XmlHelper.WriteBoolean(trackingPanelExtras));
+            writer.WriteElementString("TrackingFollowObject", XmlHelper.WriteBoolean(trackingFollowObject));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("VideoHardwareEncoder", videoHardwareEncoder.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
@@ -667,6 +679,9 @@ namespace Kinovea.Services
                         break;
                     case "TrackingValidateParameters":
                         trackingValidateParameters = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
+                        break;
+                    case "TrackingFollowObject":
+                        trackingFollowObject = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
                         break;
                     case "TrackingPanelExtras":
                         trackingPanelExtras = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
