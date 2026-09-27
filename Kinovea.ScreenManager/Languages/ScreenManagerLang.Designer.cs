@@ -5481,5 +5481,11 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_PredictiveSearch {
+            get {
+                return ResourceManager.GetString("tracking_PredictiveSearch", resourceCulture);
+            }
+        }
+
     }
 }

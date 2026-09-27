@@ -109,6 +109,7 @@ namespace Kinovea.ScreenManager
             lblUpdateThreshold.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.track_UpdateThreshold;
             btnStartStop.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Start;
             btnTrackAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAll;
+            chkPredictiveSearch.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_PredictiveSearch;
             btnTrimTrack.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_DeleteEndOfTrack;
             lblTrackingLive.Text = string.Empty;
         }
@@ -350,6 +351,8 @@ namespace Kinovea.ScreenManager
                 nudUpdateThreshold.Value = (decimal)tp.TemplateUpdateThreshold;
 
                 bool enableThresholds = tp.TrackingAlgorithm == TrackingAlgorithm.Correlation;
+                chkPredictiveSearch.Checked = tp.PredictiveSearch;
+                chkPredictiveSearch.Enabled = tp.TrackingAlgorithm == TrackingAlgorithm.Correlation;
                 lblMatchThreshold.Enabled = enableThresholds;
                 lblUpdateThreshold.Enabled = enableThresholds;
                 nudMatchTreshold.Enabled = enableThresholds;
@@ -561,6 +564,18 @@ namespace Kinovea.ScreenManager
 
             lblTrackingLive.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAllHint;
             lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
+        }
+
+        /// <summary>
+        /// Enable or disable the predictive search of the underlying track.
+        /// </summary>
+        private void ChkPredictiveSearch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (manualUpdate || track == null)
+                return;
+
+            track.TrackingParameters.PredictiveSearch = chkPredictiveSearch.Checked;
+            RaiseDrawingModified(DrawingAction.TrackingParametersChanged);
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)

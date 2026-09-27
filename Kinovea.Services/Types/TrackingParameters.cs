@@ -99,6 +99,28 @@ namespace Kinovea.Services
         /// Whether to use an ellipse-shaped mask for template matching.
         /// Avoids picking background in the corners but significantly slower.
         /// </summary>
+        /// <summary>
+        /// Shift the search window towards the position predicted from the previous
+        /// step. Helps on fast motion, where the object leaves the nominal window.
+        /// Off by default.
+        /// </summary>
+        public bool PredictiveSearch
+        {
+            get { return predictiveSearch; }
+            set { predictiveSearch = value; }
+        }
+
+        /// <summary>
+        /// Reject a match whose displacement is inconsistent with the recent motion,
+        /// instead of accepting a wrong object that happens to pass the threshold.
+        /// Off by default.
+        /// </summary>
+        public bool RejectOutliers
+        {
+            get { return rejectOutliers; }
+            set { rejectOutliers = value; }
+        }
+
         public bool UseMask
         {
             get { return useMask; }
@@ -160,6 +182,8 @@ namespace Kinovea.Services
         private double similarityThreshold = 0.5;
         private double templateUpdateThreshold = 0.8; // using CCORR : 0.90 or 0.95, when using CCOEFF : 0.80.
         private bool useMask = false;
+        private bool predictiveSearch = false;
+        private bool rejectOutliers = false;
         private bool resetOnMove = true;
         private int maxWindowSize = 400;
         private HSVRange hsvRange = new HSVRange();
@@ -170,6 +194,15 @@ namespace Kinovea.Services
 
         public TrackingParameters()
         {
+        }
+
+        /// <summary>
+        /// Maximum displacement considered plausible, used by the outlier rejection.
+        /// Relative to the object size so that it scales with the drawing.
+        /// </summary>
+        public double MaxPlausibleDisplacement
+        {
+            get { return Math.Max(8.0, 2.0 * Math.Max(blockWindow.Width, blockWindow.Height)); }
         }
 
         public TrackingParameters Clone()
@@ -196,6 +229,8 @@ namespace Kinovea.Services
             w.WriteElementString("SimilarityThreshold", XmlHelper.WriteFloat((float)similarityThreshold));
             w.WriteElementString("TemplateUpdateThreshold", XmlHelper.WriteFloat((float)templateUpdateThreshold));
             w.WriteElementString("UseMask", XmlHelper.WriteBoolean(useMask));
+            w.WriteElementString("PredictiveSearch", XmlHelper.WriteBoolean(predictiveSearch));
+            w.WriteElementString("RejectOutliers", XmlHelper.WriteBoolean(rejectOutliers));
             w.WriteStartElement("HSVRange");
             hsvRange.WriteXml(w);
             w.WriteEndElement();
@@ -225,6 +260,12 @@ namespace Kinovea.Services
                         break;
                     case "TemplateUpdateThreshold":
                         templateUpdateThreshold = r.ReadElementContentAsDouble();
+                        break;
+                    case "PredictiveSearch":
+                        predictiveSearch = XmlHelper.ParseBoolean(r.ReadElementContentAsString());
+                        break;
+                    case "RejectOutliers":
+                        rejectOutliers = XmlHelper.ParseBoolean(r.ReadElementContentAsString());
                         break;
                     case "UseMask":
                         useMask = XmlHelper.ParseBoolean(r.ReadElementContentAsString());

@@ -33,6 +33,7 @@ namespace Kinovea.ScreenManager
       this.grpTracking = new System.Windows.Forms.GroupBox();
       this.btnTrimTrack = new System.Windows.Forms.Button();
       this.lblTrackingLive = new System.Windows.Forms.Label();
+      this.chkPredictiveSearch = new System.Windows.Forms.CheckBox();
       this.btnStartStop = new System.Windows.Forms.Button();
       this.btnTrackAll = new System.Windows.Forms.Button();
       this.nudUpdateThreshold = new System.Windows.Forms.NumericUpDown();
@@ -79,6 +80,7 @@ namespace Kinovea.ScreenManager
       this.grpTracking.Controls.Add(this.btnTrimTrack);
       this.grpTracking.Controls.Add(this.btnStartStop);
       this.grpTracking.Controls.Add(this.btnTrackAll);
+      this.grpTracking.Controls.Add(this.chkPredictiveSearch);
       this.grpTracking.Controls.Add(this.nudUpdateThreshold);
       this.grpTracking.Controls.Add(this.lblUpdateThreshold);
       this.grpTracking.Controls.Add(this.nudMatchTreshold);
@@ -108,6 +110,15 @@ namespace Kinovea.ScreenManager
       this.lblTrackingLive.Size = new System.Drawing.Size(334, 18);
       this.lblTrackingLive.TabIndex = 40;
       this.lblTrackingLive.Text = "";
+      // 
+      // chkPredictiveSearch
+      this.chkPredictiveSearch.Location = new System.Drawing.Point(236, 146);
+      this.chkPredictiveSearch.Name = "chkPredictiveSearch";
+      this.chkPredictiveSearch.Size = new System.Drawing.Size(120, 21);
+      this.chkPredictiveSearch.TabIndex = 42;
+      this.chkPredictiveSearch.Text = "Predictive search";
+      this.chkPredictiveSearch.UseVisualStyleBackColor = true;
+      this.chkPredictiveSearch.CheckedChanged += new System.EventHandler(this.ChkPredictiveSearch_CheckedChanged);
       // 
       // btnTrackAll
       this.btnTrackAll.Location = new System.Drawing.Point(254, 180);
@@ -424,6 +435,7 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Label lblUpdateThreshold;
         private System.Windows.Forms.Button btnTrimTrack;
         private System.Windows.Forms.Label lblTrackingLive;
+        private System.Windows.Forms.CheckBox chkPredictiveSearch;
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.Button btnTrackAll;
     }

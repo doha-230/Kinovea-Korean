@@ -157,7 +157,18 @@ namespace Kinovea.ScreenManager
             }
             
             // Perform the template matching.
-            TemplateMatchResult result = MatchTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point);
+            // Motion prediction: aim the search where the object should be, based on the
+            // displacement of the previous step. Off by default.
+            PointF searchCenter = lastTrackPoint.Point;
+            if (parameters.PredictiveSearch && timeline.Count >= 2)
+            {
+                TimedPoint previous = timeline[timeline.Count - 2];
+                searchCenter = new PointF(
+                    lastTrackPoint.Point.X + (lastTrackPoint.Point.X - previous.Point.X),
+                    lastTrackPoint.Point.Y + (lastTrackPoint.Point.Y - previous.Point.Y));
+            }
+
+            TemplateMatchResult result = MatchTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, null, searchCenter);
             LastScore = result.Similarity;
 
             // If the nominal search window didn't find the object, try again with a
@@ -176,7 +187,7 @@ namespace Kinovea.ScreenManager
                     if (enlarged.Width <= parameters.SearchWindow.Width && enlarged.Height <= parameters.SearchWindow.Height)
                         break;
 
-                    TemplateMatchResult retry = MatchTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, enlarged);
+                    TemplateMatchResult retry = MatchTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, enlarged, searchCenter);
                     if (retry.Similarity > result.Similarity)
                         result = retry;
 
@@ -206,6 +217,25 @@ namespace Kinovea.ScreenManager
             }
             else
             {
+                // Outlier rejection: a match that moved much further than the recent motion
+                // suggests is more likely another object than the tracked one.
+                if (parameters.RejectOutliers && timeline.Count >= 2)
+                {
+                    TimedPoint previous = timeline[timeline.Count - 2];
+                    double expectedX = lastTrackPoint.Point.X + (lastTrackPoint.Point.X - previous.Point.X);
+                    double expectedY = lastTrackPoint.Point.Y + (lastTrackPoint.Point.Y - previous.Point.Y);
+                    double dx = result.Location.X - expectedX;
+                    double dy = result.Location.Y - expectedY;
+                    double deviation = Math.Sqrt(dx * dx + dy * dy);
+
+                    if (deviation > parameters.MaxPlausibleDisplacement)
+                    {
+                        log.DebugFormat("Match rejected as an outlier. Deviation: {0:0.0} px.", deviation);
+                        currentPoint = CreateTrackPoint(new TemplateMatchResult(0, lastTrackPoint.Point), time, cvImage, timeline);
+                        return false;
+                    }
+                }
+
                 // Tracking success, apply template update algorithm.
                 currentPoint = CreateTrackPoint(result, time, cvImage, timeline);
                 matched = true;
@@ -451,7 +481,7 @@ namespace Kinovea.ScreenManager
         /// This function returns a TrackResult which is just the location and score.
         /// It is the responsibility of the caller to update the template or not.
         /// </summary>
-        private TemplateMatchResult MatchTemplate(Mat cvImage, Bitmap template, PointF lastPoint, System.Drawing.Size? searchWindow = null)
+        private TemplateMatchResult MatchTemplate(Mat cvImage, Bitmap template, PointF lastPoint, System.Drawing.Size? searchWindow = null, PointF? searchCenter = null)
         {
             TemplateMatchResult result;
 
@@ -465,7 +495,10 @@ namespace Kinovea.ScreenManager
             // The search window can be overridden by the caller (failure recovery).
             System.Drawing.Size srchSize = searchWindow ?? parameters.SearchWindow;
             System.Drawing.Size tmplSize = parameters.BlockWindow;
-            PointF srchTopLeft = new PointF(lastPointAligned.X - (int)(srchSize.Width / 2.0f), lastPointAligned.Y - (int)(srchSize.Height / 2.0f));
+            // The search window is centred on the predicted position when motion prediction is on.
+            PointF center = searchCenter.HasValue ? searchCenter.Value : lastPoint;
+            PointF centerAligned = new PointF((int)Math.Round(center.X), (int)Math.Round(center.Y));
+            PointF srchTopLeft = new PointF(centerAligned.X - (int)(srchSize.Width / 2.0f), centerAligned.Y - (int)(srchSize.Height / 2.0f));
             PointF tmplTopLeft = new PointF(lastPointAligned.X - (int)(tmplSize.Width / 2.0f), lastPointAligned.Y - (int)(tmplSize.Height / 2.0f));
 
             // Current best guess for the integer location of the template within the search window.

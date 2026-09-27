@@ -1939,6 +1939,9 @@
     <value>Track all</value>
   </data>
   <data name="tracking_TrackAllHint" xml:space="preserve">
-    <value>All tracks armed · press play</value>
+    <value>All tracks armed · waiting for playback</value>
+  </data>
+  <data name="tracking_PredictiveSearch" xml:space="preserve">
+    <value>Predictive search</value>
   </data>
 </root>

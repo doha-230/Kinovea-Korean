@@ -1886,6 +1886,9 @@
     <value>모두 추적</value>
   </data>
   <data name="tracking_TrackAllHint" xml:space="preserve">
-    <value>모두 추적 준비됨 · 재생을 시작하세요</value>
+    <value>모두 추적 준비됨 · 재생 대기</value>
+  </data>
+  <data name="tracking_PredictiveSearch" xml:space="preserve">
+    <value>예측 검색</value>
   </data>
 </root>
