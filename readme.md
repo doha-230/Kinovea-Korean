@@ -262,8 +262,8 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 ### 릴리스 자동화
 ```bash
-git tag v2026.2.0
-git push origin v2026.2.0
+git tag v2026.3.0
+git push origin v2026.3.0
 ```
 → Windows 빌드 → 설치 파일 + 포터블 압축 생성 → **GitHub Release 자동 발행**
 (버전은 태그에서 자동 추출되어 파일명·설치 파일·릴리스명에 일관되게 반영)
@@ -334,7 +334,7 @@ git push origin v2026.2.0
 | 🌐 **로케일** | TRC 가져오기 `InvariantCulture` 파싱 | `26101e95` |
 | 🐞 **버그 수정** | `ExportImagesInDocuments` **오기록(업스트림 버그)** 수정 · `ExportSpace` 폴스루는 **이 포크에서 발생한 회귀**로 확인해 수정 · 문서 귀속 정정 | `c03d0af4` `e08ecd5e` |
 | ✅ **품질 게이트** | 정적 검사 **7종**(인코딩·csproj·문화권·하드코딩·번역누락·번역품질·**기본값**) + 기준선, 테스트 프로젝트 빌드·실행 | `995e66c2` `9809082a` `69d07529` `d51af435` `d8598c18` `ecb3dcaa` `3f7c6123` |
-| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) · **현재 `v2026.2.0` 발행** | `97b491f1` |
+| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) · **현재 `v2026.3.0` 발행** | `97b491f1` |
 | 📄 **문서** | README 전면 정리(저장소 소개·구조·원칙), 유지보수 문서, **사용자 매뉴얼(HTML)** — 트래킹 옵션·환경설정 위치·한계 절 포함 | `6956c7de` `2fc9ec4b` `41ac3631` `67e5ccd4` |
 | 🏷️ **저장소** | 이름 `Kinovea_kr` → **`Kinovea-Korean`**, 설명·토픽, 매뉴얼 **웹 공개**(GitHub Pages) | `de360b4e` `6c3bc9d7` |
 
