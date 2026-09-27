@@ -133,6 +133,10 @@ namespace Kinovea.Root
             nudDilate.Maximum = 10;
             nudErode.Maximum = 10;
 
+            // Hue runs from 0 to 179 on an 8-bit HSV image, the others from 0 to 255.
+            nudHueMin.Maximum = 179;
+            nudHueMax.Maximum = 179;
+
             this.Controls.Add(lblHsvRange);
             this.Controls.Add(lblHue);
             this.Controls.Add(nudHueMin);
@@ -185,19 +189,24 @@ namespace Kinovea.Root
             chkStopOnFailure.Checked = PreferencesManager.PlayerPreferences.StopTrackingOnFailure;
 
             HSVRange hsv = tp.HSVRange;
-            nudHueMin.Value = Clamp(hsv.HueMin);
-            nudHueMax.Value = Clamp(hsv.HueMax);
+            nudHueMin.Value = Clamp(hsv.HueMin, 179);
+            nudHueMax.Value = Clamp(hsv.HueMax, 179);
             nudSaturationMin.Value = Clamp(hsv.SaturationMin);
             nudSaturationMax.Value = Clamp(hsv.SaturationMax);
             nudValueMin.Value = Clamp(hsv.ValueMin);
             nudValueMax.Value = Clamp(hsv.ValueMax);
-            nudDilate.Value = Clamp(tp.Dilate);
-            nudErode.Value = Clamp(tp.Erode);
+            nudDilate.Value = Clamp(tp.Dilate, 10);
+            nudErode.Value = Clamp(tp.Erode, 10);
         }
 
         private static decimal Clamp(float value)
         {
-            return (decimal)Math.Max(0, Math.Min(255, value));
+            return Clamp(value, 255);
+        }
+
+        private static decimal Clamp(float value, int maximum)
+        {
+            return (decimal)Math.Max(0, Math.Min(maximum, value));
         }
 
         public void CommitChanges()

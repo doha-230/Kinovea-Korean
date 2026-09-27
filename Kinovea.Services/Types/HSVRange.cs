@@ -38,7 +38,8 @@ namespace Kinovea.Services
         public HSVRange()
         {
             this.HueMin = 0;
-            this.HueMax = 360;
+            // 8-bit HSV images use a hue range of 0-179 in OpenCV.
+            this.HueMax = 179;
             this.SaturationMin = 0;
             this.SaturationMax = 255;
             this.ValueMin = 0;

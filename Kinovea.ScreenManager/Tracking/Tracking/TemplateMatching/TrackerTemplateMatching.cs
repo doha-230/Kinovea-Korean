@@ -212,9 +212,9 @@ namespace Kinovea.ScreenManager
                 // scaled copies of the template before declaring the failure.
                 if (parameters.ScaleAdaptive)
                 {
-                    TemplateMatchResult scaled = MatchScaledTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, searchCenter);
-                    if (scaled != null && scaled.Similarity > result.Similarity)
-                        result = scaled;
+                    TemplateMatchResult? scaled = MatchScaledTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, searchCenter);
+                    if (scaled != null && scaled.Value.Similarity > result.Similarity)
+                        result = scaled.Value;
                 }
 
                 if (result.Similarity >= parameters.SimilarityThreshold)
@@ -411,8 +411,7 @@ namespace Kinovea.ScreenManager
             PointF locationAligned = new PointF((int)Math.Round(point.X), (int)Math.Round(point.Y));
 
             System.Drawing.Size srchSize = parameters.SearchWindow;
-            // The template size can be overridden by the caller (scaled retry).
-            System.Drawing.Size tmplSize = templateSize.HasValue ? templateSize.Value : parameters.BlockWindow;
+            System.Drawing.Size tmplSize = parameters.BlockWindow;
             PointF srchTopLeft = new PointF(locationAligned.X - (int)(srchSize.Width / 2.0f), locationAligned.Y - (int)(srchSize.Height / 2.0f));
             PointF tmplTopLeft = new PointF(locationAligned.X - (int)(tmplSize.Width / 2.0f), locationAligned.Y - (int)(tmplSize.Height / 2.0f));
             Rectangle srchRect = new Rectangle((int)srchTopLeft.X, (int)srchTopLeft.Y, srchSize.Width, srchSize.Height);
@@ -505,9 +504,9 @@ namespace Kinovea.ScreenManager
         /// Retry the match with the template scaled up and down. Returns null when no
         /// scaled variant beats the nominal attempt.
         /// </summary>
-        private TemplateMatchResult MatchScaledTemplate(Mat cvImage, Bitmap template, PointF lastPoint, PointF searchCenter)
+        private TemplateMatchResult? MatchScaledTemplate(Mat cvImage, Bitmap template, PointF lastPoint, PointF searchCenter)
         {
-            TemplateMatchResult best = null;
+            TemplateMatchResult? best = null;
             double[] scales = new double[] { 0.9, 1.1 };
 
             foreach (double scale in scales)
@@ -523,7 +522,7 @@ namespace Kinovea.ScreenManager
                         g.DrawImage(template, 0, 0, width, height);
 
                     TemplateMatchResult candidate = MatchTemplate(cvImage, scaledTemplate, lastPoint, null, searchCenter, new System.Drawing.Size(width, height));
-                    if (best == null || candidate.Similarity > best.Similarity)
+                    if (best == null || candidate.Similarity > best.Value.Similarity)
                         best = candidate;
                 }
             }
@@ -544,7 +543,8 @@ namespace Kinovea.ScreenManager
             // The boxes themselves may have odd or even sizes.
             // The search window can be overridden by the caller (failure recovery).
             System.Drawing.Size srchSize = searchWindow ?? parameters.SearchWindow;
-            System.Drawing.Size tmplSize = parameters.BlockWindow;
+            // The template size can be overridden by the caller (scaled retry).
+            System.Drawing.Size tmplSize = templateSize.HasValue ? templateSize.Value : parameters.BlockWindow;
             // The search window is centred on the predicted position when motion prediction is on.
             PointF center = searchCenter.HasValue ? searchCenter.Value : lastPoint;
             PointF centerAligned = new PointF((int)Math.Round(center.X), (int)Math.Round(center.Y));
