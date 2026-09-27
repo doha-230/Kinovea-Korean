@@ -108,6 +108,7 @@ namespace Kinovea.ScreenManager
             lblMatchThreshold.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_MatchThreshold;
             lblUpdateThreshold.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.track_UpdateThreshold;
             btnStartStop.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Start;
+            btnTrackAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAll;
             btnTrimTrack.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_DeleteEndOfTrack;
             lblTrackingLive.Text = string.Empty;
         }
@@ -532,6 +533,34 @@ namespace Kinovea.ScreenManager
 
             // Update other controllers.
             RaiseDrawingModified(DrawingAction.TrackingParametersChanged);
+        }
+
+        /// <summary>
+        /// Arm every trackable drawing of the document at once so that the next
+        /// playback pass tracks them all, instead of starting them one by one.
+        /// </summary>
+        private void BtnTrackAll_Click(object sender, EventArgs e)
+        {
+            if (metadata == null)
+                return;
+
+            int armed = 0;
+            foreach (DrawingTrack t in metadata.Tracks())
+            {
+                if (t.Status == TrackStatus.Interactive)
+                {
+                    t.StartTracking();
+                    armed++;
+                }
+            }
+
+            if (armed == 0)
+                return;
+
+            RaiseDrawingModified(DrawingAction.TrackingStatusChanged);
+
+            lblTrackingLive.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAllHint;
+            lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)

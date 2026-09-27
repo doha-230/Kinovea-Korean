@@ -34,6 +34,7 @@ namespace Kinovea.ScreenManager
       this.btnTrimTrack = new System.Windows.Forms.Button();
       this.lblTrackingLive = new System.Windows.Forms.Label();
       this.btnStartStop = new System.Windows.Forms.Button();
+      this.btnTrackAll = new System.Windows.Forms.Button();
       this.nudUpdateThreshold = new System.Windows.Forms.NumericUpDown();
       this.lblUpdateThreshold = new System.Windows.Forms.Label();
       this.nudMatchTreshold = new System.Windows.Forms.NumericUpDown();
@@ -77,6 +78,7 @@ namespace Kinovea.ScreenManager
       this.grpTracking.BackColor = System.Drawing.Color.White;
       this.grpTracking.Controls.Add(this.btnTrimTrack);
       this.grpTracking.Controls.Add(this.btnStartStop);
+      this.grpTracking.Controls.Add(this.btnTrackAll);
       this.grpTracking.Controls.Add(this.nudUpdateThreshold);
       this.grpTracking.Controls.Add(this.lblUpdateThreshold);
       this.grpTracking.Controls.Add(this.nudMatchTreshold);
@@ -106,6 +108,15 @@ namespace Kinovea.ScreenManager
       this.lblTrackingLive.Size = new System.Drawing.Size(334, 18);
       this.lblTrackingLive.TabIndex = 40;
       this.lblTrackingLive.Text = "";
+      // 
+      // btnTrackAll
+      this.btnTrackAll.Location = new System.Drawing.Point(254, 180);
+      this.btnTrackAll.Name = "btnTrackAll";
+      this.btnTrackAll.Size = new System.Drawing.Size(100, 27);
+      this.btnTrackAll.TabIndex = 41;
+      this.btnTrackAll.Text = "Track all";
+      this.btnTrackAll.UseVisualStyleBackColor = true;
+      this.btnTrackAll.Click += new System.EventHandler(this.BtnTrackAll_Click);
       // 
       // btnTrimTrack
       // 
@@ -414,5 +425,6 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Button btnTrimTrack;
         private System.Windows.Forms.Label lblTrackingLive;
         private System.Windows.Forms.Button btnStartStop;
+        private System.Windows.Forms.Button btnTrackAll;
     }
 }

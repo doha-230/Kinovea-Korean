@@ -5470,5 +5470,16 @@ namespace Kinovea.ScreenManager.Languages {
             }
         }
 
+        internal static string tracking_TrackAll {
+            get {
+                return ResourceManager.GetString("tracking_TrackAll", resourceCulture);
+            }
+        }
+        internal static string tracking_TrackAllHint {
+            get {
+                return ResourceManager.GetString("tracking_TrackAllHint", resourceCulture);
+            }
+        }
+
     }
 }

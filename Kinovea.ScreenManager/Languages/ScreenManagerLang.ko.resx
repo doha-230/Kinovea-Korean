@@ -1882,4 +1882,10 @@
   <data name="tracking_InvalidParameters_Text" xml:space="preserve">
     <value>객체 창이 너무 작거나, 검색 창이 객체 창보다 충분히 크지 않습니다. 값을 조정한 뒤 추적을 시작하세요.</value>
   </data>
+  <data name="tracking_TrackAll" xml:space="preserve">
+    <value>모두 추적</value>
+  </data>
+  <data name="tracking_TrackAllHint" xml:space="preserve">
+    <value>모두 추적 준비됨 · 재생을 시작하세요</value>
+  </data>
 </root>

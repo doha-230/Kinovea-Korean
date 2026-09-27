@@ -1935,4 +1935,10 @@
   <data name="tracking_InvalidParameters_Text" xml:space="preserve">
     <value>The object window is too small, or the search window is not larger than the object window. Adjust them before starting the tracking.</value>
   </data>
+  <data name="tracking_TrackAll" xml:space="preserve">
+    <value>Track all</value>
+  </data>
+  <data name="tracking_TrackAllHint" xml:space="preserve">
+    <value>All tracks armed · press play</value>
+  </data>
 </root>
