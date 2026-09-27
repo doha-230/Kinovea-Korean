@@ -72,6 +72,9 @@ jobs:
     - name: Check preference defaults
       if: hashFiles('Tools/lint/check_preference_defaults.py') != ''
       run: python Tools/lint/check_preference_defaults.py
+    - name: Check preference persistence
+      if: hashFiles('Tools/lint/check_preference_persistence.py') != ''
+      run: python Tools/lint/check_preference_persistence.py
     - name: Check hard-coded UI strings
       if: hashFiles('Tools/i18n/scan_hardcoded_strings.py') != ''
       run: python Tools/i18n/scan_hardcoded_strings.py --baseline Tools/i18n/baseline-hardcoded.txt
