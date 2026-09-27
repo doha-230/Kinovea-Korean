@@ -641,6 +641,11 @@
     <Compile Include="Measurement\Kinematics\LinearKinematics.cs" />
     <Compile Include="Measurement\Kinematics\StatsHelper.cs" />
     <Compile Include="Thumbnails\ThumbnailHelper.cs" />
+    <Compile Include="Tracking\Candidates\TrackCandidate.cs" />
+    <Compile Include="Tracking\Candidates\CandidateMetrics.cs" />
+    <Compile Include="Tracking\Candidates\TrackCandidateValidator.cs" />
+    <Compile Include="Tracking\Candidates\TrackCandidateSet.cs" />
+    <Compile Include="Tracking\Candidates\TrackCandidateFactory.cs" />
     <Compile Include="Tracking\Tracking\Circle\TrackerCircle.cs" />
     <Compile Include="Tracking\Tracking\Blob\TrackerBlob.cs" />
     <Compile Include="Tracking\Tracking\TrackStatus.cs" />
