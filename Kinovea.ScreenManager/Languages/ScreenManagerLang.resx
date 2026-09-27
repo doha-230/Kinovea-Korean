@@ -1647,6 +1647,51 @@
   <data name="tracking_DeleteEndOfTracks" xml:space="preserve">
     <value>Delete end of tracks</value>
   </data>
+  <data name="tracking_CandidateDefaultName" xml:space="preserve">
+    <value>Case {0}</value>
+  </data>
+  <data name="tracking_Candidates" xml:space="preserve">
+    <value>Candidates</value>
+  </data>
+  <data name="tracking_CandidateCompareTab" xml:space="preserve">
+    <value>Compare (overlay)</value>
+  </data>
+  <data name="tracking_CandidateAdd" xml:space="preserve">
+    <value>Add from current</value>
+  </data>
+  <data name="tracking_CandidateDuplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="tracking_CandidateRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="tracking_CandidateRun" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="tracking_CandidateAdopt" xml:space="preserve">
+    <value>Adopt</value>
+  </data>
+  <data name="tracking_CandidateClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="tracking_CandidateEntry" xml:space="preserve">
+    <value>{0}. {1}</value>
+  </data>
+  <data name="tracking_CandidateMetrics" xml:space="preserve">
+    <value>Rank {0} · score {1:0.00} · stuck {2:P0} · jump {3:0.00} · cover {4:P0} · smooth {5:0.00}</value>
+  </data>
+  <data name="tracking_CandidateNoTrack" xml:space="preserve">
+    <value>Select a track drawing first.</value>
+  </data>
+  <data name="tracking_CandidateInvalid" xml:space="preserve">
+    <value>Check the candidate parameters (search window must be larger than the object window).</value>
+  </data>
+  <data name="tracking_CandidateAdopted" xml:space="preserve">
+    <value>Adopted candidate '{0}'.</value>
+  </data>
+  <data name="tracking_CandidateRunning" xml:space="preserve">
+    <value>Tracking {0} candidates in parallel…</value>
+  </data>
   <data name="tracking_DeleteTracks" xml:space="preserve">
     <value>Delete tracks</value>
   </data>

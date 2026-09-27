@@ -1618,6 +1618,51 @@
   <data name="tracking_DeleteEndOfTracks" xml:space="preserve">
     <value>트랙 끝 삭제</value>
   </data>
+  <data name="tracking_CandidateDefaultName" xml:space="preserve">
+    <value>케이스 {0}</value>
+  </data>
+  <data name="tracking_Candidates" xml:space="preserve">
+    <value>후보군</value>
+  </data>
+  <data name="tracking_CandidateCompareTab" xml:space="preserve">
+    <value>비교(겹쳐 보기)</value>
+  </data>
+  <data name="tracking_CandidateAdd" xml:space="preserve">
+    <value>현재 설정으로 추가</value>
+  </data>
+  <data name="tracking_CandidateDuplicate" xml:space="preserve">
+    <value>복제</value>
+  </data>
+  <data name="tracking_CandidateRemove" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="tracking_CandidateRun" xml:space="preserve">
+    <value>실행</value>
+  </data>
+  <data name="tracking_CandidateAdopt" xml:space="preserve">
+    <value>채택</value>
+  </data>
+  <data name="tracking_CandidateClear" xml:space="preserve">
+    <value>비우기</value>
+  </data>
+  <data name="tracking_CandidateEntry" xml:space="preserve">
+    <value>{0}. {1}</value>
+  </data>
+  <data name="tracking_CandidateMetrics" xml:space="preserve">
+    <value>순위 {0} · 점수 {1:0.00} · 정지 {2:P0} · 점프 {3:0.00} · 커버 {4:P0} · 매끄러움 {5:0.00}</value>
+  </data>
+  <data name="tracking_CandidateNoTrack" xml:space="preserve">
+    <value>먼저 트랙 그림을 선택하세요.</value>
+  </data>
+  <data name="tracking_CandidateInvalid" xml:space="preserve">
+    <value>후보 파라미터를 확인하세요(검색창이 객체창보다 충분히 커야 합니다).</value>
+  </data>
+  <data name="tracking_CandidateAdopted" xml:space="preserve">
+    <value>'{0}' 후보를 채택했습니다.</value>
+  </data>
+  <data name="tracking_CandidateRunning" xml:space="preserve">
+    <value>후보 {0}개를 병렬 추적 중…</value>
+  </data>
   <data name="tracking_DeleteTracks" xml:space="preserve">
     <value>선로들 삭제합니다</value>
   </data>

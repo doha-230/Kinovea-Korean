@@ -37,6 +37,13 @@ namespace Kinovea.ScreenManager
       this.btnStartStop = new System.Windows.Forms.Button();
       this.btnTrackAll = new System.Windows.Forms.Button();
       this.btnApplyToAll = new System.Windows.Forms.Button();
+      this.grpCandidates = new System.Windows.Forms.GroupBox();
+      this.tabsCandidates = new System.Windows.Forms.TabControl();
+      this.btnCandidateAdd = new System.Windows.Forms.Button();
+      this.btnCandidateDuplicate = new System.Windows.Forms.Button();
+      this.btnCandidateRemove = new System.Windows.Forms.Button();
+      this.btnCandidateRun = new System.Windows.Forms.Button();
+      this.btnCandidateAdopt = new System.Windows.Forms.Button();
       this.nudUpdateThreshold = new System.Windows.Forms.NumericUpDown();
       this.lblUpdateThreshold = new System.Windows.Forms.Label();
       this.nudMatchTreshold = new System.Windows.Forms.NumericUpDown();
@@ -60,6 +67,8 @@ namespace Kinovea.ScreenManager
       ((System.ComponentModel.ISupportInitialize)(this.nudObjWindowHeight)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSearchWindowWidth)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudObjWindowWidth)).BeginInit();
+      this.grpCandidates.SuspendLayout();
+      this.tabsCandidates.SuspendLayout();
       this.SuspendLayout();
       // 
       // pnlViewport
@@ -399,6 +408,79 @@ namespace Kinovea.ScreenManager
       this.lblObjectWindow.TabIndex = 43;
       this.lblObjectWindow.Text = "Object window:";
       // 
+      // grpCandidates
+      // 
+      this.grpCandidates.Controls.Add(this.tabsCandidates);
+      this.grpCandidates.Controls.Add(this.btnCandidateAdd);
+      this.grpCandidates.Controls.Add(this.btnCandidateDuplicate);
+      this.grpCandidates.Controls.Add(this.btnCandidateRemove);
+      this.grpCandidates.Controls.Add(this.btnCandidateRun);
+      this.grpCandidates.Controls.Add(this.btnCandidateAdopt);
+      this.grpCandidates.Location = new System.Drawing.Point(0, 528);
+      this.grpCandidates.Name = "grpCandidates";
+      this.grpCandidates.Size = new System.Drawing.Size(362, 120);
+      this.grpCandidates.TabIndex = 20;
+      this.grpCandidates.TabStop = false;
+      this.grpCandidates.Text = "Candidates";
+      // 
+      // tabsCandidates
+      // 
+      this.tabsCandidates.Location = new System.Drawing.Point(8, 18);
+      this.tabsCandidates.Name = "tabsCandidates";
+      this.tabsCandidates.Size = new System.Drawing.Size(346, 66);
+      this.tabsCandidates.TabIndex = 0;
+      this.tabsCandidates.SelectedIndexChanged += new System.EventHandler(this.TabsCandidates_SelectedIndexChanged);
+      // 
+      // btnCandidateAdd
+      // 
+      this.btnCandidateAdd.Location = new System.Drawing.Point(8, 92);
+      this.btnCandidateAdd.Name = "btnCandidateAdd";
+      this.btnCandidateAdd.Size = new System.Drawing.Size(82, 22);
+      this.btnCandidateAdd.TabIndex = 1;
+      this.btnCandidateAdd.Text = "Add from current";
+      this.btnCandidateAdd.UseVisualStyleBackColor = true;
+      this.btnCandidateAdd.Click += new System.EventHandler(this.BtnCandidateAdd_Click);
+      // 
+      // btnCandidateDuplicate
+      // 
+      this.btnCandidateDuplicate.Location = new System.Drawing.Point(96, 92);
+      this.btnCandidateDuplicate.Name = "btnCandidateDuplicate";
+      this.btnCandidateDuplicate.Size = new System.Drawing.Size(54, 22);
+      this.btnCandidateDuplicate.TabIndex = 2;
+      this.btnCandidateDuplicate.Text = "Duplicate";
+      this.btnCandidateDuplicate.UseVisualStyleBackColor = true;
+      this.btnCandidateDuplicate.Click += new System.EventHandler(this.BtnCandidateDuplicate_Click);
+      // 
+      // btnCandidateRemove
+      // 
+      this.btnCandidateRemove.Location = new System.Drawing.Point(156, 92);
+      this.btnCandidateRemove.Name = "btnCandidateRemove";
+      this.btnCandidateRemove.Size = new System.Drawing.Size(54, 22);
+      this.btnCandidateRemove.TabIndex = 3;
+      this.btnCandidateRemove.Text = "Remove";
+      this.btnCandidateRemove.UseVisualStyleBackColor = true;
+      this.btnCandidateRemove.Click += new System.EventHandler(this.BtnCandidateRemove_Click);
+      // 
+      // btnCandidateRun
+      // 
+      this.btnCandidateRun.Location = new System.Drawing.Point(216, 92);
+      this.btnCandidateRun.Name = "btnCandidateRun";
+      this.btnCandidateRun.Size = new System.Drawing.Size(54, 22);
+      this.btnCandidateRun.TabIndex = 4;
+      this.btnCandidateRun.Text = "Run";
+      this.btnCandidateRun.UseVisualStyleBackColor = true;
+      this.btnCandidateRun.Click += new System.EventHandler(this.BtnCandidateRun_Click);
+      // 
+      // btnCandidateAdopt
+      // 
+      this.btnCandidateAdopt.Location = new System.Drawing.Point(276, 92);
+      this.btnCandidateAdopt.Name = "btnCandidateAdopt";
+      this.btnCandidateAdopt.Size = new System.Drawing.Size(66, 22);
+      this.btnCandidateAdopt.TabIndex = 5;
+      this.btnCandidateAdopt.Text = "Adopt";
+      this.btnCandidateAdopt.UseVisualStyleBackColor = true;
+      this.btnCandidateAdopt.Click += new System.EventHandler(this.BtnCandidateAdopt_Click);
+      // 
       // ControlDrawingTrackingSetup
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,13 +489,17 @@ namespace Kinovea.ScreenManager
       this.Controls.Add(this.grpTracking);
       this.pnlViewport.Controls.Add(this.lblTrackingLive);
       this.Controls.Add(this.pnlViewport);
+      this.Controls.Add(this.grpCandidates);
       this.DoubleBuffered = true;
       this.ForeColor = System.Drawing.Color.Gray;
       this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
       this.Name = "ControlDrawingTrackingSetup";
-      this.Size = new System.Drawing.Size(362, 528);
+      this.Size = new System.Drawing.Size(362, 652);
       this.grpTracking.ResumeLayout(false);
       this.grpTracking.PerformLayout();
+      this.grpCandidates.ResumeLayout(false);
+      this.grpCandidates.PerformLayout();
+      this.tabsCandidates.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.nudUpdateThreshold)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudMatchTreshold)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.nudSearchWindowHeight)).EndInit();
@@ -450,5 +536,12 @@ namespace Kinovea.ScreenManager
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.Button btnTrackAll;
       private System.Windows.Forms.Button btnApplyToAll;
+      private System.Windows.Forms.GroupBox grpCandidates;
+      private System.Windows.Forms.TabControl tabsCandidates;
+      private System.Windows.Forms.Button btnCandidateAdd;
+      private System.Windows.Forms.Button btnCandidateDuplicate;
+      private System.Windows.Forms.Button btnCandidateRemove;
+      private System.Windows.Forms.Button btnCandidateRun;
+      private System.Windows.Forms.Button btnCandidateAdopt;
     }
 }

@@ -828,6 +828,66 @@ namespace Kinovea.ScreenManager
         #endregion
 
         #region Drawing routines
+        /// <summary>
+        /// Colors used to tell the candidates apart in the overlay view.
+        /// </summary>
+        private static readonly Color[] CandidateColors = new Color[]
+        {
+            Color.FromArgb(0, 160, 220),
+            Color.FromArgb(240, 160, 0),
+            Color.FromArgb(120, 190, 60),
+            Color.FromArgb(200, 80, 200),
+            Color.FromArgb(230, 90, 90),
+            Color.FromArgb(90, 110, 230),
+            Color.FromArgb(0, 190, 170),
+            Color.FromArgb(180, 140, 60),
+        };
+
+        /// <summary>
+        /// Draw the candidate trajectories. Overlay mode (VisibleIndex below zero) draws them
+        /// all with one color each, the adopted or recommended one thicker; otherwise only the
+        /// selected candidate is drawn. Nothing is drawn when there is no candidate.
+        /// </summary>
+        private void DrawCandidates(Graphics canvas, IImageToViewportTransformer transformer, long currentTimestamp)
+        {
+            if (!candidateSet.HasCandidates)
+                return;
+
+            int visible = candidateSet.VisibleIndex;
+            for (int i = 0; i < candidateSet.Count; i++)
+            {
+                if (visible >= 0 && i != visible)
+                    continue;
+
+                TrackCandidate candidate = candidateSet[i];
+                if (candidate.Positions == null || candidate.Positions.Count <= 1)
+                    continue;
+
+                List<PointF> points = new List<PointF>();
+                foreach (TimedPoint tp in candidate.Positions)
+                {
+                    if (tp.T > currentTimestamp)
+                        break;
+                    points.Add(tp.Point);
+                }
+
+                if (points.Count <= 1)
+                    continue;
+
+                Point[] viewPoints = points.Select(p => transformer.Transform(p)).ToArray();
+                Color color = CandidateColors[i % CandidateColors.Length];
+                bool highlight = (i == candidateSet.AdoptedIndex) || (candidate.Rank == 1);
+
+                using (Pen pen = new Pen(color, highlight ? 2.5f : 1.5f))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.DashStyle = candidate.Failed ? DashStyle.Dot : DashStyle.Dash;
+                    canvas.DrawCurve(pen, viewPoints, 0.5f);
+                }
+            }
+        }
+
         private void DrawTrajectory(Graphics canvas, List<PointF> points, int start, int end, float opacity, IImageToViewportTransformer transformer, long currentTimestamp)
         {
             if (isConfiguring)

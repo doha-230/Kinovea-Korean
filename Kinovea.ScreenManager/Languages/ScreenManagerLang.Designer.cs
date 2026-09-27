@@ -4707,6 +4707,128 @@ namespace Kinovea.ScreenManager.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Delete tracks.
         /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Candidates.
+        /// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Case {0}.
+        /// </summary>
+        public static string tracking_CandidateDefaultName {
+            get {
+                return ResourceManager.GetString("tracking_CandidateDefaultName", resourceCulture);
+            }
+        }
+
+        public static string tracking_Candidates {
+            get {
+                return ResourceManager.GetString("tracking_Candidates", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Compare (overlay).
+        /// </summary>
+        public static string tracking_CandidateCompareTab {
+            get {
+                return ResourceManager.GetString("tracking_CandidateCompareTab", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Add from current.
+        /// </summary>
+        public static string tracking_CandidateAdd {
+            get {
+                return ResourceManager.GetString("tracking_CandidateAdd", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate.
+        /// </summary>
+        public static string tracking_CandidateDuplicate {
+            get {
+                return ResourceManager.GetString("tracking_CandidateDuplicate", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string tracking_CandidateRemove {
+            get {
+                return ResourceManager.GetString("tracking_CandidateRemove", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        public static string tracking_CandidateRun {
+            get {
+                return ResourceManager.GetString("tracking_CandidateRun", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Adopt.
+        /// </summary>
+        public static string tracking_CandidateAdopt {
+            get {
+                return ResourceManager.GetString("tracking_CandidateAdopt", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string tracking_CandidateClear {
+            get {
+                return ResourceManager.GetString("tracking_CandidateClear", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. {1}.
+        /// </summary>
+        public static string tracking_CandidateEntry {
+            get {
+                return ResourceManager.GetString("tracking_CandidateEntry", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Rank {0} · score {1:0.00} · stuck {2:P0} · jump {3:0.00} · cover {4:P0} · smooth {5:0.00}.
+        /// </summary>
+        public static string tracking_CandidateMetrics {
+            get {
+                return ResourceManager.GetString("tracking_CandidateMetrics", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Select a track drawing first..
+        /// </summary>
+        public static string tracking_CandidateNoTrack {
+            get {
+                return ResourceManager.GetString("tracking_CandidateNoTrack", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Check the candidate parameters (search window must be larger than the object window)..
+        /// </summary>
+        public static string tracking_CandidateInvalid {
+            get {
+                return ResourceManager.GetString("tracking_CandidateInvalid", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Adopted candidate '{0}'..
+        /// </summary>
+        public static string tracking_CandidateAdopted {
+            get {
+                return ResourceManager.GetString("tracking_CandidateAdopted", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Tracking {0} candidates in parallel….
+        /// </summary>
+        public static string tracking_CandidateRunning {
+            get {
+                return ResourceManager.GetString("tracking_CandidateRunning", resourceCulture);
+            }
+        }
+
         public static string tracking_DeleteTracks {
             get {
                 return ResourceManager.GetString("tracking_DeleteTracks", resourceCulture);

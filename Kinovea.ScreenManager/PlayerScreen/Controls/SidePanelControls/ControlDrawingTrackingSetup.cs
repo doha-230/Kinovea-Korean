@@ -52,6 +52,10 @@ namespace Kinovea.ScreenManager
         private Metadata metadata;
         private Guid managerId;
         private bool manualUpdate;
+
+        /// <summary>Selected candidate index, -1 when the overlay view is selected.</summary>
+        private int selectedCandidateIndex = -1;
+        private bool updatingCandidatesUi;
         private bool editing;
         public static readonly List<TrackingAlgorithm> options = new List<TrackingAlgorithm>() {
             TrackingAlgorithm.Correlation,
@@ -112,6 +116,13 @@ namespace Kinovea.ScreenManager
             btnStartStop.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Start;
             btnTrackAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_TrackAll;
             btnApplyToAll.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_ApplyToAllTracks;
+            grpCandidates.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_Candidates;
+            btnCandidateAdd.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateAdd;
+            btnCandidateDuplicate.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateDuplicate;
+            btnCandidateRemove.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateRemove;
+            btnCandidateRun.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateRun;
+            btnCandidateAdopt.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateAdopt;
+            UpdateCandidatesUi();
             chkPredictiveSearch.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_PredictiveSearch;
             btnTrimTrack.Text = Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_DeleteEndOfTrack;
             lblTrackingLive.Text = string.Empty;
@@ -213,6 +224,9 @@ namespace Kinovea.ScreenManager
         {
             if (track == null || track.Status != TrackStatus.Edit || metadata == null)
             {
+                // Keep the candidate tabs in sync (count and ranks) without rebuilding them every frame.
+                UpdateCandidatesUi();
+
                 // Idle: report the size of the path and how much of it looks stuck.
                 lblTrackingLive.Text = string.Empty;
                 lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -642,6 +656,243 @@ namespace Kinovea.ScreenManager
             RaiseDrawingModified(DrawingAction.TrackingParametersChanged);
         }
 
+        #region Tracking candidates
+
+        /// <summary>Upper bound for the number of candidates. Follows the physical core count.</summary>
+        private const int MaxCandidateCount = 5;
+
+        /// <summary>Signature of the last rendered candidate list, to avoid rebuilding the tabs every frame.</summary>
+        private string candidatesUiSignature = string.Empty;
+
+        /// <summary>
+        /// Refresh the candidate tabs and the button states. Tab 0 compares all the trajectories
+        /// on the canvas (overlay), the other tabs show one candidate on its own.
+        /// </summary>
+        private void UpdateCandidatesUi()
+        {
+            if (tabsCandidates == null)
+                return;
+
+            int count = track == null ? 0 : track.CandidateSet.Count;
+            string signature = count.ToString();
+            for (int i = 0; i < count; i++)
+                signature += "|" + track.CandidateSet[i].Name + ":" + track.CandidateSet[i].Rank;
+
+            bool sameList = signature == candidatesUiSignature;
+            if (track != null)
+                track.CandidateSet.VisibleIndex = selectedCandidateIndex;
+
+            if (!sameList)
+            {
+                candidatesUiSignature = signature;
+                updatingCandidatesUi = true;
+                try
+                {
+                    tabsCandidates.TabPages.Clear();
+                    tabsCandidates.TabPages.Add(MakeCandidatePage(
+                        Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateCompareTab, string.Empty));
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        TrackCandidate candidate = track.CandidateSet[i];
+                        string label = string.Format(
+                            Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateEntry,
+                            candidate.Rank > 0 ? candidate.Rank : i + 1,
+                            candidate.Name);
+                        tabsCandidates.TabPages.Add(MakeCandidatePage(label, DescribeCandidate(candidate)));
+                    }
+
+                    int wanted = selectedCandidateIndex + 1;
+                    tabsCandidates.SelectedIndex = wanted >= 0 && wanted < tabsCandidates.TabPages.Count ? wanted : 0;
+                }
+                finally
+                {
+                    updatingCandidatesUi = false;
+                }
+            }
+
+            btnCandidateDuplicate.Enabled = count > 0;
+            btnCandidateRemove.Enabled = count > 0;
+            btnCandidateRun.Enabled = count > 0 && track != null && !track.CandidatesActive;
+            btnCandidateAdopt.Enabled = count > 0 && track != null && !track.CandidatesActive;
+        }
+
+        private static TabPage MakeCandidatePage(string text, string info)
+        {
+            TabPage page = new TabPage(text);
+            page.UseVisualStyleBackColor = true;
+
+            if (!string.IsNullOrEmpty(info))
+            {
+                Label label = new Label();
+                label.Dock = DockStyle.Fill;
+                label.TextAlign = ContentAlignment.MiddleLeft;
+                label.Text = info;
+                page.Controls.Add(label);
+            }
+
+            return page;
+        }
+
+        /// <summary>One line summary of the proxy metrics, empty while the sweep is running.</summary>
+        private static string DescribeCandidate(TrackCandidate candidate)
+        {
+            if (candidate == null || candidate.Metrics == null)
+                return string.Empty;
+
+            CandidateMetrics m = candidate.Metrics;
+            double score = double.IsNaN(m.MeanScore) ? 0 : m.MeanScore;
+            return string.Format(
+                Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateMetrics,
+                candidate.Rank, score, m.StuckRatio, m.MaxJump, m.Coverage, m.Smoothness);
+        }
+
+        /// <summary>First unused default name, so a sweep can be built by pressing add repeatedly.</summary>
+        private static string NextCandidateName(TrackCandidateSet set)
+        {
+            for (int i = 1; i <= 99; i++)
+            {
+                string name = string.Format(
+                    Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateDefaultName, i);
+                bool used = false;
+                for (int j = 0; j < set.Count; j++)
+                {
+                    if (set[j].Name == name)
+                    {
+                        used = true;
+                        break;
+                    }
+                }
+                if (!used)
+                    return name;
+            }
+            return "case";
+        }
+
+        /// <summary>Hint in the status line, only when the extended panel is enabled.</summary>
+        private void ShowCandidateHint(string text)
+        {
+            if (lblTrackingLive == null)
+                return;
+            if (!PreferencesManager.PlayerPreferences.TrackingPanelExtras)
+                return;
+
+            lblTrackingLive.Visible = true;
+            lblTrackingLive.Text = text;
+            lblTrackingLive.ForeColor = System.Drawing.SystemColors.ControlText;
+        }
+
+        private void AfterCandidatesChanged()
+        {
+            candidatesUiSignature = string.Empty;
+            UpdateCandidatesUi();
+            if (hostView != null)
+                hostView.InvalidateFromMenu();
+        }
+
+        /// <summary>
+        /// Snapshot the parameters currently set in the panel: this is how a sweep is built, tweak
+        /// the values then add another case.
+        /// </summary>
+        private void BtnCandidateAdd_Click(object sender, EventArgs e)
+        {
+            if (track == null || track.TrackingParameters == null)
+            {
+                ShowCandidateHint(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateNoTrack);
+                return;
+            }
+
+            string name = NextCandidateName(track.CandidateSet);
+            track.CandidateSet.Add(new TrackCandidate(name, track.TrackingParameters.Clone()));
+            selectedCandidateIndex = track.CandidateSet.Count - 1;
+            AfterCandidatesChanged();
+        }
+
+        private void BtnCandidateDuplicate_Click(object sender, EventArgs e)
+        {
+            if (track == null || !track.HasCandidates)
+                return;
+
+            int source = selectedCandidateIndex >= 0 ? selectedCandidateIndex : 0;
+            string name = NextCandidateName(track.CandidateSet);
+            if (track.CandidateSet.Duplicate(source, name) == null)
+                return;
+
+            selectedCandidateIndex = track.CandidateSet.Count - 1;
+            AfterCandidatesChanged();
+        }
+
+        private void BtnCandidateRemove_Click(object sender, EventArgs e)
+        {
+            if (track == null || selectedCandidateIndex < 0 || selectedCandidateIndex >= track.CandidateSet.Count)
+                return;
+
+            track.CandidateSet.RemoveAt(selectedCandidateIndex);
+            if (selectedCandidateIndex >= track.CandidateSet.Count)
+                selectedCandidateIndex = track.CandidateSet.Count - 1;
+
+            AfterCandidatesChanged();
+        }
+
+        private void BtnCandidateRun_Click(object sender, EventArgs e)
+        {
+            if (track == null || !track.HasCandidates)
+            {
+                ShowCandidateHint(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateNoTrack);
+                return;
+            }
+
+            CandidateValidationResult validation = TrackCandidateValidator.Validate(track.CandidateSet.Candidates, MaxCandidateCount);
+            if (!validation.IsValid)
+            {
+                ShowCandidateHint(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateInvalid);
+                return;
+            }
+
+            if (track.StartCandidates())
+            {
+                ShowCandidateHint(string.Format(
+                    Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateRunning,
+                    track.CandidateSet.Count));
+                AfterCandidatesChanged();
+            }
+        }
+
+        private void BtnCandidateAdopt_Click(object sender, EventArgs e)
+        {
+            if (track == null || selectedCandidateIndex < 0 || selectedCandidateIndex >= track.CandidateSet.Count)
+                return;
+
+            string name = track.CandidateSet[selectedCandidateIndex].Name;
+            if (!track.AdoptCandidate(selectedCandidateIndex))
+            {
+                ShowCandidateHint(Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateInvalid);
+                return;
+            }
+
+            selectedCandidateIndex = -1;
+            candidatesUiSignature = string.Empty;
+            ShowCandidateHint(string.Format(
+                Kinovea.ScreenManager.Languages.ScreenManagerLang.tracking_CandidateAdopted, name));
+
+            UpdateCandidatesUi();
+            RaiseDrawingModified(DrawingAction.TrackingParametersChanged);
+        }
+
+        private void TabsCandidates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (updatingCandidatesUi || track == null)
+                return;
+
+            int index = tabsCandidates.SelectedIndex;
+            selectedCandidateIndex = index <= 0 ? -1 : index - 1;
+            track.CandidateSet.VisibleIndex = selectedCandidateIndex;
+
+            if (hostView != null)
+                hostView.InvalidateFromMenu();
+        }
+
+        #endregion
         private void btnStartStop_Click(object sender, EventArgs e)
         {
             if (track != null)
