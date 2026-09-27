@@ -223,6 +223,7 @@
       <DependentUpon>PreferencePanelButtton.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\PreferencePanels\IPreferencePanel.cs" />
+    <Compile Include="UserInterface\PreferencePanels\PreferencePanelTracking.cs" />
     <Compile Include="UserInterface\PreferencePanels\PreferencePanelCapture.cs">
       <SubType>UserControl</SubType>
     </Compile>

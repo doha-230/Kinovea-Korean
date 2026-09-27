@@ -128,6 +128,17 @@ namespace Kinovea.Services
             get { BeforeRead(); return frameSkipMotionSensitivity; }
             set { frameSkipMotionSensitivity = Math.Max(MinMotionSensitivity, Math.Min(value, MaxMotionSensitivity)); Save(); }
         }
+        /// <summary>
+        /// Whether the player stops the playback when a track fails to match.
+        /// When false the tracker keeps trying with its reference template and can
+        /// recover after a brief occlusion. Default: true (historical behaviour).
+        /// </summary>
+        public bool StopTrackingOnFailure
+        {
+            get { BeforeRead(); return stopTrackingOnFailure; }
+            set { stopTrackingOnFailure = value; Save(); }
+        }
+
         public ExportSpace ExportSpace
         {
             get { BeforeRead(); return exportSpace; }
@@ -407,6 +418,7 @@ namespace Kinovea.Services
         private int audioLoudnessWindowMs = 50;
         private double frameSkipMotionSensitivity = 1.0;
         private ExportSpace exportSpace = ExportSpace.WorldSpace;
+        private bool stopTrackingOnFailure = true;
         private HardwareEncoder videoHardwareEncoder = HardwareEncoder.None;
         private bool exportImagesInDocuments = true;
         private string pandocPath = "";
@@ -488,6 +500,7 @@ namespace Kinovea.Services
             writer.WriteElementString("CSVEncoding", csvEncoding.ToString());
             writer.WriteElementString("AudioLoudnessWindowMs", audioLoudnessWindowMs.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("FrameSkipMotionSensitivity", frameSkipMotionSensitivity.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString("StopTrackingOnFailure", XmlHelper.WriteBoolean(stopTrackingOnFailure));
             writer.WriteElementString("ExportSpace", exportSpace.ToString());
             writer.WriteElementString("VideoHardwareEncoder", videoHardwareEncoder.ToString());
             writer.WriteElementString("ExportImagesInDocuments", XmlHelper.WriteBoolean(exportImagesInDocuments));
@@ -614,6 +627,9 @@ namespace Kinovea.Services
                         break;
                     case "CSVDecimalSeparator":
                         csvDecimalSeparator = (CSVDecimalSeparator)Enum.Parse(typeof(CSVDecimalSeparator), reader.ReadElementContentAsString());
+                        break;
+                    case "StopTrackingOnFailure":
+                        stopTrackingOnFailure = XmlHelper.ParseBoolean(reader.ReadElementContentAsString());
                         break;
                     case "ExportSpace":
                         exportSpace = (ExportSpace)Enum.Parse(typeof(ExportSpace), reader.ReadElementContentAsString());

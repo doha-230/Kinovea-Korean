@@ -96,6 +96,7 @@ namespace Kinovea.Root
             //-----------------------------------------------------------------------------------------------------------------
             pages.Add(new PreferencePanelGeneral());
             pages.Add(new PreferencePanelPlayer());
+            pages.Add(new PreferencePanelTracking());
             pages.Add(new PreferencePanelDrawings());
             pages.Add(new PreferencePanelCapture());
             pages.Add(new PreferencePanelKeyboard());

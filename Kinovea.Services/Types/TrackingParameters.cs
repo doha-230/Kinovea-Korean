@@ -121,6 +121,18 @@ namespace Kinovea.Services
             set { rejectOutliers = value; }
         }
 
+        /// <summary>
+        /// When a match fails, retry with the template scaled up and down before giving
+        /// up. Helps when the object size changes (moving towards or away from the
+        /// camera). Only runs on failure, so the nominal result is unchanged.
+        /// Off by default.
+        /// </summary>
+        public bool ScaleAdaptive
+        {
+            get { return scaleAdaptive; }
+            set { scaleAdaptive = value; }
+        }
+
         public bool UseMask
         {
             get { return useMask; }
@@ -182,6 +194,7 @@ namespace Kinovea.Services
         private double similarityThreshold = 0.5;
         private double templateUpdateThreshold = 0.8; // using CCORR : 0.90 or 0.95, when using CCOEFF : 0.80.
         private bool useMask = false;
+        private bool scaleAdaptive = false;
         private bool predictiveSearch = false;
         private bool rejectOutliers = false;
         private bool resetOnMove = true;
@@ -229,6 +242,7 @@ namespace Kinovea.Services
             w.WriteElementString("SimilarityThreshold", XmlHelper.WriteFloat((float)similarityThreshold));
             w.WriteElementString("TemplateUpdateThreshold", XmlHelper.WriteFloat((float)templateUpdateThreshold));
             w.WriteElementString("UseMask", XmlHelper.WriteBoolean(useMask));
+            w.WriteElementString("ScaleAdaptive", XmlHelper.WriteBoolean(scaleAdaptive));
             w.WriteElementString("PredictiveSearch", XmlHelper.WriteBoolean(predictiveSearch));
             w.WriteElementString("RejectOutliers", XmlHelper.WriteBoolean(rejectOutliers));
             w.WriteStartElement("HSVRange");
@@ -266,6 +280,9 @@ namespace Kinovea.Services
                         break;
                     case "RejectOutliers":
                         rejectOutliers = XmlHelper.ParseBoolean(r.ReadElementContentAsString());
+                        break;
+                    case "ScaleAdaptive":
+                        scaleAdaptive = XmlHelper.ParseBoolean(r.ReadElementContentAsString());
                         break;
                     case "UseMask":
                         useMask = XmlHelper.ParseBoolean(r.ReadElementContentAsString());

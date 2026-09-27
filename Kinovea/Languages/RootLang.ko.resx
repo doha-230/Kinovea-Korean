@@ -814,4 +814,22 @@
   <data name="dlgPreferences_Drawings_HardwareAmf" xml:space="preserve">
     <value>AMD (AMF)</value>
   </data>
+  <data name="dlgPreferences_Tracking_Scope" xml:space="preserve">
+    <value>아래 값은 새 트랙의 기본 설정입니다. 각 그림은 자체 값을 유지합니다.</value>
+  </data>
+  <data name="dlgPreferences_Tracking_PredictiveSearch" xml:space="preserve">
+    <value>예측 검색(움직임 앞쪽으로 검색창 이동)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_RejectOutliers" xml:space="preserve">
+    <value>최근 움직임과 맞지 않는 매칭 거부</value>
+  </data>
+  <data name="dlgPreferences_Tracking_ScaleAdaptive" xml:space="preserve">
+    <value>매칭 실패 시 템플릿 크기를 바꿔 재시도</value>
+  </data>
+  <data name="dlgPreferences_Tracking_StopOnFailure" xml:space="preserve">
+    <value>매칭 실패 시 추적 중지</value>
+  </data>
+  <data name="dlgPreferences_Tracking_StopOnFailure_Help" xml:space="preserve">
+    <value>끄면 참조 템플릿으로 계속 시도하여 짧은 가림 구간을 넘길 수 있습니다.</value>
+  </data>
 </root>

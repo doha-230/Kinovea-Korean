@@ -867,4 +867,22 @@
   <data name="dlgPreferences_Drawings_HardwareAmf" xml:space="preserve">
     <value>AMD (AMF)</value>
   </data>
+  <data name="dlgPreferences_Tracking_Scope" xml:space="preserve">
+    <value>These values are the defaults for new tracks. Each drawing keeps its own values.</value>
+  </data>
+  <data name="dlgPreferences_Tracking_PredictiveSearch" xml:space="preserve">
+    <value>Predictive search (aim the search window ahead of the motion)</value>
+  </data>
+  <data name="dlgPreferences_Tracking_RejectOutliers" xml:space="preserve">
+    <value>Reject matches that do not fit the recent motion</value>
+  </data>
+  <data name="dlgPreferences_Tracking_ScaleAdaptive" xml:space="preserve">
+    <value>Retry with a scaled template when a match fails</value>
+  </data>
+  <data name="dlgPreferences_Tracking_StopOnFailure" xml:space="preserve">
+    <value>Stop the tracking when a match fails</value>
+  </data>
+  <data name="dlgPreferences_Tracking_StopOnFailure_Help" xml:space="preserve">
+    <value>With this off, the tracker keeps trying with its reference template and can recover after a brief occlusion.</value>
+  </data>
 </root>

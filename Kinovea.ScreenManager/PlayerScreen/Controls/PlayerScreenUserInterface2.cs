@@ -322,6 +322,7 @@ namespace Kinovea.ScreenManager
         private TimeMapper timeMapper = new TimeMapper();
         private MotionEstimator motionEstimator = new MotionEstimator();
         private bool frameSkipTrackingWarningShown = false;
+        private bool trackingFailureReported = false;
         private float timeGrabSpeed = 25.0f / 500.0f;       // In frames per pixel.
         private TimecodeFormat timecodeFormat = TimecodeFormat.ClassicTime;
 
@@ -3411,14 +3412,26 @@ namespace Kinovea.ScreenManager
 
             // If a track fails stop the playback immediately so the user can 
             // fix the problem without letting the tracking go rogue.
-            if (isCurrentlyPlaying && m_FrameServer.Metadata.AnyTrackFailed())
+            // The stop can be turned off in the preferences: the tracker then keeps
+            // trying with its reference template and may recover after a brief occlusion.
+            if (isCurrentlyPlaying && m_FrameServer.Metadata.AnyTrackFailed() &&
+                PreferencesManager.PlayerPreferences.StopTrackingOnFailure)
             {
                 StopPlaying();
             }
 
+            // Report the failure once, not on every failing frame.
             if (m_FrameServer.Metadata.AnyTrackFailed())
             {
-                ToastMessage(ScreenManagerLang.Tracking_Failed, 3000);
+                if (!trackingFailureReported)
+                {
+                    trackingFailureReported = true;
+                    ToastMessage(ScreenManagerLang.Tracking_Failed, 3000);
+                }
+            }
+            else
+            {
+                trackingFailureReported = false;
             }
 
             UpdateAllowPreScaling();

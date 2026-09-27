@@ -208,12 +208,31 @@ namespace Kinovea.ScreenManager
             }
             else if (result.Similarity < parameters.SimilarityThreshold)
             {
-                // Tracking failure.
-                // Keep the point at the previous location.
-                TemplateMatchResult dummy = new TemplateMatchResult(0, lastTrackPoint.Point);
-                currentPoint = CreateTrackPoint(dummy, time, cvImage, timeline);
-                LastScore = result.Similarity;
-                log.DebugFormat("Tracking failed. Best candidate: {0} < {1}.", result.Similarity, parameters.SimilarityThreshold);
+                // Scale adaptation: the object may simply have changed size. Retry with
+                // scaled copies of the template before declaring the failure.
+                if (parameters.ScaleAdaptive)
+                {
+                    TemplateMatchResult scaled = MatchScaledTemplate(cvImage, lastTemplate.Template, lastTrackPoint.Point, searchCenter);
+                    if (scaled != null && scaled.Similarity > result.Similarity)
+                        result = scaled;
+                }
+
+                if (result.Similarity >= parameters.SimilarityThreshold)
+                {
+                    // Recovered by the scaled retry.
+                    currentPoint = CreateTrackPoint(result, time, cvImage, timeline);
+                    LastScore = result.Similarity;
+                    matched = true;
+                }
+                else
+                {
+                    // Tracking failure.
+                    // Keep the point at the previous location.
+                    TemplateMatchResult dummy = new TemplateMatchResult(0, lastTrackPoint.Point);
+                    currentPoint = CreateTrackPoint(dummy, time, cvImage, timeline);
+                    LastScore = result.Similarity;
+                    log.DebugFormat("Tracking failed. Best candidate: {0} < {1}.", result.Similarity, parameters.SimilarityThreshold);
+                }
             }
             else
             {
@@ -392,7 +411,8 @@ namespace Kinovea.ScreenManager
             PointF locationAligned = new PointF((int)Math.Round(point.X), (int)Math.Round(point.Y));
 
             System.Drawing.Size srchSize = parameters.SearchWindow;
-            System.Drawing.Size tmplSize = parameters.BlockWindow;
+            // The template size can be overridden by the caller (scaled retry).
+            System.Drawing.Size tmplSize = templateSize.HasValue ? templateSize.Value : parameters.BlockWindow;
             PointF srchTopLeft = new PointF(locationAligned.X - (int)(srchSize.Width / 2.0f), locationAligned.Y - (int)(srchSize.Height / 2.0f));
             PointF tmplTopLeft = new PointF(locationAligned.X - (int)(tmplSize.Width / 2.0f), locationAligned.Y - (int)(tmplSize.Height / 2.0f));
             Rectangle srchRect = new Rectangle((int)srchTopLeft.X, (int)srchTopLeft.Y, srchSize.Width, srchSize.Height);
@@ -481,7 +501,37 @@ namespace Kinovea.ScreenManager
         /// This function returns a TrackResult which is just the location and score.
         /// It is the responsibility of the caller to update the template or not.
         /// </summary>
-        private TemplateMatchResult MatchTemplate(Mat cvImage, Bitmap template, PointF lastPoint, System.Drawing.Size? searchWindow = null, PointF? searchCenter = null)
+        /// <summary>
+        /// Retry the match with the template scaled up and down. Returns null when no
+        /// scaled variant beats the nominal attempt.
+        /// </summary>
+        private TemplateMatchResult MatchScaledTemplate(Mat cvImage, Bitmap template, PointF lastPoint, PointF searchCenter)
+        {
+            TemplateMatchResult best = null;
+            double[] scales = new double[] { 0.9, 1.1 };
+
+            foreach (double scale in scales)
+            {
+                int width = (int)Math.Round(parameters.BlockWindow.Width * scale);
+                int height = (int)Math.Round(parameters.BlockWindow.Height * scale);
+                if (width < 4 || height < 4)
+                    continue;
+
+                using (Bitmap scaledTemplate = new Bitmap(width, height))
+                {
+                    using (Graphics g = Graphics.FromImage(scaledTemplate))
+                        g.DrawImage(template, 0, 0, width, height);
+
+                    TemplateMatchResult candidate = MatchTemplate(cvImage, scaledTemplate, lastPoint, null, searchCenter, new System.Drawing.Size(width, height));
+                    if (best == null || candidate.Similarity > best.Similarity)
+                        best = candidate;
+                }
+            }
+
+            return best;
+        }
+
+        private TemplateMatchResult MatchTemplate(Mat cvImage, Bitmap template, PointF lastPoint, System.Drawing.Size? searchWindow = null, PointF? searchCenter = null, System.Drawing.Size? templateSize = null)
         {
             TemplateMatchResult result;
 

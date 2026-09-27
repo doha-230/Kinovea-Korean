@@ -17,6 +17,8 @@ namespace Kinovea.Services
         Player_Memory,
         Player_Image,
 
+        Tracking_General,
+
         Drawings_General,
         Drawings_Opacity,
         Drawings_Units,
