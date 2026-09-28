@@ -94,6 +94,7 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 - **TRC/Sports2D** 가져오기가 `float.Parse` 를 **현재 문화권 기준**으로 파싱 → 소수점이 쉼표인
   유럽 로케일에서 값이 깨지거나 예외 발생.
 - **해결**: `InvariantCulture` 명시. CI에서 **무문화 파싱 0건**을 상시 검사.
+- 이 수정은 **업스트림에 PR #218로 병합**되어 Kinovea `master` 에 반영되었습니다.
 
 ### 1.3 한국어 UI 미번역 (하드코딩 문자열)
 
@@ -141,7 +142,7 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 | 버그 | 귀속 | 내용 |
 |:--|:--|:--|
 | `ExportSpace` 미복원 | **이 포크의 회귀**(수정 완료) | `CSVEncoding` 기능을 넣는 과정에서 `case "ExportSpace":` 가 `CSVEncoding` 으로 **폴스루**되어 좌표계 설정이 읽히지 않았고 대입문이 도달 불가가 되었습니다. 업스트림에는 없는 문제였습니다 |
-| `ExportImagesInDocuments` 오기록 | **업스트림 버그**(수정 완료) | 저장 시 export space 값(`WorldSpace` 등)을 **불리언 자리에 기록** → 다시 읽으면 `false` 라서 이 설정은 켤 수 없었습니다. 업스트림 `master` 에도 동일하게 존재하며, **업스트림 PR 후보**입니다 |
+| `ExportImagesInDocuments` 오기록 | **업스트림 버그**(수정 완료) | 저장 시 export space 값(`WorldSpace` 등)을 **불리언 자리에 기록** → 다시 읽으면 `false` 라서 이 설정은 켤 수 없었습니다. 업스트림 `master` 에도 동일하게 존재했고, **업스트림 PR #219로 병합**되었습니다 |
 
 ---
 
@@ -277,8 +278,8 @@ MSBuild.exe Kinovea.VS2019.sln /t:Build /p:Configuration=Release /p:Platform=x64
 
 ### 릴리스 자동화
 ```bash
-git tag v2026.4.0
-git push origin v2026.4.0
+git tag v2026.5.0
+git push origin v2026.5.0
 ```
 → Windows 빌드 → 설치 파일 + 포터블 압축 생성 → **GitHub Release 자동 발행**
 (버전은 태그에서 자동 추출되어 파일명·설치 파일·릴리스명에 일관되게 반영)
@@ -325,7 +326,7 @@ git push origin v2026.4.0
 - 단위 테스트 **17/17 통과** — 모션 적응 지표 4개(무추정/정지/움직임/리셋) +
   **오디오 음량 11개**(프레임 파싱, Overall·채널 선택, 무음 처리, 선형 영역 RMS 평균,
   창 중심 계산, 피크 최대, 빈 입력, ffmpeg 인수 생성)
-- 산출물 생성 확인: `Kinovea-Installer-2026.1.0` (86.2MB), `Kinovea-Portable-2026.1.0` (131.7MB)
+- 산출물은 릴리스 태그마다 자동 생성됩니다: `Kinovea-Installer-<버전>.exe` 와 `Kinovea-Portable-<버전>.zip`
 - 한국어 폴더/한국어 파일명 영상 열기·재생 정상
 
 > 프레임 스킵의 체감 속도·트래킹 성공률, 모션 적응 임계값, 내보낸 CSV의 Excel 한글 표시는
@@ -351,7 +352,8 @@ git push origin v2026.4.0
 | 🌐 **로케일** | TRC 가져오기 `InvariantCulture` 파싱 | `26101e95` |
 | 🐞 **버그 수정** | `ExportImagesInDocuments` **오기록(업스트림 버그)** 수정 · `ExportSpace` 폴스루는 **이 포크에서 발생한 회귀**로 확인해 수정 · 문서 귀속 정정 | `c03d0af4` `e08ecd5e` |
 | ✅ **품질 게이트** | 정적 검사 **8종**(인코딩·csproj·문화권·하드코딩·번역누락·번역품질·**기본값**) + 기준선, 테스트 프로젝트 빌드·실행 | `995e66c2` `9809082a` `69d07529` `d51af435` `d8598c18` `ecb3dcaa` `3f7c6123` |
-| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) · **현재 `v2026.4.0` 발행** | `97b491f1` |
+| 🔀 **업스트림 동기화** | Kinovea `master` 10커밋 병합 — 이 포크에서 올린 수정 2건(TRC 문화권, 환경설정 저장)이 **업스트림에 병합되어 되돌아왔고**, 유지자의 플레이어/캡처 메모리 UI 개편(트랙바 → 숫자 입력, 최대 물리 메모리 절반) 반영 · 새 메모리 라벨 4건 한국어화 · 기본값 기준선 1024MB 갱신 | `a696d847` `8280a8b9` `123acf9e` |
+| 📦 **릴리스 자동화** | 태그 푸시 → 자동 빌드 + GitHub Release(설치 exe + 포터블 zip) · **현재 `v2026.5.0` 발행** | `97b491f1` |
 | 📄 **문서** | README 전면 정리(저장소 소개·구조·원칙), 유지보수 문서, **사용자 매뉴얼(HTML)** — 트래킹 옵션·환경설정 위치·한계 절 포함 | `6956c7de` `2fc9ec4b` `41ac3631` `67e5ccd4` |
 | 🏷️ **저장소** | 이름 `Kinovea_kr` → **`Kinovea-Korean`**, 설명·토픽, 매뉴얼 **웹 공개**(GitHub Pages) | `de360b4e` `6c3bc9d7` |
 
