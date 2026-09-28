@@ -49,14 +49,15 @@ namespace Kinovea.ScreenManager
 
         /// <summary>
         /// Builds the ffmpeg argument line used to extract the levels.
-        /// The metadata is written to <paramref name="metadataFile"/>.
+        /// The metadata is written to a simple filename in ffmpeg's working directory.
+        /// A full Windows path would be parsed as filter options at its drive colon.
         /// </summary>
-        public static string BuildArguments(string videoPath, string metadataFile)
+        public static string BuildArguments(string videoPath, string metadataFileName)
         {
             return string.Format(
                 CultureInfo.InvariantCulture,
-                "-nostdin -hide_banner -i \"{0}\" -af \"astats=metadata=1:reset=1,ametadata=print:file={1}\" -f null -",
-                videoPath, metadataFile);
+                "-nostdin -hide_banner -i \"{0}\" -vn -af \"astats=metadata=1:reset=1,ametadata=print:file={1}\" -f null -",
+                videoPath, metadataFileName);
         }
 
         /// <summary>
@@ -134,8 +135,8 @@ namespace Kinovea.ScreenManager
 
         /// <summary>
         /// Groups the samples into fixed windows of <paramref name="windowMs"/>
-        /// milliseconds. RMS is averaged in the linear domain (so the result is a
-        /// true window RMS), peak is the maximum of the window. The timestamp of a
+        /// milliseconds. RMS powers are averaged in the linear domain, and peak is
+        /// the maximum of the window. The timestamp of a
         /// window is its center.
         /// </summary>
         public static List<AudioLoudnessSample> Aggregate(List<AudioLoudnessSample> samples, int windowMs)
@@ -148,7 +149,8 @@ namespace Kinovea.ScreenManager
 
             long currentBucket = long.MinValue;
             int count = 0;
-            double sumLinear = 0;
+            int rmsCount = 0;
+            double sumPower = 0;
             double maxPeak = double.NegativeInfinity;
 
             foreach (AudioLoudnessSample sample in samples)
@@ -164,23 +166,28 @@ namespace Kinovea.ScreenManager
                 if (bucket != currentBucket)
                 {
                     if (count > 0)
-                        result.Add(BuildWindow(currentBucket, window, count, sumLinear, maxPeak));
+                        result.Add(BuildWindow(currentBucket, window, rmsCount, sumPower, maxPeak));
 
                     currentBucket = bucket;
                     count = 0;
-                    sumLinear = 0;
+                    rmsCount = 0;
+                    sumPower = 0;
                     maxPeak = double.NegativeInfinity;
                 }
 
                 count++;
-                sumLinear += ToLinear(sample.Rms);
+                if (!double.IsNaN(sample.Rms))
+                {
+                    rmsCount++;
+                    sumPower += ToPower(sample.Rms);
+                }
 
                 if (!double.IsNaN(sample.Peak) && sample.Peak > maxPeak)
                     maxPeak = sample.Peak;
             }
 
             if (count > 0)
-                result.Add(BuildWindow(currentBucket, window, count, sumLinear, maxPeak));
+                result.Add(BuildWindow(currentBucket, window, rmsCount, sumPower, maxPeak));
 
             return result;
         }
@@ -204,20 +211,21 @@ namespace Kinovea.ScreenManager
             return new AudioLoudnessSample(time, rms, peak);
         }
 
-        private static AudioLoudnessSample BuildWindow(long bucket, int windowMs, int count, double sumLinear, double maxPeak)
+        private static AudioLoudnessSample BuildWindow(long bucket, int windowMs, int rmsCount, double sumPower, double maxPeak)
         {
             double time = (bucket + 0.5) * windowMs / 1000.0;
-            double rms = sumLinear <= 0 ? double.NegativeInfinity : 20.0 * Math.Log10(sumLinear / count);
+            double rms = rmsCount == 0 ? double.NaN :
+                sumPower <= 0 ? double.NegativeInfinity : 10.0 * Math.Log10(sumPower / rmsCount);
             double peak = double.IsNegativeInfinity(maxPeak) ? double.NegativeInfinity : maxPeak;
             return new AudioLoudnessSample(time, rms, peak);
         }
 
-        private static double ToLinear(double level)
+        private static double ToPower(double level)
         {
             if (double.IsNaN(level) || double.IsNegativeInfinity(level))
                 return 0;
 
-            return Math.Pow(10.0, level / 20.0);
+            return Math.Pow(10.0, level / 10.0);
         }
 
         private static double ParseFrameTime(string line, long frameIndex)

@@ -316,7 +316,8 @@ namespace Kinovea.ScreenManager
         {
             get
             {
-                return TrackManager.Drawings.Any(t => ((DrawingTrack)t).Status == TrackStatus.Edit) || 
+                return TrackManager.Drawings.Any(t => ((DrawingTrack)t).Status == TrackStatus.Edit ||
+                                                     ((DrawingTrack)t).CandidatesActive) ||
                        TrackabilityManager.AnyTracking;
             }
         }
@@ -1736,6 +1737,16 @@ namespace Kinovea.ScreenManager
                     t.StopCandidates();
 
                 t.StopTracking();
+            }
+        }
+
+        /// <summary>Finalize candidate scores when playback is paused, without closing regular tracks.</summary>
+        public void StopCandidateTracking()
+        {
+            foreach (DrawingTrack track in Tracks())
+            {
+                if (track.CandidatesActive)
+                    track.StopCandidates();
             }
         }
 

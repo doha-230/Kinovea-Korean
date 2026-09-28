@@ -60,13 +60,24 @@ namespace Kinovea.ScreenManager
     public class AudioLoudnessExtractor
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly string ffmpegPath;
 
         /// <summary>Safety net for very long files, in milliseconds.</summary>
         private const int DefaultTimeoutMs = 30 * 60 * 1000;
 
         public string FfmpegPath
         {
-            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ffmpeg.exe"); }
+            get { return ffmpegPath; }
+        }
+
+        public AudioLoudnessExtractor()
+            : this(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ffmpeg.exe"))
+        {
+        }
+
+        public AudioLoudnessExtractor(string ffmpegPath)
+        {
+            this.ffmpegPath = ffmpegPath;
         }
 
         public AudioLoudnessExtractionResult Extract(string videoPath, int windowMs)
@@ -89,22 +100,26 @@ namespace Kinovea.ScreenManager
 
             try
             {
-                string arguments = AudioLoudnessParser.BuildArguments(videoPath, metadataFile);
+                // FFmpeg's filter parser treats a Windows drive colon as an option
+                // separator. Use a safe relative filename and set the child cwd.
+                string arguments = AudioLoudnessParser.BuildArguments(Path.GetFullPath(videoPath), Path.GetFileName(metadataFile));
                 string errorOutput = string.Empty;
-                int exitCode = RunFfmpeg(arguments, cancellationToken, timeoutMs, out errorOutput);
+                int exitCode = RunFfmpeg(arguments, Path.GetTempPath(), cancellationToken, timeoutMs, out errorOutput);
 
                 if (cancellationToken.IsCancellationRequested)
                     return new AudioLoudnessExtractionResult(AudioLoudnessStatus.Cancelled, new List<AudioLoudnessSample>(), "Cancelled.");
+
+                // A failed or timed out process may have left partial metadata.
+                // Never present those samples as a complete export.
+                if (exitCode != 0)
+                    return new AudioLoudnessExtractionResult(AudioLoudnessStatus.Failed, new List<AudioLoudnessSample>(), Trim(errorOutput));
 
                 string raw = ReadMetadata(metadataFile);
                 List<AudioLoudnessSample> samples = AudioLoudnessParser.Parse(raw);
 
                 if (samples.Count == 0)
                 {
-                    // Either the file has no audio stream at all, or ffmpeg failed.
-                    AudioLoudnessStatus status = exitCode == 0 ? AudioLoudnessStatus.NoAudioStream : AudioLoudnessStatus.Failed;
-                    string message = exitCode == 0 ? "No audio stream found in this file." : Trim(errorOutput);
-                    return new AudioLoudnessExtractionResult(status, samples, message);
+                    return new AudioLoudnessExtractionResult(AudioLoudnessStatus.NoAudioStream, samples, "No audio stream found in this file.");
                 }
 
                 return new AudioLoudnessExtractionResult(
@@ -131,11 +146,12 @@ namespace Kinovea.ScreenManager
             }
         }
 
-        private int RunFfmpeg(string arguments, CancellationToken cancellationToken, int timeoutMs, out string errorOutput)
+        private int RunFfmpeg(string arguments, string workingDirectory, CancellationToken cancellationToken, int timeoutMs, out string errorOutput)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = FfmpegPath;
             startInfo.Arguments = arguments;
+            startInfo.WorkingDirectory = workingDirectory;
             startInfo.UseShellExecute = false;
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardOutput = true;
