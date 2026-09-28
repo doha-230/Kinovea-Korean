@@ -1,7 +1,8 @@
 ﻿# 유지보수 / 업스트림 동기화
 
-이 포크는 **업스트림 `Kinovea/Kinovea` master + 소스 인코딩 정규화(1개 변경)** 구조입니다.
-기능 추가는 없으므로 앞으로의 동기화는 단순합니다.
+이 포크는 업스트림 `Kinovea/Kinovea` master를 merge로 동기화하면서 한국어 번역,
+재생·추적·내보내기 기능과 소스 인코딩 정규화를 유지합니다. 동기화 후에는 충돌 해결과
+아래 CI 게이트 확인이 필요합니다.
 
 ## 불변식 (invariants)
 
@@ -23,8 +24,8 @@
 | `Tools/lint/check_encoding.py` | 모든 소스가 UTF-8 + BOM (0건 유지) | — |
 | `Tools/lint/check_csproj_includes.py` | .cs/.vb 가 csproj에 등록됨 | `Tools/lint/baseline-csproj.txt` (10건: 업스트림 미등록 7 + 테스트 프로젝트의 구식 헬퍼 3) |
 | `Tools/lint/check_culture_parsing.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
-| `Tools/lint/check_preference_persistence.py` — 옵트인 옵션의 저장 배관(기본값·setter Save·write·read) 검사. 새 옵션은 매니페스트에 등록해야 통과.
-| `Tools/lint/check_preference_defaults.py` | `float/double/decimal.Parse` 무문화 (0건 유지) | — |
+| `Tools/lint/check_preference_persistence.py` | 옵트인 옵션의 저장 배관(기본값·setter Save·write·read) 검사 | — |
+| `Tools/lint/check_preference_defaults.py` | 설정 기본값 78개가 기준선과 일치하는지 검사 | `Tools/lint/baseline-preference-defaults.txt` |
 | `Tools/i18n/scan_hardcoded_strings.py` | UI 문자열 하드코딩 | `Tools/i18n/baseline-hardcoded.txt` |
 | `Tools/i18n/check_translations.py --lang ko` | 한국어 키 누락 0 | — |
 | `Tools/i18n/check_translation_quality.py` | 기계번역 흔적(음차 약어·동사형 라벨·미번역·오역 용어) 0건 | `Tools/i18n/baseline-translation-quality.txt` |
@@ -51,8 +52,10 @@
 - 렌더링/재생 경로와 무관한 **내보내기 전용** 기능이다. 오디오 디코딩은
   `ReaderFFMpeg`(C++/CLI)를 건드리지 않고, 앱에 이미 포함된 `ffmpeg.exe`
   (`astats` + `ametadata` 필터)를 실행해 수행한다 — `WriterFFMpegCLI` 와 같은 바이너리에 의존한다.
-- 추출 결과의 **파싱·집계는 `AudioLoudnessParser` 에 분리**되어 있어 ffmpeg 없이 단위 테스트된다
-  (`Kinovea.Tests/Player/AudioLoudnessTest.cs`). 새 내보내기 형식을 추가할 때도 이 계층을 재사용한다.
+- 추출 결과의 **파싱·집계는 `AudioLoudnessParser` 에 분리**되어 단위 테스트한다.
+  번들 FFmpeg를 실제 실행하는 통합 테스트도 있다(`Kinovea.Tests/Player/AudioLoudnessTest.cs`).
+  FFmpeg 메타데이터는 임시 디렉터리를 작업 디렉터리로 지정하고 안전한 상대 파일명에 기록한다.
+  RMS 집계는 각 프레임의 선형 파워를 평균한다.
 - 무음은 메모리에서 `-∞ dBFS`, 파일에는 `-100 dBFS`(표시 하한)로 기록한다.
 
 ## 업스트림 동기화 절차
@@ -62,7 +65,7 @@ git remote add upstream https://github.com/Kinovea/Kinovea.git   # 최초 1회
 git fetch upstream master
 
 git checkout -b sync/upstream-$(date +%Y%m%d) master
-git merge upstream/master            # 기능 추가가 없어 충돌은 인코딩 관련뿐
+git merge upstream/master            # 포크 기능과 겹치는 파일의 충돌도 확인
 
 # 인코딩 불변식 재적용 (업스트림이 추가/수정한 파일에도 BOM/복구 적용)
 python3 Tools/normalize_encoding.py .
@@ -92,9 +95,7 @@ git push -u origin sync/upstream-$(date +%Y%m%d)
 인코딩 정규화가 **300+ 파일**을 건드리므로, rebase 는 업스트림과 겹치는 모든 파일에서
 충돌을 **커밋마다 반복**시킵니다. merge 는 충돌 해결을 1회로 끝냅니다.
 
-## 기록: 프레임 스킵 제거
+## 프레임 스킵
 
-이 포크가 추가했던 수동 프레임 스킵(`FrameSkip` 설정/커맨드/UI)은 제거되었습니다.
-업스트림이 자동 프레임 스킵(`PlayerPreferences.EnableFrameSkipping`, 기본 켜짐)과
-지연 기반 스킵 레벨을 제공하므로 중복이기 때문입니다.
-제거 이전 이력은 원격 브랜치 `backup-kr-patch` 에 보존되어 있습니다.
+업스트림 자동 스킵을 기본값으로 유지하며, 수동 및 모션 적응 모드를 추가했습니다.
+후보군 추적을 포함해 추적 중에는 연속 프레임이 필요한 경로를 확인해야 합니다.

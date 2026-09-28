@@ -2745,13 +2745,13 @@ namespace Kinovea.ScreenManager
         private int GetAdditionalFrameSkip(bool isTracking)
         {
             PlayerPreferences prefs = PreferencesManager.PlayerPreferences;
-            if (!prefs.EnableFrameSkipping)
+            if (!prefs.EnableFrameSkipping || isTracking)
                 return 0;
 
             if (prefs.FrameSkipMode == FrameSkipMode.Manual)
                 return prefs.FrameSkipCount;
 
-            if (prefs.FrameSkipMode == FrameSkipMode.MotionAdaptive && !isTracking)
+            if (prefs.FrameSkipMode == FrameSkipMode.MotionAdaptive)
                 return GetMotionAdaptiveSkip();
 
             return 0;
@@ -3874,6 +3874,7 @@ namespace Kinovea.ScreenManager
                 expectedTimestamp, currentTimestamp);
             
             StopMultimediaTimer();
+            m_FrameServer.Metadata.StopCandidateTracking();
             buttonPlay.Image = Resources.flatplay;
 
             lock (lockBusyRendering)
