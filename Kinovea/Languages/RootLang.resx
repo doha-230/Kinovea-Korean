@@ -738,8 +738,20 @@
   <data name="dlgPreferences_Player_LoopPlayback" xml:space="preserve">
     <value>Loop playback</value>
   </data>
+  <data name="dlgPreferences_Player_lblCacheMemory" xml:space="preserve">
+    <value>Total playback cache memory (GB):</value>
+  </data>
+  <data name="dlgPreferences_Player_lblCacheMemoryDescription" xml:space="preserve">
+    <value>Memory reserved for playback cache. Shared equally when two playback screens are open.</value>
+  </data>
+  <data name="dlgPreferences_Capture_lblCameraMemory" xml:space="preserve">
+    <value>Total capture buffer memory (GB):</value>
+  </data>
+  <data name="dlgPreferences_Capture_lblCameraMemoryDescription" xml:space="preserve">
+    <value>Memory reserved for camera delay and recording. Shared equally when two capture screens are open.</value>
+  </data>
   <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
-    <value>Jumping</value>
+    <value>Jump size</value>
   </data>
   <data name="dlgPreferences_Player_grpJumping" xml:space="preserve">
     <value>Timeline jumping</value>
