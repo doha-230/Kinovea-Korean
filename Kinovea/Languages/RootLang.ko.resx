@@ -685,6 +685,18 @@
   <data name="dlgPreferences_Player_LoopPlayback" xml:space="preserve">
     <value>반복 재생</value>
   </data>
+  <data name="dlgPreferences_Player_lblCacheMemory" xml:space="preserve">
+    <value>재생 캐시에 사용할 총 메모리(GB):</value>
+  </data>
+  <data name="dlgPreferences_Player_lblCacheMemoryDescription" xml:space="preserve">
+    <value>재생 캐시용으로 예약되는 메모리입니다. 재생 화면을 두 개 열면 절반씩 나눠 사용합니다.</value>
+  </data>
+  <data name="dlgPreferences_Capture_lblCameraMemory" xml:space="preserve">
+    <value>캡처 버퍼에 사용할 총 메모리(GB):</value>
+  </data>
+  <data name="dlgPreferences_Capture_lblCameraMemoryDescription" xml:space="preserve">
+    <value>카메라 지연과 녹화를 위해 예약되는 메모리입니다. 캡처 화면을 두 개 열면 절반씩 나눠 사용합니다.</value>
+  </data>
   <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
     <value>점프 크기</value>
   </data>

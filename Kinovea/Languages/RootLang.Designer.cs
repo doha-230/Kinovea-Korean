@@ -1941,6 +1941,42 @@ namespace Kinovea.Root.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total playback cache memory (GB):
+        /// </summary>
+        internal static string dlgPreferences_Player_lblCacheMemory {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_lblCacheMemory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory reserved for playback cache. Shared equally when two playback screens are open.
+        /// </summary>
+        internal static string dlgPreferences_Player_lblCacheMemoryDescription {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Player_lblCacheMemoryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total capture buffer memory (GB):
+        /// </summary>
+        internal static string dlgPreferences_Capture_lblCameraMemory {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_lblCameraMemory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory reserved for camera delay and recording. Shared equally when two capture screens are open.
+        /// </summary>
+        internal static string dlgPreferences_Capture_lblCameraMemoryDescription {
+            get {
+                return ResourceManager.GetString("dlgPreferences_Capture_lblCameraMemoryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Small jump size:.
         /// </summary>
         internal static string dlgPreferences_Player_SmallJumpSize {

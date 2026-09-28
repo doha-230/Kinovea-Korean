@@ -247,9 +247,8 @@ namespace Kinovea.Root
         private void InitTabMemory()
         {
             tabMemory.Text = RootLang.dlgPreferences_Capture_tabMemory;
-            lblCameraMemory.Text = "Total capture buffer memory (GB):";
-            lblCameraMemoryDescription.Text = "Memory reserved for camera delay and recording." +
-            " Shared equally when two capture screens are open.";
+            lblCameraMemory.Text = RootLang.dlgPreferences_Capture_lblCameraMemory;
+            lblCameraMemoryDescription.Text = RootLang.dlgPreferences_Capture_lblCameraMemoryDescription;
 
             // Cap at 50% of physical memory.
             int total = MemoryHelper.TotalPhysicalMemory();

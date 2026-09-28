@@ -186,9 +186,8 @@ namespace Kinovea.Root
         {
             tabMemory.Text = RootLang.dlgPreferences_Capture_tabMemory;
 
-            lblCacheMemory.Text = "Total playback cache memory (GB):";
-            lblCacheMemoryDescription.Text = "Memory reserved for playback cache." +
-            " Shared equally when two playback screens are open.";
+            lblCacheMemory.Text = RootLang.dlgPreferences_Player_lblCacheMemory;
+            lblCacheMemoryDescription.Text = RootLang.dlgPreferences_Player_lblCacheMemoryDescription;
 
             // Cap at 50% of physical memory.
             int total = MemoryHelper.TotalPhysicalMemory();
