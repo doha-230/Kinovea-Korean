@@ -291,14 +291,6 @@ namespace Kinovea.ScreenManager
         }
 
         #region Public methods
-
-        public void SetShared(bool shared)
-        {
-            log.DebugFormat("Set shared: {0}", shared);
-            this.shared = shared;
-            AllocateDelayer();
-        }
-
         public void ForceGrabbingStatus(bool grab)
         {
             if (cameraGrabber == null || cameraGrabber.Grabbing == grab)
@@ -406,7 +398,7 @@ namespace Kinovea.ScreenManager
 
             view.DisplayAsActiveScreen(active);
         }
-        public override void RefreshUICulture() 
+        public override void AfterPreferencesChanged() 
         {
             // Bail out if we are currently manually changing the context in the screen.
             // Changing the context triggers a preferences update that can be ignored here.
@@ -542,6 +534,13 @@ namespace Kinovea.ScreenManager
             s.Load(metadata, path, true);
         }
 
+        public override void SetShared(bool shared)
+        {
+            log.DebugFormat("Set shared: {0}", shared);
+            this.shared = shared;
+            AllocateDelayer();
+        }
+
         /// <summary>
         /// Unload the current annotations and replace them with the ones coming from
         /// the last exported video.
@@ -567,7 +566,6 @@ namespace Kinovea.ScreenManager
         {
             metadata.AddCaptureKeyframe();
         }
-
         #endregion
 
         #region Methods called from the view. These could also be events or commands.
@@ -1182,27 +1180,24 @@ namespace Kinovea.ScreenManager
 
             // Compute load (processing time vs frame budget).
             double frameProcessingDuration = 0;
-            int backlogValue = 0;
             long recordingDrops = 0;
+            int queueValue = 0;
             if (consumerDelayer != null)
             {
                 frameProcessingDuration = consumerDelayer.FrameProcessingDuration;
-                backlogValue = consumerDelayer.RecorderBacklog;
                 recordingDrops = consumerDelayer.Drops;
+                queueValue = consumerDelayer.RecorderBacklog;
             }
 
+            double signalValue = pipelineManager.Frequency;
             double frameBudget = 1000.0 / pipelineManager.Frequency;
             double loadValue = (frameProcessingDuration / frameBudget) * 100.0;
-            long dropsValue = pipelineManager.Drops + recordingDrops;
-
-            string signal = string.Format(" {0,6:0.00} fps", pipelineManager.Frequency);
-            string bandwidth = string.Format("{0:0.00} MB/s", cameraGrabber.LiveDataRate);
-            string load = string.Format(" {0:0.00} %", loadValue);
-            load.PadLeft(6);
-            string drops = string.Format(" {0}", dropsValue);
-            string backlog = string.Format(" {0}", backlogValue);
             
-            view.UpdateInfo(signal, bandwidth, load, drops, backlog);
+            // Drop value combines frames that weren't pushed to the delay buffer
+            // and frames that fell off the buffer before being saved to disk.
+            int dropsValue = (int)(pipelineManager.Drops + recordingDrops);
+            
+            view.UpdateInfo(signalValue, loadValue, dropsValue, queueValue);
             view.UpdateLoadStatus(loadValue);
         }
 

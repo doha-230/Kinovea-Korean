@@ -739,7 +739,7 @@
     <value>Loop playback</value>
   </data>
   <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
-    <value>Jumping</value>
+    <value>Jump size</value>
   </data>
   <data name="dlgPreferences_Player_grpJumping" xml:space="preserve">
     <value>Timeline jumping</value>

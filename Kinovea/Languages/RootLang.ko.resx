@@ -686,7 +686,7 @@
     <value>반복 재생</value>
   </data>
   <data name="dlgPreferences_Player_tabJumping" xml:space="preserve">
-    <value>점프</value>
+    <value>점프 크기</value>
   </data>
   <data name="dlgPreferences_Player_grpJumping" xml:space="preserve">
     <value>타임라인 점프</value>
